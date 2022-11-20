@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.3</version>
+        <relativePath/>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.deil</groupId>
+    <artifactId>deil-tools</artifactId>
+    <version>1.0.0</version>
+    <modules>
+        <module>deil-component</module>
+        <module>deil-utils</module>
+    </modules>
+
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>工具集</description>
+
+    <properties>
+        <project-jdk>1.8</project-jdk>
+        <project-encoding>UTF-8</project-encoding>
+        <project-jarpack>./pack</project-jarpack>
+        <project-checkpack>./check</project-checkpack>
+        <project-logpack>./logs</project-logpack>
+
+        <starter-druid-version>1.2.15</starter-druid-version>
+        <slf4j-version>1.7.36</slf4j-version>
+        <jasypt-starter>3.0.4</jasypt-starter>
+        <swagger-versioin>3.0.0</swagger-versioin>
+
+        <plugin-springboot-maven-version>2.3.7.RELEASE</plugin-springboot-maven-version>
+        <plugin-maven-compiler-version>3.8.1</plugin-maven-compiler-version>
+        <plugin-dependency-check>7.1.2</plugin-dependency-check>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt-starter}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${starter-druid-version}</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger-versioin}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin-maven-compiler-version}</version>
+                <configuration>
+                    <source>${project-jdk}</source>
+                    <target>${project-jdk}</target>
+                    <encoding>${project-encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.deil.component.ComponentApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${plugin-dependency-check}</version>
+                <configuration>
+                    <autoUpdate>true</autoUpdate>
+                    <outputDirectory>${project-checkpack}</outputDirectory>
+                    <formats>HTML, JSON</formats>
+                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <versionCheckEnabled>true</versionCheckEnabled>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-maven-plugin</artifactId>
+                <version>${jasypt-starter}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

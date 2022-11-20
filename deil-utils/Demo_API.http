@@ -1,0 +1,9 @@
+### 1
+GET http://localhost:1114/demo
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+    "number": 0
+}
