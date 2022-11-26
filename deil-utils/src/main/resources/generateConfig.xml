@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 防止重复生成 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMapperPlugin"/>
+        <commentGenerator>
+            <!-- 去除生成日期 -->
+            <property name="suppressDate" value="true" />
+            <!-- 去除生成注释 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+        </jdbcConnection>
+        <!--<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://XXX;integratedSecurity=false;useunicode=true;characterEncoding=GBK;trustServerCertificate=true;"
+                        userId="XXX"
+                        password="XXX">
+        </jdbcConnection>
+        <jdbcConnection driverClass="net.sourceforge.jtds.jdbc.Driver"
+                        connectionURL="jdbc:jtds:sqlserver://XXX;"
+                        userId="XXX"
+                        password="XXX">
+        </jdbcConnection>-->
+
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <!-- PO类 -->
+        <javaModelGenerator targetPackage="com.XXX.XXX.entity" targetProject="src">
+            <!-- 开启子包 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 去除字段前后空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.XXX.XXX.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- mapper映射 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 数据库表 -->
+        <table tableName="Tbl_XXX"
+               domainObjectName="XXXEntity"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

@@ -8,26 +8,53 @@
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>deil-component</artifactId>
-
-    <packaging>jar</packaging>
+    <artifactId>deil-util-jasypt</artifactId>
     <name>${project.artifactId}</name>
-    <description>组件块</description>
+    <description>jasypt加密工具</description>
 
-    <properties>
-        <deilutils-version>1.0.0</deilutils-version>
-    </properties>
     <dependencies>
-        <!--<dependency>
-            <groupId>org.deil</groupId>
-            <artifactId>deil-utils</artifactId>
-            <version>${deilutils-version}</version>
-        </dependency>-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin-maven-compiler-version}</version>
+                <configuration>
+                    <source>${project-jdk}</source>
+                    <target>${project-jdk}</target>
+                    <encoding>${project-encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>ConfigEncryptTool</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>

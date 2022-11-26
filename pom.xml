@@ -8,24 +8,25 @@
         <version>2.7.3</version>
         <relativePath/>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>org.deil</groupId>
     <artifactId>deil-tools</artifactId>
     <version>1.0.0</version>
-    <modules>
-        <module>deil-component</module>
-        <module>deil-utils</module>
-    </modules>
-
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>工具集</description>
 
+    <modules>
+        <module>deil-component</module>
+        <module>deil-utils</module>
+        <module>deil-util-jasypt</module>
+    </modules>
+
     <properties>
         <project-jdk>1.8</project-jdk>
         <project-encoding>UTF-8</project-encoding>
-        <project-jarpack>./pack</project-jarpack>
+        <project-jarpack>./pack/${project.build.finalName}</project-jarpack>
         <project-checkpack>./check</project-checkpack>
         <project-logpack>./logs</project-logpack>
 

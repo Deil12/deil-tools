@@ -1,6 +1,8 @@
 #IntelliJ
 .idea
 check
+pack
+target
 *.iml
 
 

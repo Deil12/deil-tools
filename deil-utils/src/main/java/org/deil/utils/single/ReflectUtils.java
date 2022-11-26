@@ -2,7 +2,7 @@ package org.deil.utils.single;
 
 
 import lombok.experimental.UtilityClass;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
