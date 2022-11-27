@@ -8,9 +8,9 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/11
- * @COPYRIGHT © csair.com 
+ * @PURPOSE 属性工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 public class PropertiesUtil {

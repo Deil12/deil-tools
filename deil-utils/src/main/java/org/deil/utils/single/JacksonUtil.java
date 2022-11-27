@@ -20,8 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * @PURPOSE 
- * @DATE 2022/09/08
+ * @PURPOSE 杰克逊工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 @UtilityClass

@@ -9,8 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.*;
 import java.util.BitSet;
 
+
 /**
- * @DATE 06/27
+ * @PURPOSE 编码工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 @UtilityClass

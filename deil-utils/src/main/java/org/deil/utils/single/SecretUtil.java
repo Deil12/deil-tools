@@ -11,8 +11,9 @@ import javax.crypto.spec.IvParameterSpec;
 import java.security.Key;
 
 /**
- * @PURPOSE
- * @DATE 2022/09/06
+ * @PURPOSE 秘密工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 @UtilityClass

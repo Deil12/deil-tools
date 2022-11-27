@@ -26,8 +26,8 @@
     <properties>
         <project-jdk>1.8</project-jdk>
         <project-encoding>UTF-8</project-encoding>
-        <project-jarpack>./pack/${project.build.finalName}</project-jarpack>
-        <project-checkpack>./check</project-checkpack>
+        <project-jarpack>./pack/${project.build.finalName}/target</project-jarpack>
+        <project-checkpack>./pack/check</project-checkpack>
         <project-logpack>./logs</project-logpack>
 
         <starter-druid-version>1.2.15</starter-druid-version>

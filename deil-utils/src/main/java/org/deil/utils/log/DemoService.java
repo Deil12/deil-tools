@@ -4,8 +4,9 @@ import org.deil.utils.log.annotation.Log;
 import org.springframework.stereotype.Service;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/20
+ * @PURPOSE 演示 service 层
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Service
 public class DemoService {

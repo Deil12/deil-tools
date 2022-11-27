@@ -1,7 +1,9 @@
 package org.deil.utils.datasource.domain;
-/** 
- * @PURPOSE 
- * @DATE 2022/11/24
+
+/**
+ * @PURPOSE 数据源上下文持有人
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 public class DataSourceContextHolder {
 

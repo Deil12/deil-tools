@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 /**
- * @PURPOSE 组件启动类入口
- * @DATE 2022/11/19
- * @COPYRIGHT © csair.com 
+ * @PURPOSE 组件应用程序
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @SpringBootApplication
 @EnableEncryptableProperties

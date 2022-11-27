@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * @PURPOSE 
- * @DATE 2022/08/22
+ * @PURPOSE 文件工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 @UtilityClass

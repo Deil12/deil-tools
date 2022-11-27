@@ -13,8 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.lang.reflect.Method;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/20
+ * @PURPOSE 摘要日志方面
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 public abstract class AbstractLogAspect {

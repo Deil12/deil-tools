@@ -22,9 +22,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @DATE 06/20
- * @PURPOSE
- * © csair.com
+ * @PURPOSE xml工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 public class XmlUtil {

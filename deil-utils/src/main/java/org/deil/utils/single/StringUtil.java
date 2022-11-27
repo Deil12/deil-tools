@@ -8,6 +8,11 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @PURPOSE 字符串工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
+ */
 @UtilityClass
 public class StringUtil {
 

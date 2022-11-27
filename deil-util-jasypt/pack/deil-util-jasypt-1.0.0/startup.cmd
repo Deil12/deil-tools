@@ -8,10 +8,12 @@ setlocal enabledelayedexpansion
 set BASE_DIR=%~dp0
 set BASE_DIR="%BASE_DIR:~0,-5%"
 
-set SERVER=utils-jasypt-1.0.0
+set SERVER_VERSION=1.0.0
+set SERVER_NAME=utils-jasypt
+set SERVER=%SERVER_NAME%-%SERVER_VERSION%
 
 set "JAR_OPTS=-jar %SERVER%.jar"
 
-set COMMAND="%JAVA%" %JAR_OPTS% deil.utils-jasypt %*
+set COMMAND="%JAVA%" %JAR_OPTS% %SERVER_NAME% %*
 
 %COMMAND%

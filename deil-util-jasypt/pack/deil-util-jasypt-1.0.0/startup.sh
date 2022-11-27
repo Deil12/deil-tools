@@ -38,7 +38,9 @@ if [ -z "$JAVA_HOME" ]; then
   fi
 fi
 
-export SERVER="deil-util-jasypt-1.0.0"
+export SERVER_VERSION="1.0.0"
+export SERVER_NAME="deil-util-jasypt"
+export SERVER="${SERVER_NAME}-${SERVER_VERSION}"
 
 export JAVA_HOME
 export JAVA="$JAVA_HOME/bin/java"
@@ -50,7 +52,7 @@ if [[ "$JAVA_MAJOR_VERSION" -le "9" ]] ; then
 fi
 
 JAVA_OPT="${JAVA_OPT} -Dfile.encoding=utf-8"
-JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/${SERVER}/${SERVER}.jar"
+JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/${SERVER}/target/${SERVER}.jar"
 
 if [ ! -d "${BASE_DIR}/${SERVER}/logs" ]; then
   mkdir ${BASE_DIR}/${SERVER}/logs
@@ -65,5 +67,5 @@ echo "$JAVA $JAVA_OPT_EXT_FIX ${JAVA_OPT}" > ${BASE_DIR}/${SERVER}/logs/start.ou
 if [[ "$JAVA_OPT_EXT_FIX" == "" ]]; then
   nohup "$JAVA" ${JAVA_OPT} deil.utils-jasypt >> ${BASE_DIR}/${SERVER}/logs/start.out 2>&1 &
 else
-  nohup "$JAVA" "$JAVA_OPT_EXT_FIX" ${JAVA_OPT} deil.utils-jasypt >> ${BASE_DIR}/${SERVER}/logs/start.out 2>&1 &
+  nohup "$JAVA" "$JAVA_OPT_EXT_FIX" ${JAVA_OPT} ${SERVER_NAME} >> ${BASE_DIR}/${SERVER}/logs/start.out 2>&1 &
 fi

@@ -4,8 +4,9 @@ import org.deil.utils.datasource.domain.DataSourceContextHolder;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/24
+ * @PURPOSE 多个数据来源
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 public class MultipleDataSource extends AbstractRoutingDataSource {
 

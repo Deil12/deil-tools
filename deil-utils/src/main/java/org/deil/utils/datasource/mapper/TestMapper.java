@@ -5,8 +5,9 @@ import org.deil.utils.datasource.domain.DataSourceEnum;
 import org.springframework.stereotype.Repository;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/24
+ * @PURPOSE 测试映射器
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Repository
 @DataSource(DataSourceEnum.dataSourceSqlServer)

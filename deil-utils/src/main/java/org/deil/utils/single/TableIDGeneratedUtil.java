@@ -12,6 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @PURPOSE 表格idgenerated工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
+ */
 @UtilityClass
 public class TableIDGeneratedUtil {
     /**

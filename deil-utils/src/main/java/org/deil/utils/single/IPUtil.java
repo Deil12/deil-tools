@@ -5,8 +5,9 @@ import lombok.experimental.UtilityClass;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @DATE 06/24
- * @PURPOSE 用户IP工具类
+ * @PURPOSE iputil
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @UtilityClass
 public class IPUtil {

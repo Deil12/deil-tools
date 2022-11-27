@@ -25,8 +25,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/26
+ * @PURPOSE 配置类加密工具
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 public class ConfigEncryptTool {
 

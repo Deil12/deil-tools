@@ -1,12 +1,12 @@
 @echo off
-if not exist "%JAVA_HOME%\bin\jps.exe" echo Please set the JAVA_HOME variable in your environment, We need java(x64)! jdk8 or later is better! & EXIT /B 1
+if not exist "%JAVA_HOME%\bin\jps.exe" echo PLEASE SET THE JAVA_HOME VARIABLE IN YOUR ENVIRONMENT, WE NEED JAVA(X64)! JDK8 OR LATER IS BETTER! & EXIT /B 1
 
 setlocal
 
 set "PATH=%JAVA_HOME%\bin;%PATH%"
 
-echo killing customsMoveService server
+echo KILLING deil-component SERVER
 
-for /f "tokens=1" %%i in ('jps -m ^| find "tang.customsMoveService"') do ( taskkill /F /PID %%i )
+for /f "tokens=1" %%i in ('jps -m ^| find "deil-component"') do ( taskkill /F /PID %%i )
 
 echo Done!

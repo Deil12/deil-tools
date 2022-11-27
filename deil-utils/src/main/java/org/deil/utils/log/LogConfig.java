@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @PURPOSE 
- * @DATE 2022/11/20
+ * @PURPOSE 日志配置类
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
  */
 @Slf4j
 @ComponentScan("org.deil")

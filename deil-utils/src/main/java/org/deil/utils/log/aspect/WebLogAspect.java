@@ -7,6 +7,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+/**
+ * @PURPOSE web日志方面
+ * @DATE 2022/11/27
+ * @COPYRIGHT © Deil
+ */
 @Slf4j
 @Aspect
 public class WebLogAspect extends AbstractLogAspect {
