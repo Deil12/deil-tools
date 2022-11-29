@@ -1,0 +1,25 @@
+server:
+  port: 1115
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/dbo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+#    username: root
+#    password: root
+
+spring:
+  datasource:
+    sqlserver:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=dbo
+#      jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=dbo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      username: SA
+      password: df2@Se1Aq35
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/dbo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+mybatis:
+  mapper-locations: classpath*:/mybatis-mapping/*.xml
