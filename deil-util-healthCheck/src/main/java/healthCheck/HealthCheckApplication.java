@@ -4,8 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @PURPOSE 健康检查应用程序
+ * @DATE 2022/11/30
+ * @CODE Deil
+ */
 @SpringBootApplication
-@EnableScheduling   //开启定时任务
+@EnableScheduling
 public class HealthCheckApplication {
 
     public static void main(String[] args) {

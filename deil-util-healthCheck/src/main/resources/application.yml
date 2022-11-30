@@ -5,7 +5,8 @@ check:
       #服务名称
     - serverName: 消费者服务
       #cron表达式
-      cron: 0 0/1 * * * ?  #每分钟检查一次
+      cron: 0/10 * * * * ?
+#      cron: 0 0/1 * * * ?  #每分钟检查一次
       #启动脚本位置
       scriptLocation: /opt/restartApp.sh
       #验证的位置

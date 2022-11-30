@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * 检查配置
+ * @PURPOSE 检查配置
+ * @DATE 2022/11/30
+ * @CODE Deil
  */
 @Data
-public class HealthCheckConfig {
+public class HealthCheckProperty {
 
     /**
      * 服务名称

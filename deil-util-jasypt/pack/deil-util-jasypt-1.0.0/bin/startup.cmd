@@ -6,10 +6,10 @@ set "JAVA=%JAVA_HOME%\bin\java.exe"
 setlocal enabledelayedexpansion
 
 set BASE_DIR=%~dp0
-set BASE_DIR=%BASE_DIR:~0,-1%
+set BASE_DIR=%BASE_DIR:~0,-5%
 
-set SERVER_VERSION=1.0.0
 set SERVER_NAME=deil-util-jasypt
+set SERVER_VERSION=1.0.0
 set SERVER=%SERVER_NAME%-%SERVER_VERSION%
 
 set "JAR_OPTS=-jar %BASE_DIR%\target\%SERVER%.jar"

@@ -8,6 +8,10 @@
 #    exit 1
 #}
 
+export SERVER_NAME="deil-component"
+export SERVER_VERSION="1.0.0"
+export PSW="password"
+
 cygwin=false
 darwin=false
 os400=false
@@ -28,10 +32,8 @@ error_exit ()
 
 if [ -z "$JAVA_HOME" ]; then
   if $darwin; then
-
     if [ -x '/usr/libexec/java_home' ] ; then
       export JAVA_HOME=`/usr/libexec/java_home`
-
     elif [ -d "/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home" ]; then
       export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
     fi
@@ -41,14 +43,12 @@ if [ -z "$JAVA_HOME" ]; then
       export JAVA_HOME=`dirname $JAVA_PATH 2>/dev/null`
     fi
   fi
+
   if [ -z "$JAVA_HOME" ]; then
         error_exit "************ PLEASE CHECK U‘R JAVA_HOME ENVIRONMENT! ************"
   fi
 fi
 
-export PSW="password"
-export SERVER_VERSION="1.0.0"
-export SERVER_NAME="deil-component"
 export SERVER="${SERVER_NAME}-${SERVER_VERSION}"
 while getopts ":p:s:" opt
 do
@@ -86,7 +86,7 @@ fi
 if [ ! -f "${BASE_DIR}/bin/logs/start.out" ]; then
   touch "${BASE_DIR}/bin/logs/start.out"
 fi
-# start
+
 echo "$JAVA $JAVA_OPT_EXT_FIX ${JAVA_OPT}" > ${BASE_DIR}/bin/logs/start.out 2>&1 &
 
 if [[ "$JAVA_OPT_EXT_FIX" == "" ]]; then

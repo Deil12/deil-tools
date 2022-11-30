@@ -3,9 +3,9 @@ package healthCheck;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * ScheduledFuture包装类
- *
- * @author Boom
+ * @PURPOSE ScheduledFuture包装类
+ * @DATE 2022/11/30
+ * @CODE Deil
  */
 public final class ScheduledFutureWrapper {
 
@@ -20,4 +20,5 @@ public final class ScheduledFutureWrapper {
             future.cancel(true);
         }
     }
+
 }
