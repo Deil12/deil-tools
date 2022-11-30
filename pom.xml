@@ -21,6 +21,7 @@
         <module>deil-component</module>
         <module>deil-utils</module>
         <module>deil-util-jasypt</module>
+        <module>deil-util-healthCheck</module>
         <!--<module>deil-demo</module>-->
     </modules>
 
