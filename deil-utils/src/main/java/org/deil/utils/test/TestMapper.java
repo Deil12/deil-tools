@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 //@Mapper
 @Repository
-@DataSource(DataSourceEnum.SQLSERVER)
+@DataSource(DataSourceEnum.MYSQL)
 public interface TestMapper {
 
     String test();

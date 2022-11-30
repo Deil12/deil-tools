@@ -1,5 +1,5 @@
 server:
-  port: 1115
+  port: 1116
 
 #spring:
 #  datasource:
@@ -10,6 +10,10 @@ server:
 
 spring:
   datasource:
+    resources:
+      enabled: true
+      dao: org.deil.demo.dao
+      mapper: mapper/*.xml
     sqlserver:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
       jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=dbo
@@ -22,4 +26,4 @@ spring:
       username: root
       password: root
 mybatis:
-  mapper-locations: classpath*:/mybatis-mapping/*.xml
+  mapper-locations: classpath*:org/deil/utils/test/*.xml

@@ -28,7 +28,7 @@ public class DataSourceAspect {
      * 添加数据源上下文
      * @param dataSource
      */
-    @Before("pointCut() && @annotation(dataSource)")
+    @Before("pointCut() && @within(dataSource)")
     public void doBefore(DataSource dataSource){
         DataSourceContextHolder.setDataSource(dataSource.value().getValue());
     }
@@ -36,7 +36,7 @@ public class DataSourceAspect {
     /**
      * 清除数据源上下文
      */
-    @After("pointCut() && @annotation(dataSource)")
+    @After("pointCut() && @within(dataSource)")
     public void doAfter(DataSource dataSource){
         DataSourceContextHolder.clear();
     }

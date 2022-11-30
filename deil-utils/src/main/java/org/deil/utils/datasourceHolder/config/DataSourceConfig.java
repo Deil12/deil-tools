@@ -23,7 +23,7 @@ import java.util.Map;
  * @DATE 2022/11/28
  */
 @Configuration
-@MapperScan({"com.csair.exchange.mapper"})
+@MapperScan({"org.deil.utils.test"})
 public class DataSourceConfig extends org.apache.ibatis.session.Configuration {
 
     /**
@@ -64,7 +64,7 @@ public class DataSourceConfig extends org.apache.ibatis.session.Configuration {
         //添加数据源
         multipleDataSource.setTargetDataSources(targetDataSources) ;
         //设置默认数据源db1
-        multipleDataSource.setDefaultTargetDataSource(sqlServer);
+        multipleDataSource.setDefaultTargetDataSource(mysql);
         return multipleDataSource ;
     }
 
@@ -94,7 +94,7 @@ public class DataSourceConfig extends org.apache.ibatis.session.Configuration {
         bean.setConfiguration(configuration);
         bean.setMapperLocations(
                 // 设置mybatis的xml所在位置
-                new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis-mapping/*.xml"));
+                new PathMatchingResourcePatternResolver().getResources("classpath*:org/deil/utils/test/*.xml"));
 
         return bean.getObject();
     }

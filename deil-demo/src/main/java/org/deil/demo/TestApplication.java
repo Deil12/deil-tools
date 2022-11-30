@@ -1,4 +1,4 @@
-package com.csair.exchange;
+package org.deil.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @COPYRIGHT © Deil
  */
 @SpringBootApplication
-public class DemoApplication {
+public class TestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(TestApplication.class, args);
     }
 
 }

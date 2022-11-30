@@ -48,6 +48,11 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.3.20</version>
         </dependency>
+        <dependency>
+            <groupId>org.deil</groupId>
+            <artifactId>deil-utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>
