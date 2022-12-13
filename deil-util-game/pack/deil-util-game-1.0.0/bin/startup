@@ -39,7 +39,7 @@ export JAVA="$JAVA_HOME/bin/java"
 export BASE_DIR=`cd $(dirname $0)/..; pwd`
 
 #start
-export SERVER_NAME="deil-util-jasypt"
+export SERVER_NAME="deil-util-game"
 export SERVER_VERSION="1.0.0"
 export SERVER="${SERVER_NAME}-${SERVER_VERSION}"
 
@@ -66,5 +66,3 @@ if [[ "$JAVA_OPT_EXT_FIX" == "" ]]; then
 else
   nohup "$JAVA" "$JAVA_OPT_EXT_FIX" ${JAVA_OPT} ${SERVER_NAME} >> ${BASE_DIR}/logs/start.out 2>&1 &
 fi
-
-tail -f ${BASE_DIR}/logs/start.out

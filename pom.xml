@@ -22,7 +22,9 @@
         <module>deil-utils</module>
         <module>deil-util-jasypt</module>
         <module>deil-util-healthCheck</module>
-        <!--<module>deil-demo</module>-->
+        <module>deil-util-game</module>
+        <module>deil-quartz</module>
+        <module>deil-demo</module>
     </modules>
 
     <properties>
@@ -56,11 +58,6 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt-starter}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${starter-druid-version}</version>
-        </dependency>-->
 
         <dependency>
             <groupId>io.springfox</groupId>
@@ -141,5 +138,34 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>local</profileActive>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

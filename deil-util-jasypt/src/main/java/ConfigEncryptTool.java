@@ -137,8 +137,8 @@ public class ConfigEncryptTool {
         decryptButton.addActionListener(new ButtonClickListener());
 
         //模式按钮栏
-        JToggleButton PooledPBEModeButton = new JToggleButton("PooledPBE加密");
-        JToggleButton RSAModeButton = new JToggleButton("RSA加密");
+        JToggleButton PooledPBEModeButton = new JToggleButton("PooledPBE方式");
+        JToggleButton RSAModeButton = new JToggleButton("RSA方式");
         PooledPBEModeButton.setFont(font);
         PooledPBEModeButton.setEnabled(true);
         RSAModeButton.setFont(font);
