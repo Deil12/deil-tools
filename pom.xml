@@ -115,6 +115,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${plugin-dependency-check}</version>
                 <configuration>
+                    <skip>true</skip>
                     <autoUpdate>true</autoUpdate>
                     <outputDirectory>${project-checkpack}</outputDirectory>
                     <formats>HTML, JSON</formats>

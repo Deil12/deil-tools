@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestServiceImpl implements TestService {
 
-    @Override
     @EncryptMethod("num")
+    @Override
     public String test2(String num) {
         return num;
     }
+
 }

@@ -14,9 +14,9 @@ setlocal enabledelayedexpansion
 set BASE_DIR=%~dp0
 set BASE_DIR="%BASE_DIR:~0,-5%"
 
+set SERVER=%~p0
 set SERVER_NAME=deil-quartz
 set SERVER_VERSION=1.0.0
-set SERVER=%SERVER_NAME%-%SERVER_VERSION%
 set PSW_INDEX=-1
 set SERVER_INDEX=-1
 

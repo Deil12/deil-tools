@@ -27,9 +27,9 @@ import java.util.UUID;
  * @COPYRIGHT © Deil
  */
 @Slf4j
-//@Order(1)
-//@Aspect
-//@Component
+@Order(1)
+@Aspect
+@Component
 public class LogAspect {
 
     @Resource

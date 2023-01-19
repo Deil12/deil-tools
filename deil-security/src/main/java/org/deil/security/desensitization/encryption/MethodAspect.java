@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.deil.security.desensitization.encryption.annotation.EncryptMethod;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Base64;
@@ -18,6 +19,7 @@ import java.util.Base64;
  */
 @Slf4j
 @Aspect
+@Component
 public class MethodAspect {
 
     @Around(value = "(@annotation(org.deil.security.desensitization.encryption.annotation.EncryptMethod))")

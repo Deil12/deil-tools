@@ -121,6 +121,28 @@
                     <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${plugin-dependency-check}</version>
+                <configuration>
+                    <skip>true</skip>
+                    <autoUpdate>true</autoUpdate>
+                    <outputDirectory>${project-checkpack}</outputDirectory>
+                    <formats>HTML</formats>
+                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <versionCheckEnabled>true</versionCheckEnabled>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

@@ -1,8 +1,10 @@
 package org.deil.security.desensitization;
-/** 
- * @PURPOSE 
+
+/**
+ * 测试 service 层
+ *
  * @DATE 2023/01/02
- * @COPYRIGHT © csair.com
+ * @CODE Deil
  */
 public interface TestService {
 

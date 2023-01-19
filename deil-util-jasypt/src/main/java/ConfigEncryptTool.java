@@ -64,10 +64,14 @@ public class ConfigEncryptTool {
         mainFrame = new JFrame("jasypt加密解密工具");
         mainFrame.setSize(600, 1000);
         mainFrame.setLayout(new GridLayout(5, 1));
-        Font font = new Font("monospaced", Font.PLAIN, 18);
+        mainFrame.setBackground(Color.BLACK);
+        mainFrame.setForeground(Color.WHITE);
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, 18);
 
         //盐值文本框
         salttextArea = new JTextArea();
+        salttextArea.setBackground(Color.BLACK);
+        salttextArea.setForeground(Color.WHITE);
         salttextArea.setFont(font);
         salttextArea.setWrapStyleWord(true);
         salttextArea.setLineWrap(true);
@@ -76,6 +80,8 @@ public class ConfigEncryptTool {
         saltText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //原文文本框
         originalTextArea = new JTextArea();
+        originalTextArea.setBackground(Color.BLACK);
+        originalTextArea.setForeground(Color.WHITE);
         originalTextArea.setFont(font);
         originalTextArea.setWrapStyleWord(true);
         originalTextArea.setLineWrap(true);
@@ -84,6 +90,8 @@ public class ConfigEncryptTool {
         originalText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //密文文本框
         ciphertextArea = new JTextArea();
+        ciphertextArea.setBackground(Color.BLACK);
+        ciphertextArea.setForeground(Color.WHITE);
         ciphertextArea.setFont(font);
         ciphertextArea.setWrapStyleWord(true);
         ciphertextArea.setLineWrap(true);
@@ -94,9 +102,13 @@ public class ConfigEncryptTool {
         controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
         controlPanel.setBorder(BorderFactory.createTitledBorder( " 2nd 工具执行 " ));
+        //controlPanel.setBackground(Color.BLACK);
+        //controlPanel.setForeground(Color.WHITE);
         modePanel = new JPanel();
         modePanel.setLayout(new FlowLayout());
         modePanel.setBorder(BorderFactory.createTitledBorder( " 1st 加密方式 " ));
+        //modePanel.setBackground(Color.BLACK);
+        //modePanel.setForeground(Color.WHITE);
         //窗口监测
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
@@ -110,6 +122,8 @@ public class ConfigEncryptTool {
         mainFrame.add(controlPanel);
         mainFrame.add(cipherText);
         mainFrame.setVisible(true);
+        mainFrame.setBackground(Color.BLACK);
+        mainFrame.setForeground(Color.WHITE);
         //prepareGUI();
     }
 
@@ -119,7 +133,7 @@ public class ConfigEncryptTool {
     }
 
     private void showEventDemo() {
-        Font font = new Font("monospaced", Font.ITALIC, 18);
+        Font font = new Font(Font.MONOSPACED, Font.ITALIC, 18);
         //按钮栏
         JButton encryptButton = new JButton("加密");
         JButton copyButton = new JButton("复制密文到剪切板");
@@ -158,12 +172,17 @@ public class ConfigEncryptTool {
     }
 
     /**
-     * 执行
+     * 执行逻辑
+     *
+     * @DATE 2023/01/19
+     * @CODE Deil
+     * @see ActionListener
      */
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
-            String saltKey = salttextArea.getText();
+            //默认加密盐
+            String saltKey = salttextArea.getText() == null || "".equals(salttextArea.getText())? "password" : salttextArea.getText();
             if (command.equals("encrypt")) {
                 String text = originalTextArea.getText();
                 try {
