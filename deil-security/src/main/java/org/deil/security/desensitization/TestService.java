@@ -8,6 +8,6 @@ package org.deil.security.desensitization;
  */
 public interface TestService {
 
-    public String test2(String num);
+    //public String test2(String num);
 
 }

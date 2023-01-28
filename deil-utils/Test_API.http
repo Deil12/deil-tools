@@ -1,9 +1,0 @@
-### 1
-GET http://localhost:1115/test
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{
-    "number": 0
-}

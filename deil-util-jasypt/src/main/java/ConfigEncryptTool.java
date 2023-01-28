@@ -44,12 +44,12 @@ public class ConfigEncryptTool {
     /*
      * 密文
      */
-    private JTextArea ciphertextArea;
+    private JTextArea cipherTextArea;
 
     /*
      * 盐
      */
-    private JTextArea salttextArea;
+    private JTextArea saltTextArea;
 
     /*
      * 按钮
@@ -69,14 +69,14 @@ public class ConfigEncryptTool {
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, 18);
 
         //盐值文本框
-        salttextArea = new JTextArea();
-        salttextArea.setBackground(Color.BLACK);
-        salttextArea.setForeground(Color.WHITE);
-        salttextArea.setFont(font);
-        salttextArea.setWrapStyleWord(true);
-        salttextArea.setLineWrap(true);
-        salttextArea.setBorder(BorderFactory.createTitledBorder( " 盐值： " ));
-        JScrollPane saltText = new JScrollPane(salttextArea);
+        saltTextArea = new JTextArea();
+        saltTextArea.setBackground(Color.BLACK);
+        saltTextArea.setForeground(Color.GREEN);
+        saltTextArea.setFont(font);
+        saltTextArea.setWrapStyleWord(true);
+        saltTextArea.setLineWrap(true);
+        saltTextArea.setBorder(BorderFactory.createTitledBorder( " 盐值： " ));
+        JScrollPane saltText = new JScrollPane(saltTextArea);
         saltText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //原文文本框
         originalTextArea = new JTextArea();
@@ -89,14 +89,14 @@ public class ConfigEncryptTool {
         JScrollPane originalText = new JScrollPane(originalTextArea);
         originalText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //密文文本框
-        ciphertextArea = new JTextArea();
-        ciphertextArea.setBackground(Color.BLACK);
-        ciphertextArea.setForeground(Color.WHITE);
-        ciphertextArea.setFont(font);
-        ciphertextArea.setWrapStyleWord(true);
-        ciphertextArea.setLineWrap(true);
-        ciphertextArea.setBorder(BorderFactory.createTitledBorder( " 密文： " ));
-        JScrollPane cipherText = new JScrollPane(ciphertextArea);
+        cipherTextArea = new JTextArea();
+        cipherTextArea.setBackground(Color.BLACK);
+        cipherTextArea.setForeground(Color.WHITE);
+        cipherTextArea.setFont(font);
+        cipherTextArea.setWrapStyleWord(true);
+        cipherTextArea.setLineWrap(true);
+        cipherTextArea.setBorder(BorderFactory.createTitledBorder( " 密文： " ));
+        JScrollPane cipherText = new JScrollPane(cipherTextArea);
         cipherText.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         //按钮
         controlPanel = new JPanel();
@@ -123,10 +123,16 @@ public class ConfigEncryptTool {
         mainFrame.add(cipherText);
         mainFrame.setVisible(true);
         mainFrame.setBackground(Color.BLACK);
+        mainFrame.getContentPane().setBackground(Color.BLACK);
         mainFrame.setForeground(Color.WHITE);
-        //prepareGUI();
     }
 
+    /**
+     * 逻辑执行主入口
+     *
+     * @param args
+     * @TIME 2023/01/26
+     */
     public static void main(String[] args) {
         ConfigEncryptTool configEncrypt = new ConfigEncryptTool();
         configEncrypt.showEventDemo();
@@ -140,7 +146,6 @@ public class ConfigEncryptTool {
         JButton decryptButton = new JButton("解密");
         encryptButton.setFont(font);
         decryptButton.setFont(font);
-        decryptButton.setBackground(Color.green);
         copyButton.setFont(font);
         //按钮事件
         encryptButton.setActionCommand("encrypt");
@@ -172,7 +177,7 @@ public class ConfigEncryptTool {
     }
 
     /**
-     * 执行逻辑
+     * 动作监听执行逻辑
      *
      * @DATE 2023/01/19
      * @CODE Deil
@@ -181,20 +186,21 @@ public class ConfigEncryptTool {
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
-            //默认加密盐
-            String saltKey = salttextArea.getText() == null || "".equals(salttextArea.getText())? "password" : salttextArea.getText();
+            //默认加密盐、回显
+            String saltKey = saltTextArea.getText() == null || "".equals(saltTextArea.getText())? "password" : saltTextArea.getText();
+            saltTextArea.setText(saltKey);
             if (command.equals("encrypt")) {
                 String text = originalTextArea.getText();
                 try {
                     String encrypt = "byPooledPBE".equals(MODE) ? encryptByPooledPBE(saltKey, text) : encryptByRSA(text);
-                    ciphertextArea.setText(encrypt);
+                    cipherTextArea.setText(encrypt);
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    ciphertextArea.setText("加密失败");
+                    cipherTextArea.setText("加密失败");
                 }
 
             } else if (command.equals("decrypt")) {
-                String text = ciphertextArea.getText();
+                String text = cipherTextArea.getText();
                 try {
                     String decrypt = "byPooledPBE".equals(MODE) ? decryptByPooledPBE(saltKey, text) : decryptByRSA(text);
                     originalTextArea.setText(decrypt);
@@ -203,7 +209,7 @@ public class ConfigEncryptTool {
                     originalTextArea.setText("解密失败");
                 }
             } else if (command.equals("copy")) {
-                String text = ciphertextArea.getText();
+                String text = cipherTextArea.getText();
                 // 获取系统剪贴板
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 // 封装文本内容
@@ -243,12 +249,12 @@ public class ConfigEncryptTool {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(saltKey);
-//        config.setAlgorithm("PBEWithMD5AndDES");//默认配置
-//        config.setKeyObtentionIterations("1000");//默认配置
+        //config.setAlgorithm("PBEWithMD5AndDES");//默认配置
+        //config.setKeyObtentionIterations("1000");//默认配置
         config.setPoolSize("4");
-//        config.setProviderName("SunJCE");//默认配置
-//        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");//默认配置
-//        config.setStringOutputType("base64");//默认配置
+        //config.setProviderName("SunJCE");//默认配置
+        //config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");//默认配置
+        //config.setStringOutputType("base64");//默认配置
         encryptor.setConfig(config);
         return encryptor;
     }
@@ -314,20 +320,27 @@ public class ConfigEncryptTool {
     }
 
     /**
-     * 切换
+     * <内部类>执行切换监听</内部类>
+     *
+     * @DATE 2023/01/20
+     * @CODE Deil
+     * @see ActionListener
      */
     private class ModeToggleListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
-            String saltKey = salttextArea.getText();
             if ("byPooledPBE".equals(command)) {
-                salttextArea.setText("");
-                ciphertextArea.setText("");
+                saltTextArea.setForeground(Color.GREEN);
+                saltTextArea.setEnabled(true);
+                saltTextArea.setText("");
+                cipherTextArea.setText("");
                 originalTextArea.setText("");
                 MODE = command;
             } else if ("byRSA".equals(command)) {
-                salttextArea.setText("RSA加密模式，本处省略。。。");
-                ciphertextArea.setText("");
+                saltTextArea.setForeground(Color.WHITE);
+                saltTextArea.setEnabled(false);
+                saltTextArea.setText("RSA加密仅维护密钥，加密盐忽略。。。");
+                cipherTextArea.setText("");
                 originalTextArea.setText("");
                 MODE = command;
             }
