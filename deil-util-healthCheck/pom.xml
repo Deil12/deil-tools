@@ -52,12 +52,39 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>COPY</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${jarPack}">
+                                    <fileset dir="${project.build.directory}">
+                                        <include name="${project.build.finalName}.jar"></include>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>CLEAN</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target>
+                                <delete>
+                                    <fileset dir="${jarPack}" includes="${project.build.finalName}.jar"></fileset>
+                                </delete>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>

@@ -30,9 +30,11 @@
     <properties>
         <project-jdk>1.8</project-jdk>
         <project-encoding>UTF-8</project-encoding>
-        <project-jarpack>./pack/${project.build.finalName}/target</project-jarpack>
-        <project-checkpack>./pack/check</project-checkpack>
-        <project-logpack>./logs</project-logpack>
+        <jarPack>${basedir}/pack/${project.build.finalName}/target</jarPack>
+        <deployPack>${basedir}/pack/${project.build.finalName}</deployPack>
+        <bakPack>${basedir}/pack/deploy</bakPack>
+        <checkPack>${basedir}/pack/check</checkPack>
+        <logPack>${basedir}/logs</logPack>
 
         <starter-druid-version>1.2.15</starter-druid-version>
         <slf4j-version>1.7.36</slf4j-version>

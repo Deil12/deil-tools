@@ -54,7 +54,7 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <copy todir="${project-jarpack}">
+                                <copy todir="${jarPack}">
                                     <fileset dir="${project.build.directory}">
                                         <include name="${project.build.finalName}.jar"></include>
                                     </fileset>
@@ -71,7 +71,7 @@
                         <configuration>
                             <target>
                                 <delete>
-                                    <fileset dir="${project-jarpack}" includes="${project.build.finalName}.jar"></fileset>
+                                    <fileset dir="${jarPack}" includes="${project.build.finalName}.jar"></fileset>
                                 </delete>
                             </target>
                         </configuration>
