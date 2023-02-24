@@ -23,6 +23,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Optional;
 
 /**
  * @PURPOSE 配置类加密工具
@@ -31,39 +32,27 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class ConfigEncryptTool {
 
-    /*
-     * 主窗口
-     */
+    /*主窗口*/
     private JFrame mainFrame;
-
-    /*
-     * 原文
-     */
+    /*原文*/
     private JTextArea originalTextArea;
-
-    /*
-     * 密文
-     */
+    /*密文*/
     private JTextArea cipherTextArea;
-
-    /*
-     * 盐
-     */
+    /*盐*/
     private JTextArea saltTextArea;
-
-    /*
-     * 按钮
-     */
+    /*按钮*/
     private JPanel controlPanel;
     private JPanel modePanel;
 
     public static String MODE = "byPooledPBE";
+    public static String RESOURCE = "";
 
     public ConfigEncryptTool() {
         //主窗口
-        mainFrame = new JFrame("加密解密工具");
-        mainFrame.setSize(600, 1000);
+        mainFrame = new JFrame("加密工具");
+        mainFrame.setSize(400, 1000);
         mainFrame.setLayout(new GridLayout(5, 1));
+        mainFrame.setAlwaysOnTop(true);
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, 18);
 
         //盐值文本框
@@ -111,9 +100,6 @@ public class ConfigEncryptTool {
         mainFrame.add(controlPanel);
         mainFrame.add(cipherText);
         mainFrame.setVisible(true);
-        //mainFrame.setBackground(Color.BLACK);
-        //mainFrame.getContentPane().setBackground(Color.BLACK);
-        //mainFrame.setForeground(Color.WHITE);
     }
 
     /**
@@ -131,7 +117,7 @@ public class ConfigEncryptTool {
         Font font = new Font(Font.MONOSPACED, Font.ITALIC, 18);
         //按钮栏
         JButton encryptButton = new JButton("加密");
-        JButton copyButton = new JButton("复制密文到剪切板");
+        JButton copyButton = new JButton("复制密文");
         JButton decryptButton = new JButton("解密");
         encryptButton.setFont(font);
         decryptButton.setFont(font);
@@ -145,9 +131,9 @@ public class ConfigEncryptTool {
         decryptButton.addActionListener(new ButtonClickListener());
 
         //模式按钮栏
-        JButton/*JToggleButton*/ PooledPBEModeButton = new JButton/*JToggleButton*/("PooledPBE方式");
-        JButton/*JToggleButton*/ RSAModeButton = new JButton/*JToggleButton*/("RSA方式");
-        JButton/*JToggleButton*/ Base64ModeButton = new JButton/*JToggleButton*/("Base64方式");
+        JButton PooledPBEModeButton = new JButton("启动参数方式");
+        JButton RSAModeButton = new JButton("密钥文件方式");
+        JButton Base64ModeButton = new JButton("Base64加密");
         PooledPBEModeButton.setFont(font);
         PooledPBEModeButton.setEnabled(true);
         RSAModeButton.setFont(font);
@@ -192,17 +178,20 @@ public class ConfigEncryptTool {
                 String text = originalTextArea.getText();
                 try {
                     String encrypt = MODE.equals("byPooledPBE") ?
-                            encryptByPooledPBE(saltKey, text) : MODE.equals("byRSA") ? encryptByRSA(text) : encryptByBase64(text);
+                            "ENC(" + encryptByPooledPBE(saltKey, text) + ")" : MODE.equals("byRSA") ? "ENC(" + encryptByRSA(text) + ")" : encryptByBase64(text);
                     cipherTextArea.setText(encrypt);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     cipherTextArea.setText("加密失败");
                 }
             } else if (command.equals("decrypt")) {
-                String text = cipherTextArea.getText();
+                String text = cipherTextArea.getText().startsWith("ENC(") && cipherTextArea.getText().endsWith(")") ?
+                        cipherTextArea.getText().substring(4, cipherTextArea.getText().length() - 1) :
+                        cipherTextArea.getText();
                 try {
                     String decrypt = MODE.equals("byPooledPBE") ?
                             decryptByPooledPBE(saltKey, text) : MODE.equals("byRSA") ? decryptByRSA(text) : decryptByBase64(text);
+                    RESOURCE = "";
                     originalTextArea.setText(decrypt);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -213,8 +202,7 @@ public class ConfigEncryptTool {
                 // 获取系统剪贴板
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 // 封装文本内容
-                Transferable trans = MODE.equals("byPooledPBE") || MODE.equals("byPooledPBE") ?
-                        new StringSelection("ENC(" + text + ")") : new StringSelection(text);
+                Transferable trans = new StringSelection(text);
                 // 把文本内容设置到系统剪贴板
                 clipboard.setContents(trans, null);
             }
@@ -241,14 +229,30 @@ public class ConfigEncryptTool {
                 MODE = command;
             } else if ("byRSA".equals(command)) {
                 saltTextArea.setEnabled(false);
-                saltTextArea.setText("RSA方式仅维护密钥文件，加密盐忽略。。。");
+                saltTextArea.setText("RSA方式请选择公钥加密、私钥解密，否则默认");
                 saltTextArea.setBackground(Color.BLACK);
                 cipherTextArea.setText("");
                 originalTextArea.setText("");
                 MODE = command;
+                JFileChooser jFileChooser = new JFileChooser();
+                jFileChooser.showOpenDialog(jFileChooser);
+                if (jFileChooser.getSelectedFile() != null) {
+                    try {
+                        File file = new File(jFileChooser.getSelectedFile().getPath());
+                        FileInputStream fileInputStream = new FileInputStream(file);
+                        byte[] bytes = new byte[(int) file.length()];
+                        fileInputStream.read(bytes);
+                        RESOURCE
+                                = new String(bytes, "UTF-8");
+                        saltTextArea.setText(RESOURCE);
+                        fileInputStream.close();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
             } else if ("byBase64".equals(command)) {
                 saltTextArea.setEnabled(false);
-                saltTextArea.setText("BASE64方式无需加密盐。。。");
+                saltTextArea.setText("无需加密盐或密钥。。。");
                 saltTextArea.setBackground(Color.BLACK);
                 cipherTextArea.setText("");
                 originalTextArea.setText("");
@@ -257,7 +261,8 @@ public class ConfigEncryptTool {
         }
     }
 
-    /*************************************************************************************************************
+    //region PooledPBE线程加密
+    /**
      * 多线程加密
      *
      * @param saltKey
@@ -295,8 +300,10 @@ public class ConfigEncryptTool {
         encryptor.setConfig(config);
         return encryptor;
     }
+    //endregion
 
-    /*************************************************************************************************************
+    //region 非对称密钥加密
+    /**
      * 公钥加密
      *
      * @param text
@@ -305,7 +312,9 @@ public class ConfigEncryptTool {
      */
     public String encryptByRSA(String text) throws Exception {
         //转换公钥对象
-        byte[] buffer = new org.apache.commons.codec.binary.Base64().decode(getResource("public.pem"));
+        byte[] buffer = new org.apache.commons.codec.binary.Base64().decode(
+                RESOURCE.equals("") ? getResource("public.pem") : RESOURCE
+        );
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(buffer);
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyFactory.generatePublic(keySpec);
@@ -324,7 +333,9 @@ public class ConfigEncryptTool {
      */
     private String decryptByRSA(String text) throws Exception {
         //转换私钥对象
-        byte[] buffer = new org.apache.commons.codec.binary.Base64().decode(getResource("privatepkcs8.pem"));
+        byte[] buffer = new org.apache.commons.codec.binary.Base64().decode(
+                RESOURCE.equals("") ? getResource("privatepkcs8.pem") : RESOURCE
+        );
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(buffer);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
@@ -355,8 +366,10 @@ public class ConfigEncryptTool {
         is.close();
         return result;
     }
+    //endregion
 
-    /*************************************************************************************************************
+    //region Base64对称加密
+    /**
      * BASE64加密
      *
      * @param encryptText 加密文本
@@ -518,4 +531,5 @@ public class ConfigEncryptTool {
         //endregion
 
     }
+    //endregion
 }

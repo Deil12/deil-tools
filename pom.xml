@@ -25,6 +25,8 @@
         <module>deil-util-game</module>
         <module>deil-quartz</module>
         <module>deil-demo</module>
+        <module>deil-security</module>
+        <module>deil-api</module>
     </modules>
 
     <properties>
