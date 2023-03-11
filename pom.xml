@@ -44,8 +44,11 @@
         <starter-druid-version>1.2.15</starter-druid-version>
         <slf4j-version>1.7.36</slf4j-version>
         <jasypt-starter>3.0.4</jasypt-starter>
-        <swagger-versioin>3.0.0</swagger-versioin>
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <swagger-annotations.version>1.5.22</swagger-annotations.version>
+        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
 
+        <jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
         <plugin-springboot-maven-version>2.3.7.RELEASE</plugin-springboot-maven-version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <dependency-check-maven.version>7.1.2</dependency-check-maven.version>
@@ -65,7 +68,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${project-jdk}</source>
                     <target>${project-jdk}</target>

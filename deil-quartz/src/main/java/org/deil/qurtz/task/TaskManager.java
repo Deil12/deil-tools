@@ -1,11 +1,13 @@
 package org.deil.qurtz.task;
 
 import lombok.extern.slf4j.Slf4j;
-import org.deil.common.utils.SpringContextUtil;
 import org.deil.qurtz.commom.domain.entity.TaskInfo;
 import org.deil.qurtz.commom.domain.vo.TaskInfoReq;
+import org.deil.qurtz.utils.SpringContextUtil;
 import org.quartz.*;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @PURPOSE 任务管理器
@@ -19,7 +21,7 @@ public class TaskManager {
     @Resource
     private /*final*/ Scheduler scheduler;
     @Resource
-    private /*final*/ SpringContextUtils springContextUtils;
+    private /*final*/ SpringContextUtil springContextUtil;
     //public TaskManager(
     //        Scheduler scheduler,
     //        SpringContextUtils springContextUtils

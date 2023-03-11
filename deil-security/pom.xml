@@ -3,24 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>deil-window</artifactId>
+        <artifactId>deil-tools</artifactId>
         <groupId>org.deil</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>deil-jasypt-util</artifactId>
-    <version>1.2.0</version>
+    <artifactId>deil-security</artifactId>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jasypt</groupId>
-            <artifactId>jasypt</artifactId>
-            <version>1.9.3</version>
-            <scope>compile</scope>
+            <groupId>org.deil</groupId>
+            <artifactId>deil-common</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
@@ -40,7 +35,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <!--<version>${maven-antrun-plugin.version}</version>-->
                 <executions>
                     <execution>
                         <id>COPY</id>
@@ -52,7 +46,6 @@
                                         <include name="${project.build.finalName}.jar"></include>
                                     </fileset>
                                 </copy>
-                                <!--<move file="${project-jarpack}/${project.build.finalName}.jar" tofile="${project-jarpack}/${project.build.finalName}.${maven.build.timestamp}.jar"/>-->
                             </target>
                         </configuration>
                         <goals>
@@ -64,15 +57,9 @@
                         <phase>clean</phase>
                         <configuration>
                             <target>
-                                <!--<delete dir="target"/>-->
-                                <mkdir dir="${project-jarPack}"/>
                                 <delete>
-                                    <fileset dir="${project-deployPack}"></fileset>
-                                    <fileset dir="target"></fileset>
+                                    <fileset dir="${project-jarPack}" includes="${project.build.finalName}.jar"></fileset>
                                 </delete>
-                                <copy todir="${project-deployPack}">
-                                    <fileset dir="${project-sourcePack}"></fileset>
-                                </copy>
                             </target>
                         </configuration>
                         <goals>
