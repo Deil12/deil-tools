@@ -5,6 +5,7 @@ pack
 logs
 target
 *.iml
+rebel.xml
 
 
 # Compiled class file

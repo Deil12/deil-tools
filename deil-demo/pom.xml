@@ -8,7 +8,6 @@
         <version>2.7.3</version>
         <relativePath/>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>deil-demo</artifactId>
@@ -52,6 +51,11 @@
         <dependency>
             <groupId>org.deil</groupId>
             <artifactId>deil-utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.deil</groupId>
+            <artifactId>deil-common</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

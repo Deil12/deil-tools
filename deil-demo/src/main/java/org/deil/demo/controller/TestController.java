@@ -1,28 +1,23 @@
-//package org.deil.demo.controller;
-//
-//import org.deil.demo.dao.TestMapper;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-///**
-// * @PURPOSE
-// * @DATE 2022/11/29
-// */
-//@RestController
-//@RequestMapping
-//public class TestController {
-//
-//    private final TestMapper testMapper;
-//    public TestController(
-//            TestMapper testMapper
-//    ) {
-//        this.testMapper = testMapper;
-//    }
-//
-//    @GetMapping("/test")
-//    public String test() {
-//        return testMapper.test();
-//    }
-//
-//}
+package org.deil.demo.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.deil.demo.dao.TestMapper;
+import org.deil.demo.service.TestService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping
+@RequiredArgsConstructor
+public class TestController {
+
+    private final TestMapper testMapper;
+    private final TestService testService;
+
+    @GetMapping("/test")
+    public String test() {
+        return "";
+    }
+
+}

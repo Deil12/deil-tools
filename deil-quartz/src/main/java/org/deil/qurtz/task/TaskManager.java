@@ -1,14 +1,11 @@
 package org.deil.qurtz.task;
 
 import lombok.extern.slf4j.Slf4j;
+import org.deil.common.utils.SpringContextUtil;
 import org.deil.qurtz.commom.domain.entity.TaskInfo;
 import org.deil.qurtz.commom.domain.vo.TaskInfoReq;
-import org.deil.qurtz.utils.SpringContextUtils;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @PURPOSE 任务管理器
@@ -44,7 +41,7 @@ public class TaskManager {
             return false;
         }
         try {
-            String className = springContextUtils.getBean(taskInfoReq.getJobName()).getClass().getName();
+            String className = springContextUtil.getBean(taskInfoReq.getJobName()).getClass().getName();
             JobDetail jobDetail = JobBuilder.newJob().withIdentity(new JobKey(taskInfoReq.getJobName(), JOB_DEFAULT_GROUP_NAME))
                     .ofType((Class<Job>) Class.forName(className))
                     .build();

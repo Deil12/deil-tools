@@ -6,7 +6,7 @@ configuration 子节点为 appender、logger、root -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <property name="APP_NAME" value="deil-quartz" />
     <!--日志文件所在目录，如果是tomcat，"log"写法日志文件会在${TOMCAT_HOME}/bin/logs/目录下-->
-    <property name="LOG_HOME" value="./logs"/>
+    <property name="LOG_HOME" value="logs"/>
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger输出日志的logger名 %msg：日志消息，%n是换行符 -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
     <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %logger{20} - [%method,%line] - %msg%n" />

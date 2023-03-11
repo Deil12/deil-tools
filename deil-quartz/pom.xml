@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>deil-quartz</artifactId>
+    <version>1.0.0</version>
     <name>${project.artifactId}</name>
     <description>quartz任务系统</description>
 
@@ -37,11 +38,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.4</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -84,7 +80,7 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <copy todir="${jarPack}">
+                                <copy todir="${project-jarPack}">
                                     <fileset dir="${project.build.directory}">
                                         <include name="${project.build.finalName}.jar"></include>
                                     </fileset>
@@ -101,7 +97,7 @@
                         <configuration>
                             <target>
                                 <delete>
-                                    <fileset dir="${jarPack}" includes="${project.build.finalName}.jar"></fileset>
+                                    <fileset dir="${project-jarPack}" includes="${project.build.finalName}.jar"></fileset>
                                 </delete>
                             </target>
                         </configuration>
@@ -125,11 +121,11 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>${plugin-dependency-check}</version>
+                <version>${dependency-check-maven.version}</version>
                 <configuration>
                     <skip>true</skip>
                     <autoUpdate>true</autoUpdate>
-                    <outputDirectory>${checkPack}</outputDirectory>
+                    <outputDirectory>${project-checkPack}</outputDirectory>
                     <formats>HTML</formats>
                     <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
                     <versionCheckEnabled>true</versionCheckEnabled>

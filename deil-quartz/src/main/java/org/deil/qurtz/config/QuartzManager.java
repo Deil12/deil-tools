@@ -27,19 +27,15 @@ public class QuartzManager {
 
     @Resource
     private /*final*/ Scheduler scheduler;
-    @Resource
-    private /*final*/ SpringJobFactory springJobFactory;
-    @Resource
-    private /*final*/ TaskInfoService taskInfoService;
-    //public QuartzManager(
-    //    Scheduler scheduler,
-    //    SpringJobFactory springJobFactory,
-    //    TaskInfoService taskInfoService
-    //) {
-    //    this.scheduler = scheduler;
-    //    this.springJobFactory = springJobFactory;
-    //    this.taskInfoService = taskInfoService;
-    //}
+    private final SpringJobFactory springJobFactory;
+    private final TaskInfoService taskInfoService;
+    public QuartzManager(
+        SpringJobFactory springJobFactory,
+        TaskInfoService taskInfoService
+    ) {
+        this.springJobFactory = springJobFactory;
+        this.taskInfoService = taskInfoService;
+    }
 
     @PostConstruct
     public void start() {

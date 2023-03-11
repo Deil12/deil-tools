@@ -8,7 +8,6 @@
         <version>2.7.3</version>
         <relativePath/>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.deil</groupId>
     <artifactId>deil-tools</artifactId>
@@ -18,73 +17,55 @@
     <description>工具集</description>
 
     <modules>
-        <module>deil-component</module>
+        <module>deil-common</module>
         <module>deil-utils</module>
-        <module>deil-util-jasypt</module>
         <module>deil-util-healthCheck</module>
         <module>deil-util-game</module>
-        <module>deil-quartz</module>
         <module>deil-demo</module>
+        <module>deil-quartz</module>
+        <module>deil-component</module>
         <module>deil-security</module>
         <module>deil-api</module>
+        <module>deil-window</module>
     </modules>
 
     <properties>
         <project-jdk>1.8</project-jdk>
         <project-encoding>UTF-8</project-encoding>
-        <jarPack>${basedir}/pack/${project.build.finalName}/target</jarPack>
-        <deployPack>${basedir}/pack/${project.build.finalName}</deployPack>
-        <bakPack>${basedir}/pack/deploy</bakPack>
-        <checkPack>${basedir}/pack/check</checkPack>
-        <logPack>${basedir}/logs</logPack>
+        <project-jarPack>${basedir}/pack/${project.build.finalName}/target</project-jarPack>
+        <project-deployPack>${basedir}/pack/${project.build.finalName}</project-deployPack>
+        <project-sourcePack>${basedir}/pack/deploy</project-sourcePack>
+        <project-checkPack>${basedir}/pack/check</project-checkPack>
+        <project-logPack>${basedir}/logs</project-logPack>
+        <project-skipCheck>true</project-skipCheck>
 
+        <c3p0.version>0.9.5.4</c3p0.version>
+        <druid.version>1.2.15</druid.version>
         <starter-druid-version>1.2.15</starter-druid-version>
         <slf4j-version>1.7.36</slf4j-version>
         <jasypt-starter>3.0.4</jasypt-starter>
         <swagger-versioin>3.0.0</swagger-versioin>
 
         <plugin-springboot-maven-version>2.3.7.RELEASE</plugin-springboot-maven-version>
-        <plugin-maven-compiler-version>3.8.1</plugin-maven-compiler-version>
-        <plugin-dependency-check>7.1.2</plugin-dependency-check>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <dependency-check-maven.version>7.1.2</dependency-check-maven.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>${jasypt-starter}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger-versioin}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
+            <!-- 一键更新子模块版本号 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${plugin-maven-compiler-version}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${project-jdk}</source>
                     <target>${project-jdk}</target>
@@ -117,7 +98,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>${plugin-dependency-check}</version>
+                <version>${dependency-check-maven.version}</version>
                 <configuration>
                     <skip>true</skip>
                     <autoUpdate>true</autoUpdate>
@@ -139,14 +120,14 @@
             <plugin>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-maven-plugin</artifactId>
-                <version>${jasypt-starter}</version>
+                <version>${jasypt-spring-boot-starter.version}</version>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>local</id>
+            <id>本地</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -163,6 +144,18 @@
             <properties>
                 <profileActive>dev</profileActive>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>io.springfox</groupId>
+                    <artifactId>springfox-swagger-ui</artifactId>
+                    <version>${springfox-swagger2.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.github.xiaoymin</groupId>
+                    <artifactId>knife4j-spring-boot-starter</artifactId>
+                    <version>${knife4j-spring-boot-starter.version}</version>
+                </dependency>
+            </dependencies>
         </profile>
 
         <profile>

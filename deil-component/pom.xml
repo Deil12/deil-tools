@@ -6,7 +6,6 @@
         <artifactId>deil-tools</artifactId>
         <groupId>org.deil</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,20 +15,12 @@
     <name>${project.artifactId}</name>
     <description>组件块</description>
 
-    <properties>
-        <deilutils-version>1.0.0</deilutils-version>
-    </properties>
     <dependencies>
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>2.6.2</version>
-        </dependency>
-        <!--<dependency>
             <groupId>org.deil</groupId>
-            <artifactId>deil-utils</artifactId>
-            <version>${deilutils-version}</version>
-        </dependency>-->
+            <artifactId>deil-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
