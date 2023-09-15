@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="APP_NAME" value="tangGateway" />
+    <property name="LOG_HOME" value="logs"/>
+    <property name="LOG_PATTERN_FILE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{20} - [%method,%line] - %msg%n" />
+    <property name="LOG_PATTERN_STD" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %logger{80} - [#%method,%line] - %msg%n" />
+    <contextName>${APP_NAME}</contextName>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN_STD}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="INFOFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/info-${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMM, aux}/info-${APP_NAME}-%d{yyyy-MM.ww-}%i.log</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="ERRORFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error-${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMM, aux}/error-${APP_NAME}-%d{yyyy-MM.ww-}%i.log</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--输出到logstash-->
+    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        &lt;!&ndash;<destination>10.79.5.89:4560</destination>&ndash;&gt;
+        <destination>127.0.0.1:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeCallerData>true</includeCallerData>
+            <timeZone>UTC</timeZone>
+            <customFields>{"server_name":"customsMoveService"}</customFields>
+        </encoder>
+    </appender>-->
+
+    <appender name ="async_file_info" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref ="INFOFILE"/>
+    </appender>
+
+    <appender name ="async_file_error" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref ="ERRORFILE"/>
+    </appender>
+
+    <!-- 日志级别控制  -->
+    <!--<logger name="java.sql" level="DEBUG"/>-->
+
+    <logger name="com.alibaba.nacos" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="com.ulisesbocchio.jasyptspringboot" level="WARN"/>
+
+    <!--TRACE < DEBUG < INFO < WARN < ERROR < FATAL-->
+    <springProfile name="local, dev">
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="async_file_info"/>
+            <appender-ref ref="async_file_error"/>
+            <!--<appender-ref ref="logstash"/>-->
+        </root>
+    </springProfile>
+    <springProfile name="test, preProd, prod">
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="async_file_info"/>
+            <appender-ref ref="async_file_error"/>
+        </root>
+    </springProfile>
+
+</configuration>

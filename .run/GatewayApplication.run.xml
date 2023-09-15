@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="deil-gateway" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="org.deil.gateway.GatewayApplication" />
+    <option name="VM_PARAMETERS" value="-Djasypt.encryptor.password=password" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

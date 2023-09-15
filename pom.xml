@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version><!--2.7.15-->2.6.15</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,87 +14,66 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>工具集</description>
+    <description>Deil工具集</description>
 
     <modules>
         <module>deil-common</module>
-        <module>deil-utils</module>
-        <module>deil-util-healthCheck</module>
-        <module>deil-util-game</module>
-        <module>deil-demo</module>
+        <module>deil-healthCheck</module>
+        <module>deil-gateway</module>
         <module>deil-quartz</module>
-        <module>deil-component</module>
-        <module>deil-security</module>
-        <module>deil-api</module>
         <module>deil-window</module>
+        <module>deil-demo</module>
     </modules>
 
     <properties>
-        <project-jdk>1.8</project-jdk>
-        <project-encoding>UTF-8</project-encoding>
-        <project-jarPack>${basedir}/pack/${project.build.finalName}/target</project-jarPack>
-        <project-deployPack>${basedir}/pack/${project.build.finalName}</project-deployPack>
-        <project-sourcePack>${basedir}/pack/deploy</project-sourcePack>
-        <project-checkPack>${basedir}/pack/check</project-checkPack>
-        <project-logPack>${basedir}/logs</project-logPack>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
+
+        <project-jarPack>${user.dir}/pack</project-jarPack>
+        <project-checkPack>${user.dir}/pack/check</project-checkPack>
+        <project-logPack>${user.dir}/logs</project-logPack>
         <project-skipCheck>true</project-skipCheck>
+        <project-skipAntrun>false</project-skipAntrun>
 
-        <c3p0.version>0.9.5.4</c3p0.version>
-        <druid.version>1.2.15</druid.version>
-        <starter-druid-version>1.2.15</starter-druid-version>
-        <slf4j-version>1.7.36</slf4j-version>
-        <jasypt-starter>3.0.4</jasypt-starter>
-        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
-        <swagger-annotations.version>1.5.22</swagger-annotations.version>
-        <knife4j-spring-boot-starter.version>3.0.3</knife4j-spring-boot-starter.version>
+        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
+        <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
 
-        <jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
-        <plugin-springboot-maven-version>2.3.7.RELEASE</plugin-springboot-maven-version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <dependency-check-maven.version>7.1.2</dependency-check-maven.version>
+        <spring-web.version>5.3.29</spring-web.version>
+        <guava.version>32.1.2-jre</guava.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring-web.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
-            <!-- 一键更新子模块版本号 -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-                <configuration>
-                    <generateBackupPoms>false</generateBackupPoms>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${project-jdk}</source>
-                    <target>${project-jdk}</target>
-                    <encoding>${project-encoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>org.deil.component.ComponentApplication</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -102,62 +81,34 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${dependency-check-maven.version}</version>
                 <configuration>
-                    <skip>true</skip>
-                    <autoUpdate>true</autoUpdate>
-                    <outputDirectory>${project-checkpack}</outputDirectory>
-                    <formats>HTML, JSON</formats>
-                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <formats>HTML</formats>
+                    <outputDirectory>${project-checkPack}/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
+                    <skip>${project-skipCheck}</skip>
                     <versionCheckEnabled>true</versionCheckEnabled>
+                    <autoUpdate>true</autoUpdate>
+                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
                     <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-maven-plugin</artifactId>
-                <version>${jasypt-spring-boot-starter.version}</version>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>本地</id>
+            <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <profileActive>local</profileActive>
+                <profileActive>dev</profileActive>
             </properties>
         </profile>
 
         <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
+            <id>test</id>
             <properties>
-                <profileActive>dev</profileActive>
+                <profileActive>test</profileActive>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>io.springfox</groupId>
-                    <artifactId>springfox-swagger-ui</artifactId>
-                    <version>${springfox-swagger2.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.github.xiaoymin</groupId>
-                    <artifactId>knife4j-spring-boot-starter</artifactId>
-                    <version>${knife4j-spring-boot-starter.version}</version>
-                </dependency>
-            </dependencies>
         </profile>
 
         <profile>

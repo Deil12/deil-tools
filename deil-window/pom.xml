@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>deil-jasypt-util</module>
+        <module>deil-window-jasypt</module>
         <module>deil-test</module>
     </modules>
 

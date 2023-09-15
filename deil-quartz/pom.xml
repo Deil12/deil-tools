@@ -8,18 +8,9 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>deil-quartz</artifactId>
     <version>1.0.0</version>
     <name>${project.artifactId}</name>
-    <description>quartz任务系统</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <main-class>org.deil.qurtz.QuartzApplication</main-class>
-        <project-logpack>./logs</project-logpack>
-        <swagger.version>2.9.2</swagger.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -41,8 +32,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -58,16 +56,15 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
+            <version><!--${swagger.version}-->2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version><!--${knife4j.version}-->2.0.4</version>
         </dependency>
     </dependencies>
 
@@ -77,13 +74,41 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>${main-class}</mainClass>
+                    <mainClass>src/main/java/org/deil/qurtz/QuartzApplication</mainClass>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <configuration><skip>${project-skipAntrun}</skip></configuration>
                 <executions>
+                    <execution>
+                        <id>CLEAN</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project-jarPack}"/>
+                                <delete>
+                                    <fileset dir="${project-jarPack}" includes="**/${project.build.finalName}.jar"></fileset>
+                                </delete>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>COPY</id>
                         <phase>package</phase>
@@ -98,52 +123,6 @@
                         </configuration>
                         <goals>
                             <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>CLEAN</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <delete>
-                                    <fileset dir="${project-jarPack}" includes="${project.build.finalName}.jar"></fileset>
-                                </delete>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <delimiters>
-                        <delimiter>@</delimiter>
-                    </delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${dependency-check-maven.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                    <autoUpdate>true</autoUpdate>
-                    <outputDirectory>${project-checkPack}</outputDirectory>
-                    <formats>HTML</formats>
-                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
-                    <versionCheckEnabled>true</versionCheckEnabled>
-                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
