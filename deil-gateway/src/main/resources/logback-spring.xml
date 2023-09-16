@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <property name="APP_NAME" value="tangGateway" />
+    <property name="APP_NAME" value="deil-gateway" />
     <property name="LOG_HOME" value="logs"/>
     <property name="LOG_PATTERN_FILE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{20} - [%method,%line] - %msg%n" />
     <property name="LOG_PATTERN_STD" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %logger{80} - [#%method,%line] - %msg%n" />

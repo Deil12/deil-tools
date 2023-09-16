@@ -1,14 +1,15 @@
 package healthCheck;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @PURPOSE 具体执行逻辑
@@ -16,13 +17,19 @@ import java.nio.charset.StandardCharsets;
  * @CODE Deil
  * @see Runnable
  */
-@Slf4j
 public class SchedulingRunnable implements Runnable {
+    private static Logger log = LoggerFactory.getLogger(SchedulingRunnable.class);
+    private final PublicProperty publicProperty;
+    private final String server;
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap;
 
-    private final HealthCheckProperty healthCheckProperty;
+    private Short TIMES = 0;
 
-    public SchedulingRunnable(HealthCheckProperty healthCheckProperty) {
-        this.healthCheckProperty = healthCheckProperty;
+    public SchedulingRunnable(PublicProperty publicProperty,
+                              ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap) {
+        this.publicProperty = publicProperty;
+        this.server = new String(publicProperty.getServerName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        this.concurrentHashMap = concurrentHashMap;
     }
 
     /**
@@ -30,23 +37,42 @@ public class SchedulingRunnable implements Runnable {
      */
     @Override
     public void run() {
-        String server = new String(healthCheckProperty.getServerName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-        log.info("{}启用健康检测:{}", server, healthCheckProperty.isEnabled());
-        if (healthCheckProperty.isEnabled()) {
-            String scriptLocation = healthCheckProperty.getScriptLocation();
+        ConcurrentHashMap<String, Short> map = concurrentHashMap.computeIfAbsent(server, k -> new ConcurrentHashMap<>());
+        if (publicProperty.isToRestart()) {
             try {
-                get(healthCheckProperty.getCheckUrl(), null);
-                //HttpRequest.get(healthCheckProperty.getCheckUrl())
-                //        .execute()
-                //        .body();
-                log.info("\033[42;30m{}服务正常\033[0m", server);
+                get(publicProperty.getCheckUrl(), null);
+                publicProperty.setToRestart(false);
             } catch (Exception e) {
-                log.info("\033[42;31m{}服务异常\033[0m，执行重启脚本", server);
-                try {
-                    Runtime.getRuntime().exec(scriptLocation);
-                    log.info("{}重启成功", server);
-                } catch (Exception ex) {
-                    log.info("{}重启失败, {}", server, ex.getMessage());
+            }
+            log.info("[{}]服务异常，待手动重启", server);
+            return;
+        }
+        if (publicProperty.isEnabled()) {
+            String scriptLocation = publicProperty.getScriptLocation();
+            try {
+                get(publicProperty.getCheckUrl(), null);
+                log.info("\033[0;30m[{}]服务正常\033[0m", server);
+            } catch (Exception e) {
+                log.error("\033[0;31m[" + server + "]服务异常\n" +
+                        e.getMessage() + "\033[0m"
+                );
+                //计数重启
+                map.put(server, TIMES++);
+                if (map.get(server) < 5) {
+                    log.info("[{}]服务异常{}，执行重启脚本[{}]", server, map.get(server), scriptLocation);
+                    try {
+                        Runtime.getRuntime().exec(scriptLocation);
+                        log.info("[{}]重启成功", server);
+                    } catch (Exception ex) {
+                        log.info("[{}]重启失败, {}", server, ex.getMessage());
+                    }
+                } else {
+                    TIMES = 0;
+                    map.clear();
+                    publicProperty.setToRestart(true);
+                }
+                if (concurrentHashMap.size() > 10000) {
+                    concurrentHashMap.clear();
                 }
             }
         }
@@ -72,48 +98,50 @@ public class SchedulingRunnable implements Runnable {
     /**
      * http post
      * */
-    public static String post(String url, MultiValueMap<String, String> params) throws IOException {
+    public static String post(String url, MultiValueMap<String, String> params) {
         return  httpRestClient(url, HttpMethod.POST, params);
     }
 
     /**
      * http get
      * */
-    public static String get(String url, MultiValueMap<String, String> params) throws IOException {
-        return  httpRestClient(url, HttpMethod.POST, params);
+    public static String get(String url, MultiValueMap<String, String> params) {
+        return  httpRestClient(url, HttpMethod.GET, params);
     }
 
     /**
      * HttpMethod  post/get
      * */
-    private static String httpRestClient(String url, HttpMethod method, MultiValueMap<String, String> params) throws IOException {
+    private static String httpRestClient(String url, HttpMethod method, MultiValueMap<String, String> params) {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(10*1000);
         requestFactory.setReadTimeout(10*1000);
         RestTemplate client = new RestTemplate(requestFactory);
         HttpHeaders headers = new HttpHeaders();
         //headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         //  执行HTTP请求
-        ResponseEntity<String> response = null;
+        ResponseEntity<String> response;
         try{
-            response = client.exchange(url, HttpMethod.POST, requestEntity, String.class);
+            response = client.exchange(url, method, requestEntity, String.class);
             return response.getBody();
         }
         catch (HttpClientErrorException e){
-            System.out.println( "------------- 出现异常 HttpClientErrorException -------------");
-            System.out.println(e.getMessage());
-            System.out.println(e.getStatusText());
-            System.out.println( "-------------responseBody-------------");
-            System.out.println( e.getResponseBodyAsString());
-            e.printStackTrace();
-            return "";
+            //log.error("\033[0;31m------------- 出现异常 HttpClientErrorException -------------\n" +
+            //        e.getMessage() + "\n" +
+            //        e.getStatusText() + "\n" +
+            //        "-------------responseBody-------------\n" +
+            //        e.getResponseBodyAsString() + "\033[0m"
+            //);
+            //e.printStackTrace();
+            throw e;
         }
         catch (Exception e) {
-            System.out.println( "------------- HttpRestUtils.httpRestClient() 出现异常 Exception -------------");
-            System.out.println(e.getMessage());
-            return "";
+            //log.error("\033[0;31m------------- HttpRestUtils.httpRestClient() 出现异常 Exception -------------\n" +
+            //        e.getMessage() + "\033[0m"
+            //);
+            throw e;
         }
     }
 }

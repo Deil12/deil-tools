@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * 上传日志压缩包到FTP配置类
  */
 @Configuration
-@ConfigurationProperties(prefix = "tang.log.ftp")
+@ConfigurationProperties(prefix = "deil.log.ftp")
 @Getter
 @Setter
 public class SendLogToFtpConfig {

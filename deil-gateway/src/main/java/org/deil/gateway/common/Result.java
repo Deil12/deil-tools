@@ -1,11 +1,13 @@
 package org.deil.gateway.common;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Result<T> extends ServiceRespBody {
+
     private final T data;
 
     private Result(String logId, Integer code, String message) {
@@ -18,24 +20,28 @@ public class Result<T> extends ServiceRespBody {
         this.data = data;
     }
 
+    public static Result<Object> OK() {
+        return new Result(null, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase());
+    }
+
     public static Result<Object> OK(String logId) {
-        return new Result(logId, ResultType.SUCCESS.getCode(), ResultType.SUCCESS.getMessage());
+        return new Result(logId, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase());
     }
 
     public static Result<Object> OK(String logId, @Nullable Object data) {
-        return new Result(logId, ResultType.SUCCESS.getCode(), ResultType.SUCCESS.getMessage(), data);
+        return new Result(logId, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), data);
+    }
+
+    public static Result<Object> FAIL() {
+        return new Result(null, HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase());
     }
 
     public static Result<Object> FAIL(String logId) {
-        return new Result(logId, ResultType.FAIL.getCode(), ResultType.FAIL.getMessage());
-    }
-
-    public static Result<Object> FAIL(String logId, @Nullable String msg) {
-        return new Result(logId, ResultType.FAIL.getCode(), msg);
+        return new Result(logId, HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase());
     }
 
     public static Result<Object> FAIL(String logId, @Nullable Object data) {
-        return new Result(logId, ResultType.FAIL.getCode(), ResultType.FAIL.getMessage(), data);
+        return new Result(logId, HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(), data);
     }
 
     public T getData() {
@@ -62,4 +68,5 @@ public class Result<T> extends ServiceRespBody {
     public String toString() {
         return (new StringJoiner(", ", Result.class.getSimpleName() + "[", "]")).add("data=" + this.data).toString();
     }
+
 }

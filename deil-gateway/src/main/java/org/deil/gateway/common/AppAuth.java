@@ -1,10 +1,8 @@
 package org.deil.gateway.common;
 
 public enum AppAuth {
-    /**
-     * Tang后台网关
-     */
-    Tang后台网关("Tang", "R2F0ZVdheV9UYW5nXzIwMjMwNjAxMDAwMDAwMDAw");
+
+    Test后台网关("Test", "12345678");
 
     private final String appId;
     private final String appSecret;

@@ -11,10 +11,23 @@
     <artifactId>deil-gateway</artifactId>
 
     <dependencies>
+        <!-- ######################################## 自定义依赖 ######################################## -->
+        <dependency>
+            <groupId>org.deil</groupId>
+            <artifactId>deil-utils</artifactId>
+            <version>${project.parent.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
-            <version><!--${spring-cloud-starter-gateway.version}-->3.1.1</version>
+            <version>${spring-cloud-starter-gateway.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.security</groupId>
@@ -30,23 +43,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-            <version><!--${spring-cloud-starter-gateway.version}-->3.1.1</version>
+            <version>${spring-cloud-starter-gateway.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-            <version><!--${spring-cloud-alibaba.version}-->2021.0.4.0</version>
+            <version>${spring-cloud-alibaba.version}</version>
             <type>pom</type>
             <!--<scope>import</scope>-->
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version><!--${spring-cloud-alibaba.version}-->2021.0.4.0</version>
+            <version>${spring-cloud-alibaba.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>snakeyaml</artifactId>
@@ -65,7 +79,7 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version><!--${spring-cloud-alibaba.version}-->2021.0.4.0</version>
+            <version>${spring-cloud-alibaba.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.yaml</groupId>
@@ -74,18 +88,6 @@
                 <exclusion>
                     <artifactId>nacos-client</artifactId>
                     <groupId>com.alibaba.nacos</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.nacos</groupId>
-            <artifactId>nacos-client</artifactId>
-            <version><!--${nacos-client.version}-->2.2.4</version>
-            <classifier>pure</classifier>
-            <exclusions>
-                <exclusion>
-                    <artifactId>snakeyaml</artifactId>
-                    <groupId>org.yaml</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -114,11 +116,9 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <!--<version>${spring-boot-starter-data-redis.version}</version>-->
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.data</groupId>
@@ -133,21 +133,13 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <!--<version>${spring-data-redis.version}</version>-->
-        </dependency>
-
-        <!-- ######################################## 安全相关 ######################################## -->
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version><!--${jasypt-spring-boot-starter.version}-->3.0.5</version>
         </dependency>
 
         <!-- ######################################## bootstrap 启动器 ######################################## -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
-            <version><!--${spring-cloud-starter.version}-->3.1.5</version>
+            <version>${spring-cloud-starter.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.security</groupId>
@@ -162,7 +154,7 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk18on</artifactId>
-            <version><!--${bcprov-jdk18.verison}-->1.76</version>
+            <version>${bcprov-jdk18.verison}</version>
         </dependency>
 
         <!-- ######################################## 工具相关 ######################################## -->
@@ -170,70 +162,21 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version><!--${fastjson.version}-->2.0.38</version>
-        </dependency>
-
-        <!-- ######################################## 自定义依赖 ######################################## -->
-        <!--<dependency>
-            <groupId>tang</groupId>
-            <artifactId>commonUtil</artifactId>
-            <version>${project.parent.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-web</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-
-        <!-- ######################################## bootstrap 启动器 ######################################## -->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-            <version><!--${spring-cloud-starter.version}-->3.1.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-crypto</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>bcpkix-jdk15on</artifactId>
-                    <groupId>org.bouncycastle</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk18on</artifactId>
-            <version><!--${bcprov-jdk18.verison}-->1.76</version>
-        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
-            <!--<plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>GatewayApplication</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -242,16 +185,11 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-maven-plugin</artifactId>
-                <version>${jasypt-spring-boot-starter.version}</version>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <configuration><skip>${project-skipAntrun}</skip></configuration>
+                <configuration><skip>${skipAntrun}</skip></configuration>
                 <executions>
                     <execution>
                         <id>CLEAN</id>
@@ -274,9 +212,7 @@
                         <configuration>
                             <target>
                                 <copy todir="${project-jarPack}">
-                                    <fileset dir="${project.build.directory}">
-                                        <include name="${project.build.finalName}.jar"></include>
-                                    </fileset>
+                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.jar"></fileset>
                                 </copy>
                             </target>
                         </configuration>
@@ -286,13 +222,13 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-maven-plugin</artifactId>
+                <version>${jasypt-spring-boot-starter.version}</version>
+            </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <profiles>
@@ -303,7 +239,7 @@
             </activation>
             <properties>
                 <profileActive>dev</profileActive>
-                <securityEnable>true</securityEnable>
+                <securityEnable>false</securityEnable>
                 <devToolEnable>true</devToolEnable>
             </properties>
         </profile>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @PURPOSE 健康检查属性
@@ -24,16 +25,18 @@ public class HealthCheckProperties implements CommandLineRunner {
     /**
      * 配置列表
      */
-    private List<HealthCheckProperty> configList = Collections.singletonList(new HealthCheckProperty());
+    private List<PublicProperty> configList = Collections.singletonList(new PublicProperty());
+
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap = new ConcurrentHashMap<>();
 
     @Autowired
     private CronTaskRegistrar cronTaskRegistrar;
 
     @Override
     public void run(String... args) {
-        for (HealthCheckProperty healthCheckProperty : configList) {
-            SchedulingRunnable runnable = new SchedulingRunnable(healthCheckProperty);
-            CronTask cronTask = new CronTask(runnable, healthCheckProperty.getCron());
+        for (PublicProperty publicProperty : configList) {
+            SchedulingRunnable runnable = new SchedulingRunnable(publicProperty, concurrentHashMap);
+            CronTask cronTask = new CronTask(runnable, publicProperty.getCron());
             cronTaskRegistrar.scheduleCronTask(cronTask);
         }
     }

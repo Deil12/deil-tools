@@ -13,14 +13,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt</artifactId>
             <version>1.9.3</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -31,9 +31,13 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <configuration><skip>${project-skipAntrun}</skip></configuration>
+                <configuration><skip>${skipAntrun}</skip></configuration>
                 <executions>
                     <execution>
                         <id>CLEAN</id>
@@ -56,9 +60,7 @@
                         <configuration>
                             <target>
                                 <copy todir="${project-jarPack}">
-                                    <fileset dir="${project.build.directory}">
-                                        <include name="${project.build.finalName}.jar"></include>
-                                    </fileset>
+                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.jar"></fileset>
                                 </copy>
                             </target>
                         </configuration>

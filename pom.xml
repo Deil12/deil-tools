@@ -5,7 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version><!--2.7.15-->2.6.15</version>
+        <version>2.7.15</version>
+        <!--<version>2.6.15</version>-->
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -26,6 +27,7 @@
     </modules>
 
     <properties>
+        <!-- ######################################## deil-tools ######################################## -->
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -36,14 +38,38 @@
         <project-jarPack>${user.dir}/pack</project-jarPack>
         <project-checkPack>${user.dir}/pack/check</project-checkPack>
         <project-logPack>${user.dir}/logs</project-logPack>
-        <project-skipCheck>true</project-skipCheck>
-        <project-skipAntrun>false</project-skipAntrun>
+        <skipCheck>true</skipCheck>
+        <skipAntrun>false</skipAntrun>
 
-        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
 
-        <spring-web.version>5.3.29</spring-web.version>
+        <!-- ######################################## deil-utils ######################################## -->
+        <druid-spring-boot-starter.version>1.2.13-SNSAPSHOT</druid-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
+        <javax.persistence-api.version>2.2</javax.persistence-api.version>
+        <nacos.version>2.2.4</nacos.version>
+        <grpc.version>1.57.2</grpc.version>
+        <antisamy.version>1.7.3</antisamy.version>
+        <batik-css.version>1.17</batik-css.version>
+        <fastjson.version>2.0.38</fastjson.version>
         <guava.version>32.1.2-jre</guava.version>
+        <joda-time.version>2.10.13</joda-time.version>
+        <hutool.version>5.8.21</hutool.version>
+        <dom4j.version>2.1.4</dom4j.version>
+        <log4j-api.version>2.20.0</log4j-api.version>
+        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
+        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.4</knife4j.version>
+
+        <!-- ######################################## deil-gateway ######################################## -->
+        <spring-cloud-starter-gateway.version>3.1.1</spring-cloud-starter-gateway.version>
+        <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
+        <spring-cloud-starter.version>3.1.5</spring-cloud-starter.version>
+        <bcprov-jdk18.verison>1.76</bcprov-jdk18.verison>
+
+        <!-- ######################################## deil-quartz ######################################## -->
+        <pagehelper-spring-boot-starter.artifactId>1.4.1</pagehelper-spring-boot-starter.artifactId>
     </properties>
 
     <dependencies>
@@ -51,16 +77,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring-web.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
@@ -83,7 +99,7 @@
                 <configuration>
                     <formats>HTML</formats>
                     <outputDirectory>${project-checkPack}/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
-                    <skip>${project-skipCheck}</skip>
+                    <skip>${skipCheck}</skip>
                     <versionCheckEnabled>true</versionCheckEnabled>
                     <autoUpdate>true</autoUpdate>
                     <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
@@ -101,6 +117,8 @@
             </activation>
             <properties>
                 <profileActive>dev</profileActive>
+                <securityEnable>false</securityEnable>
+                <devToolEnable>true</devToolEnable>
             </properties>
         </profile>
 
@@ -108,6 +126,8 @@
             <id>test</id>
             <properties>
                 <profileActive>test</profileActive>
+                <securityEnable>true</securityEnable>
+                <devToolEnable>false</devToolEnable>
             </properties>
         </profile>
 
@@ -115,6 +135,8 @@
             <id>prod</id>
             <properties>
                 <profileActive>prod</profileActive>
+                <securityEnable>true</securityEnable>
+                <devToolEnable>false</devToolEnable>
             </properties>
         </profile>
     </profiles>

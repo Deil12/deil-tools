@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan:   当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug:      当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+configuration 子节点为 appender、logger、root -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="APP_NAME" value="deil-demo" />
+    <!--日志文件所在目录，如果是tomcat，"log"写法日志文件会在${TOMCAT_HOME}/bin/logs/目录下-->
+    <property name="LOG_HOME" value="logs"/>
+    <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger输出日志的logger名 %msg：日志消息，%n是换行符 -->
+    <property name="LOG_PATTERN_FILE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{20} - [%method,%line] - %msg%n" />
+    <property name="LOG_PATTERN_STD" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %logger{80} - [#%method,%line] - %msg%n" />
+    <contextName>${APP_NAME}</contextName>
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN_STD}</pattern>
+            <!--解决乱码问题-->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="INFOFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- ThresholdFilter:临界值过滤器，过滤掉 TRACE 和 DEBUG 级别的日志 -->
+        <file>${LOG_HOME}/info-${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMM, aux}/info-${APP_NAME}-%d{yyyy-MM.ww-}%i.log</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="ERRORFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error-${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/%d{yyyyMM, aux}/error-${APP_NAME}-%d{yyyy-MM.ww-}%i.log</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${LOG_PATTERN_FILE}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--输出到logstash-->
+    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        &lt;!&ndash;<destination>10.79.5.89:4560</destination>&ndash;&gt;
+        <destination>127.0.0.1:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeCallerData>true</includeCallerData>
+            <timeZone>UTC</timeZone>
+            <customFields>{"server_name":"customsMoveService"}</customFields>
+        </encoder>
+    </appender>-->
+
+    <appender name ="async_file_info" class= "ch.qos.logback.classic.AsyncAppender">
+        <!-- 设置为不丢失日志,默认如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,默认值为256 -->
+        <queueSize>256</queueSize>
+        <appender-ref ref ="INFOFILE"/>
+    </appender>
+
+    <appender name ="async_file_error" class= "ch.qos.logback.classic.AsyncAppender">
+        <!-- 设置为不丢失日志,默认如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,默认值为256 -->
+        <queueSize>256</queueSize>
+        <appender-ref ref ="ERRORFILE"/>
+    </appender>
+
+    <!-- 日志级别控制  -->
+    <!--<logger name="java.sql" level="DEBUG"/>-->
+
+    <logger name="com.alibaba.nacos" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="com.ulisesbocchio.jasyptspringboot" level="WARN"/>
+
+    <!--这里如果是info，spring、mybatis等框架则不会输出：TRACE < DEBUG < INFO <  WARN < ERROR-->
+    <!--root是所有logger的祖先，均继承root，如果某一个自定义的logger没有指定level，就会寻找
+    父logger看有没有指定级别，直到找到root。-->
+    <!--<springProfile name="local, dev">-->
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="async_file_info"/>
+            <appender-ref ref="async_file_error"/>
+            <!--<appender-ref ref="logstash"/>-->
+        </root>
+    <!--</springProfile>-->
+
+    <!--为某个包单独配置logger
+    比如定时任务，写代码的包名为：com.seentao.task
+    步骤如下：
+    1、定义一个appender，取名为task（随意，只要下面logger引用就行了）
+    appender的配置按照需要即可
+    2、定义一个logger:
+    <logger name="com.seentao.task" level="DEBUG" additivity="false">
+      <appender-ref ref="task" />
+    </logger>
+    注意：additivity必须设置为false，这样只会交给task这个appender，否则其他appender也会打印com.seentao.task里的log信息。
+
+    3、这样，在com.seentao.task的logger就会是上面定义的logger了。
+    private static Logger logger = LoggerFactory.getLogger(Class1.class);
+    -->
+    <!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。-->
+    <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
+    <!--<loggers>
+        &lt;!&ndash;过滤掉spring和mybatis的一些无用的DEBUG信息&ndash;&gt;
+        <logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </logger>
+        &lt;!&ndash;监控系统信息&ndash;&gt;
+        &lt;!&ndash;若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。&ndash;&gt;
+        <Logger name="top.fate" level="info" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+    </loggers>-->
+</configuration>

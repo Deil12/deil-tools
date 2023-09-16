@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Component
-@ConfigurationProperties(prefix = "tang.auth")
+@ConfigurationProperties(prefix = "deil.auth")
 public class AuthRequestHeadFilterFactory extends AbstractGatewayFilterFactory<Object> {
     /**
      * 请求限定时间

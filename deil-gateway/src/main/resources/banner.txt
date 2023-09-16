@@ -1,11 +1,6 @@
-${AnsiColor.GREEN}
 
            .--.  .--. .-----. .--. .-.   .-. .--. .-..-.
           : .--': .; :`-. .-': .--': :.-.: :: .; :: :: :
           : : _ :    :  : :  : `;  : :: :: ::    :`.  .'
-          : :; :: :: :  : :  : :__ : `' `' ;: :: : .' ;
-          `.__.':_;:_;  :_;  `.__.' `.,`.,' :_;:_;:_,'  ${application.formatted-version}
-
-                                  spring-boot ${spring-boot.version}${spring-boot.formatted-version}
-
-${AnsiColor.WHITE}
+          : :; :: :: :  : :  : :__ : `' `' ;: :: : .' ;  ${application.formatted-version}
+          `.__.':_;:_;  :_;  `.__.' `.,`.,' :_;:_;:_,'   spring-boot ${spring-boot.version}

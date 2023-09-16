@@ -1,6 +1,7 @@
 package healthCheck;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,9 +14,9 @@ import javax.annotation.PreDestroy;
  * @CODE Deil
  * @see ApplicationListener
  */
-@Slf4j
 @Configuration
 public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
+    private Logger log = LoggerFactory.getLogger(AppConfig.class);
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -26,5 +27,4 @@ public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
     public void destroy() {
         log.info("\033[42;31m---------------------- F5 检 测 注 销 ----------------------\033[0m");
     }
-
 }

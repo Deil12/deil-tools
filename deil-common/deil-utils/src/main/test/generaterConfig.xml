@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="devTables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://10.79.10.45:1433;integratedSecurity=false;useunicode=true;characterEncoding=GBK;trustServerCertificate=true;"
+                        userId="cargotest2"
+                        password="df2@Se1Aq35"/>
+        <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://localhost:1433;DatabaseName=TcmsForTest;"
+                        userId="sa"
+                        password=""/>-->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <!-- pojo -->
+        <javaModelGenerator targetPackage="**.domain.entity.mybatis"
+                            targetProject="src/main/java">
+            <!--<property name="constructorBased" value="true"/>-->
+            <property name="enableSubPackages" value="false" />
+            <!--<property name="rootClass" value="**.domain.entity.BaseKey"/>-->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- mapper -->
+        <sqlMapGenerator targetPackage="mappers"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- dao-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="**.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 指定数据库表-->
+        <table tableName="TBL_XXX"
+               domainObjectName="XXXEntity"
+               mapperName="XXXDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+        <table tableName="TBL_CustomsResponseReleaseState"
+               domainObjectName="CustomsResponseReleaseStateEntity"
+               mapperName="CustomsResponseReleaseStateDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+<!--
+        <table tableName="TBL_CustomsResponseMT5201"
+               domainObjectName="CustomsResponseMT5201Entity"
+               mapperName="CustomsResponseMT5201Dao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+        <table tableName="TBL_CustomsResponseMT6202"
+               domainObjectName="CustomsResponseMT6202Entity"
+               mapperName="CustomsResponseMT6202Dao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+<!--
+        <table tableName="TBL_CustomsResponseMT9992"
+               domainObjectName="CustomsResponseMT9992Entity"
+               mapperName="CustomsResponseMT9992Dao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+<!--
+        <table tableName="TBL_CustomsEtaImport"
+               domainObjectName="CustomsEtaImportEntity"
+               mapperName="CustomsEtaImportDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+        <table tableName="TBL_CustomsEtaImport_TEMP"
+               domainObjectName="CustomsEtaImportTEMPEntity"
+               mapperName="CustomsEtaImportTEMPDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+<!--
+        <table tableName="TBL_CustomsTransportContractDocumentDataResponse"
+               domainObjectName="CustomsTransportContractDocumentDataResponseEntity"
+               mapperName="CustomsTransportContractDocumentDataResponseDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+<!--
+        <table tableName="TBL_AWB_BASIC"
+               domainObjectName="AwbBasicEntity"
+               mapperName="AwbBasicDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false" >
+            <property name="useActualColumnNames" value="true"/>
+&lt;!&ndash;            <ignoreColumn column="Batch_id"/>&ndash;&gt;
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+<!--
+        <table tableName="TBL_CustomsJcStateResponse"
+               domainObjectName="CustomsJcStateResponseEntity"
+               mapperName="CustomsJcStateResponseDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false" >
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+        <table tableName="TBL_CustomsJcStateResponseDetails"
+               domainObjectName="CustomsJcStateResponseDetailsEntity"
+               mapperName="CustomsJcStateResponseDetailsDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+        <table tableName="TBL_CustomsEtaImportResponse"
+               domainObjectName="CustomsEtaImportResponseEntity"
+               mapperName="CustomsEtaImportResponseDao"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="true"/>
+            <ignoreColumn column="CreateTime"/>
+            <ignoreColumn column="rv"/>
+        </table>
+-->
+    </context>
+</generatorConfiguration>

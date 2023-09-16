@@ -1,22 +1,14 @@
-
+server:
+  port: ${random.int[1110,1119]}
 #服务检查配置
 check:
   configList:
       #服务名称
-    - serverName: 消费者服务
+    - serverName: gate
       #cron表达式
-      cron: 0/10 * * * * ?
+      cron: 0/1 * * * * ?
 #      cron: 0 0/1 * * * ?  #每分钟检查一次
       #启动脚本位置
       scriptLocation: /opt/restartApp.sh
       #验证的位置
-      checkUrl: http://localhost:8082/HealthCheck/Check
-
-#申请域名:exchangebackground.csair.com 
-#访问范围：内网
-#域名端口：80
-#绑定IP地址:10.80.119.20和10.80.119.21
-#F5监测url:
-#http://10.80.119.20/exchange-bg-api/HealthCheck/F5Check
-#http://10.80.119.21/exchange-bg-api/HealthCheck/F5Check
-#F5监测返回结果:tang
+      checkUrl: http://127.0.0.1:8080/test

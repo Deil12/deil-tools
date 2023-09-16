@@ -37,7 +37,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/tangGateway" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/deil-gateway" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>

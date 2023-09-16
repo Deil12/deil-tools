@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.deil.utils.datasource.DataSourceConfig\
+  org.deil.utils.web.WebClientConfig\
+  org.deil.utils.thread.ThreadPoolConfig
+
+  

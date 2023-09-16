@@ -10,9 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>deil-common</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>deil-utils</module>
-        <module>deil-monitor</module>
+        <module>deil-repository</module>
+        <module>deil-gateway-node</module>
+        <module>deil-quartz-node</module>
     </modules>
 
 </project>

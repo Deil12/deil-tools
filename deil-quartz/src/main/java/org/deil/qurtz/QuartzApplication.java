@@ -2,12 +2,8 @@ package org.deil.qurtz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**
- * @PURPOSE 石英应用程序
- * @DATE 2022/12/13
- * @CODE Deil
- */
 @SpringBootApplication
 public class QuartzApplication {
 

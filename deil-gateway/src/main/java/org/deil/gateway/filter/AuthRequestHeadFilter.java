@@ -1,7 +1,7 @@
 package org.deil.gateway.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import org.deil.gateway.common.AppProperties;
+import org.deil.gateway.common.GateProperties;
 import org.deil.gateway.common.AuthAccount;
 import org.deil.gateway.common.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class AuthRequestHeadFilter implements GatewayFilter, Ordered {
     public static String REQUEST_SETCOOKIE = "Set-Cookie";
     public static String REQUEST_XFRAMEOPTIONS = "x-frame-options";
     @Resource
-    private AppProperties appProperties;
+    private GateProperties gateProperties;
 
     private final Long validtime;
     private final ConcurrentHashMap<String, ConcurrentHashMap<String, Boolean>> concurrentHashMap;
@@ -193,12 +193,12 @@ public class AuthRequestHeadFilter implements GatewayFilter, Ordered {
         Map<String, Object> stringObjectMap = new HashMap<>();
 
         // 外部的appid和请求地址
-        List<String> externalAppIds = Arrays.asList(appProperties.getExternalAppId().split(","));
-        List<String> externalPaths = Arrays.asList(appProperties.getExternalApi().split(","));
+        List<String> externalAppIds = Arrays.asList(gateProperties.getExternalAppId().split(","));
+        List<String> externalPaths = Arrays.asList(gateProperties.getExternalApi().split(","));
 
         //第三方的appid和请求地址
-        List<String> thirdPartyAppIds = Arrays.asList(appProperties.getThirdPartyAppId().split(","));
-        List<String> thirdPartyPaths = Arrays.asList(appProperties.getThirdPartyPath().split(","));
+        List<String> thirdPartyAppIds = Arrays.asList(gateProperties.getThirdPartyAppId().split(","));
+        List<String> thirdPartyPaths = Arrays.asList(gateProperties.getThirdPartyPath().split(","));
 
         //String aId = appId.get(0);
         //int index = path.substring(1).indexOf("/") + 1; // 23 + 1 --> 跳过第一个字符 /cargoexchange-open-api/customs/sendCustomTangForSale

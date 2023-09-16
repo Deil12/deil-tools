@@ -1,0 +1,6 @@
+
+                    .---.        _ .-.
+                    : .  :      :_;: :
+                    : :: : .--. .-.: :
+                    : :; :' '_.': :: :_  ${application.formatted-version}
+                    :___.'`.__.':_;`.__; spring-boot ${spring-boot.version}

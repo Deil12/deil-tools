@@ -1,8 +1,8 @@
 #IntelliJ
 .idea
-check
 pack
 logs
+test
 target
 *.iml
 rebel.xml

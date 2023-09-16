@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
-@ConfigurationProperties(prefix = "tang.security")
+@ConfigurationProperties(prefix = "deil.security")
 public class InjectDefenseAspect {
 
     private boolean enabled = true;
 
-    /*@Pointcut("@args(com.csair.tang.customsMoveService.common.aspect.annotation.EnableInjectDefense)")
+    /*@Pointcut("@args(**.EnableInjectDefense)")
     public void pointCut() { }
 
     @Around(value = "pointCut()")*/

@@ -13,7 +13,7 @@
 
     <modules>
         <module>deil-window-jasypt</module>
-        <module>deil-test</module>
+        <module>deil-window-test</module>
     </modules>
 
 </project>

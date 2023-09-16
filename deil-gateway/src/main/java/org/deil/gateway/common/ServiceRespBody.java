@@ -71,4 +71,5 @@ public abstract class ServiceRespBody implements Serializable {
                 ", message='" + message + '\'' +
                 '}';
     }
+
 }

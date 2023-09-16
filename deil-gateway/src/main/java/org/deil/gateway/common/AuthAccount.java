@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Data
 public class AuthAccount {
+
     private String appid;
 
     private String appSecret;
@@ -24,4 +25,5 @@ public class AuthAccount {
     private List<String> whiteList;
 
     private List<String> blackList;
+
 }
