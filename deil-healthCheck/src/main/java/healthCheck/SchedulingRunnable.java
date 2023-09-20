@@ -19,16 +19,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SchedulingRunnable implements Runnable {
     private static Logger log = LoggerFactory.getLogger(SchedulingRunnable.class);
-    private final PublicProperty publicProperty;
+    private final BaseProperties baseProperties;
     private final String server;
     private final ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap;
 
     private Short TIMES = 0;
 
-    public SchedulingRunnable(PublicProperty publicProperty,
+    public SchedulingRunnable(BaseProperties baseProperties,
                               ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap) {
-        this.publicProperty = publicProperty;
-        this.server = new String(publicProperty.getServerName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        this.baseProperties = baseProperties;
+        this.server = new String(baseProperties.getServerName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         this.concurrentHashMap = concurrentHashMap;
     }
 
@@ -38,19 +38,19 @@ public class SchedulingRunnable implements Runnable {
     @Override
     public void run() {
         ConcurrentHashMap<String, Short> map = concurrentHashMap.computeIfAbsent(server, k -> new ConcurrentHashMap<>());
-        if (publicProperty.isToRestart()) {
+        if (baseProperties.isToRestart()) {
             try {
-                get(publicProperty.getCheckUrl(), null);
-                publicProperty.setToRestart(false);
+                get(baseProperties.getCheckUrl(), null);
+                baseProperties.setToRestart(false);
             } catch (Exception e) {
             }
             log.info("[{}]服务异常，待手动重启", server);
             return;
         }
-        if (publicProperty.isEnabled()) {
-            String scriptLocation = publicProperty.getScriptLocation();
+        if (baseProperties.isEnabled()) {
+            String scriptLocation = baseProperties.getScriptLocation();
             try {
-                get(publicProperty.getCheckUrl(), null);
+                get(baseProperties.getCheckUrl(), null);
                 log.info("\033[0;30m[{}]服务正常\033[0m", server);
             } catch (Exception e) {
                 log.error("\033[0;31m[" + server + "]服务异常\n" +
@@ -69,7 +69,7 @@ public class SchedulingRunnable implements Runnable {
                 } else {
                     TIMES = 0;
                     map.clear();
-                    publicProperty.setToRestart(true);
+                    baseProperties.setToRestart(true);
                 }
                 if (concurrentHashMap.size() > 10000) {
                     concurrentHashMap.clear();

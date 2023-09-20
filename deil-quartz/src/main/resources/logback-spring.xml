@@ -82,6 +82,8 @@
     <logger name="org.springframework" level="WARN"/>
     <logger name="com.ulisesbocchio.jasyptspringboot" level="WARN"/>
 
+    <logger name="org.deil.qurtz.dao" level="DEBUG"/>
+
     <!--TRACE < DEBUG < INFO < WARN < ERROR < FATAL-->
     <springProfile name="local, dev">
         <root level="INFO">

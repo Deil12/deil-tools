@@ -13,6 +13,11 @@
 
     <dependencies>
         <!-- ######################################## 自定义依赖 ######################################## -->
+        <!--<dependency>
+            <groupId>org.deil</groupId>
+            <artifactId>deil-gateway-node</artifactId>
+            <version>1.0.0</version>
+        </dependency>-->
         <dependency>
             <groupId>org.deil</groupId>
             <artifactId>deil-utils</artifactId>
@@ -24,6 +29,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -33,6 +42,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 

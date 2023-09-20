@@ -1,8 +1,7 @@
 package org.deil.gatewaynode;
 
 import com.alibaba.fastjson2.JSONObject;
-import org.deil.utils.utilold.IPUtil;
-import org.deil.utils.domain.vo.VOKey;
+import org.deil.utils.pojo.vo.VOKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
@@ -28,8 +27,8 @@ public class ServerProtectInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         LogIdHolder.setLogId(UUID.randomUUID().toString().replace("-", ""));
         //F5健康检测请求
-        if (!IPUtil.getIpAddress(request).matches("^(10.80.119.25[1-2])|(10.69.97.73)$")) {
-            log.info("\033[0;32;4m拦截器>接收[{}]请求...\033[0m", IPUtil.getIpAddress(request));
+        if (!getIpAddress(request).matches("^(127.0.0.1)$")) {
+            log.info("\033[0;32;4m拦截器>接收[{}]请求...\033[0m", getIpAddress(request));
         }
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/swagger-ui.html")
@@ -65,5 +64,28 @@ public class ServerProtectInterceptor implements HandlerInterceptor {
             log.info("\033[31m拦截器>网关已开启，当前请求[{}]未经网关\033[0m", logId);
             return false;
         }
+    }
+
+    private String getIpAddress(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+            ip = "127.0.0.1";
+        }
+        return ip;
     }
 }

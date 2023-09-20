@@ -10,13 +10,14 @@ configuration 子节点为 appender、logger、root -->
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger输出日志的logger名 %msg：日志消息，%n是换行符 -->
     <property name="LOG_PATTERN_FILE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{20} - [%method,%line] - %msg%n" />
     <property name="LOG_PATTERN_STD" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %logger{80} - [#%method,%line] - %msg%n" />
+    <property name="LOG_PATTERN_TRACE" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]%X{logId} %clr(%-5level) %logger{120} - [#%method,%line] - %msg%n" />
     <contextName>${APP_NAME}</contextName>
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${LOG_PATTERN_STD}</pattern>
+            <pattern>${LOG_PATTERN_TRACE}</pattern>
             <!--解决乱码问题-->
             <charset>UTF-8</charset>
         </encoder>
@@ -34,7 +35,7 @@ configuration 子节点为 appender、logger、root -->
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>${LOG_PATTERN_FILE}</pattern>
+            <pattern>${LOG_PATTERN_TRACE}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
@@ -52,7 +53,7 @@ configuration 子节点为 appender、logger、root -->
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>${LOG_PATTERN_FILE}</pattern>
+            <pattern>${LOG_PATTERN_TRACE}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!-- 过滤的级别 -->

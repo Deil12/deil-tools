@@ -25,7 +25,7 @@ public class HealthCheckProperties implements CommandLineRunner {
     /**
      * 配置列表
      */
-    private List<PublicProperty> configList = Collections.singletonList(new PublicProperty());
+    private List<BaseProperties> configList = Collections.singletonList(new BaseProperties());
 
     private final ConcurrentHashMap<String, ConcurrentHashMap<String, Short>> concurrentHashMap = new ConcurrentHashMap<>();
 
@@ -34,9 +34,9 @@ public class HealthCheckProperties implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        for (PublicProperty publicProperty : configList) {
-            SchedulingRunnable runnable = new SchedulingRunnable(publicProperty, concurrentHashMap);
-            CronTask cronTask = new CronTask(runnable, publicProperty.getCron());
+        for (BaseProperties baseProperties : configList) {
+            SchedulingRunnable runnable = new SchedulingRunnable(baseProperties, concurrentHashMap);
+            CronTask cronTask = new CronTask(runnable, baseProperties.getCron());
             cronTaskRegistrar.scheduleCronTask(cronTask);
         }
     }

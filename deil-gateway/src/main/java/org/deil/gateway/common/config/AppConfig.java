@@ -6,11 +6,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.jasypt.encryption.StringEncryptor;
-import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
@@ -74,35 +69,6 @@ public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
     public KeyResolver ipKeyResolver(){
         log.info("\033[0;32mIP限流初始化(基于Redis)\033[0m");
         return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getHostName());
-    }
-
-    /**
-     * jasypt配置加密
-     *
-     * @param arguments 参数
-     * @return {@link StringEncryptor }
-     * @time 2023/06/12
-     * @since 1.0.0
-     */
-    @Bean
-    public StringEncryptor jasyptStringEncryptor(ApplicationArguments arguments) {
-        //String PSW = arguments.getOptionNames().contains("jasypt.encryptor.password") ?
-        //        arguments.getOptionValues("jasypt.encryptor.password").get(0) : "password";
-        String PSW = StringUtils.defaultIfEmpty(System.getProperty("jasypt.encryptor.password"), "password");
-
-        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
-        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword(PSW);
-//        config.setAlgorithm("PBEWithMD5AndDES");//默认配置
-//        config.setKeyObtentionIterations("1000");//默认配置
-        config.setPoolSize("4");
-//        config.setProviderName("SunJCE");//默认配置
-//        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");//默认配置
-        config.setIvGeneratorClassName("org.jasypt.iv.NoIvGenerator");
-//        config.setStringOutputType("base64");//默认配置
-        encryptor.setConfig(config);
-        log.info("\033[0;32mJASYPT 配置加密初始化\033[0m");
-        return encryptor;
     }
 
     /**

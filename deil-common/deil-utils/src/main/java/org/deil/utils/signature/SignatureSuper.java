@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.deil.utils.utils.RSAUtil;
-import org.deil.utils.domain.vo.VOKey;
+import org.deil.utils.pojo.vo.VOKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

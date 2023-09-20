@@ -1,13 +1,10 @@
 package org.deil.qurtz.commom.domain.vo;
 
-import lombok.Data;
-
 /**
  * @PURPOSE 任务信息点播
  * @DATE 2022/12/13
  * @CODE Deil
  */
-@Data
 public class TaskInfoReq {
 
     /**任务编号*/
@@ -28,4 +25,51 @@ public class TaskInfoReq {
     /**当前页数*/
     private int pageCurrent=1;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCron() {
+        return cron;
+    }
+
+    public void setCron(String cron) {
+        this.cron = cron;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCurrent() {
+        return pageCurrent;
+    }
+
+    public void setPageCurrent(int pageCurrent) {
+        this.pageCurrent = pageCurrent;
+    }
 }

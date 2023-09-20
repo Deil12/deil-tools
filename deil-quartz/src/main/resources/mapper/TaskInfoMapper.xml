@@ -115,11 +115,11 @@
 
   <select id="selectTaskInfos" resultMap="BaseResultMap" parameterType="org.deil.qurtz.commom.domain.vo.TaskInfoReq">
     select * from QRTZ_TASK_INFO
-    <where>
-      <if test="jobName != null and jobName != ''">job_name like concat('%',concat(trim(#{jobName}),'%'))
-      </if>
-      <if test="status != null and status != ''">and status=#{status}</if>
-    </where>
   </select>
+  <!--<where>
+    <if test="jobName != null and jobName != ''">job_name like concat('%',concat(trim(#{jobName}),'%'))
+    </if>
+    <if test="status != null and status != ''">and status=#{status}</if>
+  </where>-->
 
 </mapper>

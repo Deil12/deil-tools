@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.deil.gatewaynode.GatewayAutoConfigure
-
   

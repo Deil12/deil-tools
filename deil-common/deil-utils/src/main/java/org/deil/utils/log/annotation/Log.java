@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * @DATE 2022/11/27
  * @COPYRIGHT © Deil
  */
-@Target({ElementType.METHOD})
+@Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Log {

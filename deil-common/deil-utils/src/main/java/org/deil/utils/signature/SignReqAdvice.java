@@ -2,7 +2,7 @@ package org.deil.utils.signature;
 
 import com.alibaba.fastjson2.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.deil.utils.domain.vo.VOKey;
+import org.deil.utils.pojo.vo.VOKey;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;

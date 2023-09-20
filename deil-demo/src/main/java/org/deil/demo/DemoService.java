@@ -1,8 +1,9 @@
 package org.deil.demo;
 
-import org.springframework.stereotype.Service;
+public interface DemoService {
 
-@Service
-public class DemoService {
+    void test();
+
+    void testPost();
 
 }

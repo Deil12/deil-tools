@@ -11,6 +11,7 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -43,7 +44,11 @@ public class QuartzManager {
         try {
             scheduler.setJobFactory(springJobFactory);
             // scheduler.clear();
-            List<TaskInfo> tasks = taskInfoService.selectTasks();
+            List<TaskInfo> tasks = /*taskInfoService.selectTasks()*/null;
+            if (ObjectUtils.isEmpty(tasks)) {
+                log.info("当前无定时任务");
+                return;
+            }
             for (TaskInfo taskInfo : tasks) {
                 if (EnumTaskEnable.START.getCode().equals(taskInfo.getStatus()) && !StringUtils.isEmpty(taskInfo.getCron())) {
                     TaskInfoReq data=new TaskInfoReq();
@@ -51,7 +56,7 @@ public class QuartzManager {
                     taskInfoService.addJob(data);
                 }
             }
-            log.info("定时任务启动完成");
+            log.info("定时任务启动完成。。。");
         } catch (SchedulerException e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException("定时任务初始化失败");

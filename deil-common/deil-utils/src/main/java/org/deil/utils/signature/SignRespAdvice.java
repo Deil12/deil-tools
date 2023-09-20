@@ -2,7 +2,7 @@ package org.deil.utils.signature;
 
 import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.deil.utils.domain.dto.Result;
+import org.deil.utils.pojo.vo.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

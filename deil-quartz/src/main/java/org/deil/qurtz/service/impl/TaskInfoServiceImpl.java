@@ -11,7 +11,7 @@ import org.deil.qurtz.commom.domain.entity.TaskInfo;
 import org.deil.qurtz.commom.domain.vo.TaskInfoReq;
 import org.deil.qurtz.dao.TaskInfoDao;
 import org.deil.qurtz.service.TaskInfoService;
-import org.deil.qurtz.task.TaskManager;
+import org.deil.qurtz.config.TaskManager;
 import org.quartz.CronExpression;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

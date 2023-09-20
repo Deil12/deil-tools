@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="后台网关🔑" type="MavenRunConfiguration" factoryName="Maven" folderName="tools">
+  <configuration default="false" name="后台网关🔑" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">

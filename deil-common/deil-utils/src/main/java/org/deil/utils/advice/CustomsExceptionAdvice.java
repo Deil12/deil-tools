@@ -1,7 +1,7 @@
 package org.deil.utils.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.deil.utils.domain.dto.FailBody;
+import org.deil.utils.pojo.dto.FailBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

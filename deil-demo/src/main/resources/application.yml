@@ -1,19 +1,13 @@
 server:
-  port: ${random.int[8090,8099]}
+#  port: ${random.int[8095,8099]}
+  port: 8090
 
-#spring:
-#  datasource:
-#    resources:
-#      enabled: true
-#      dao: org.deil.demo.dao
-#      mapper: mapper/*.xml
-#    mysql:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      jdbc-url: jdbc:mysql://localhost:3306/dbo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-#      username: root
-#      password: root
-#    sqlserver:
-#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#      jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=dbo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-#      username: SA
-#      password: df2@Se1Aq35
+deil:
+  utils:
+#    enabledLog: true
+    threadpool:
+      enabled: true
+spring:
+  quartz:
+    properties:
+      org:
