@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class QuartzConfig {
-    @Bean
+    //@Bean
     public JobDetail jobDetail() {
         //指定任务描述具体的实现类
         return JobBuilder.newJob(TestJob.class)
@@ -25,7 +25,7 @@ public class QuartzConfig {
                 .build();
     }
 
-    @Bean
+    //@Bean
     public Trigger trigger() {
         //创建触发器
         return TriggerBuilder.newTrigger()

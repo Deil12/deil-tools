@@ -1,4 +1,4 @@
-package org.deil.utils.datasource.annotation;
+package org.deil.utils.datasource;
 
 import org.deil.utils.datasource.DataSourceEnum;
 

@@ -1,4 +1,4 @@
-package org.deil.utils.signature.annotation;
+package org.deil.utils.signature;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,12 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 启用请求解签（接口请求默认不启用）
+ * 取消响应加签（接口响应默认加密）
  *
  * @DATE 2023/03/11
  * @CODE Deil
  */
+@Deprecated
 @Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UnEnableDecryptRequest {
+public @interface UnEnableEncryptResponse {
 }

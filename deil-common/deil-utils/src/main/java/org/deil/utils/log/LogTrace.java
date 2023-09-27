@@ -1,4 +1,4 @@
-package org.deil.utils.log.annotation;
+package org.deil.utils.log;
 
 import java.lang.annotation.*;
 

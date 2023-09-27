@@ -2,4 +2,8 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.deil.utils.LogTraceAutoConfigure,\
   org.deil.utils.AppListener,\
   org.deil.utils.log.LogAspect,\
-  org.deil.utils.threadpool.ThreadPoolLogTraceConfigurer
+  org.deil.utils.threadpool.ThreadPoolLogTraceConfigurer,\
+  org.deil.utils.signature.SignReqAdvice,\
+  org.deil.utils.signature.SignatureProperties,\
+  org.deil.utils.signature.SignatureSuper,\
+  org.deil.utils.exception.DefaultExceptionAdvice

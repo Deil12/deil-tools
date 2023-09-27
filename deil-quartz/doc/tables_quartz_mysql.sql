@@ -1,5 +1,7 @@
-create database quartz_jobs default charset utf8;
-use quartz_jobs;
+CREATE database if NOT EXISTS quartz_job default character set utf8mb4 collate utf8mb4_unicode_ci;
+use quartz_job;
+
+SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS QRTZ_TASK_INFO;
 DROP TABLE IF EXISTS QRTZ_FIRED_TRIGGERS;

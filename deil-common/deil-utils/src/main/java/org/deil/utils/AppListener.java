@@ -2,9 +2,10 @@ package org.deil.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PreDestroy;
 
@@ -15,12 +16,13 @@ import javax.annotation.PreDestroy;
  * @see ApplicationListener
  */
 @Configuration
-public class AppListener implements ApplicationListener<ContextRefreshedEvent> {
+public class AppListener implements ApplicationListener<ApplicationReadyEvent/*ContextRefreshedEvent*/> {
     private Logger log = LoggerFactory.getLogger(AppListener.class);
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        log.info("\033[42;30m---------------------- 系 统 初 始 化 ----------------------\033[0m");
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        log.info("\033[42;30m---------------------- {} 系 统 初 始 化 ----------------------\033[0m",
+                "[ " + event.getApplicationContext().getId() + " - (" + (!ObjectUtils.isEmpty(event.getApplicationContext().getEnvironment().getActiveProfiles()) ? event.getApplicationContext().getEnvironment().getActiveProfiles()[0] : event.getApplicationContext().getEnvironment().getDefaultProfiles()[0]) + ")]");
     }
 
     @PreDestroy

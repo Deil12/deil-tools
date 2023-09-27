@@ -11,9 +11,9 @@ public class GatewayAutoConfigure {
     private Logger log = LoggerFactory.getLogger(GatewayAutoConfigure.class);
 
     @Bean
-    public GatewayInterceptorConfigure cloudSecurityInterceptorConfigure() {
+    public GatewayInterceptorConfigurer gatewayInterceptorConfigurer() {
         log.info("\033[0;32m请求拦截器初始化\033[0m");
-        return new GatewayInterceptorConfigure();
+        return new GatewayInterceptorConfigurer();
     }
 
     /*@Bean

@@ -34,7 +34,7 @@ public class LogAspect {
         this.objectMapper = objectMapper;
     }
 
-    @Around(value = "@annotation(org.deil.utils.log.annotation.Log)")
+    @Around(value = "@annotation(org.deil.utils.log.Log)")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         long requestTime = 0;
         String logId = "";
@@ -93,7 +93,7 @@ public class LogAspect {
         return o;
     }
 
-    @AfterReturning(value = "@annotation(org.deil.utils.log.annotation.Log)", returning = "retVal")
+    @AfterReturning(value = "@annotation(org.deil.utils.log.Log)", returning = "retVal")
     public void returnValue(JoinPoint joinPoint, Object retVal) {
         try {
             String val;

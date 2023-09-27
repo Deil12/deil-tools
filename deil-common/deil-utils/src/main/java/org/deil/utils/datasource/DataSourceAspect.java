@@ -4,7 +4,6 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.deil.utils.datasource.annotation.DataSource;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +19,8 @@ public class DataSourceAspect {
     /**
      * 设置切面范围
      */
-    @Pointcut("@within(org.deil.utils.datasource.annotation.DataSource) || " +
-            "@annotation(org.deil.utils.datasource.annotation.DataSource)")
+    @Pointcut("@within(org.deil.utils.datasource.DataSource) || " +
+            "@annotation(org.deil.utils.datasource.DataSource)")
     public void pointCut(){}
 
     /**

@@ -6,14 +6,13 @@ import org.deil.utils.pojo.vo.ServiceResponseBody;
 import org.deil.utils.utils.SpringContextAwareUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -25,13 +24,16 @@ import java.util.UUID;
  * @PURPOSE 异常处理程序
  * @DATE 2022/09/08
  */
-@ControllerAdvice
+//@ControllerAdvice
+@RestControllerAdvice
 public class DefaultExceptionAdvice extends ResponseEntityExceptionHandler {
     private Logger log = LoggerFactory.getLogger(DefaultExceptionAdvice.class);
 
     private final ObjectMapper mapper;
-    public DefaultExceptionAdvice(ObjectMapper mapper) {
+    private final Environment env;
+    public DefaultExceptionAdvice(ObjectMapper mapper, Environment env) {
         this.mapper = mapper;
+        this.env = env;
     }
 
     @Override
@@ -53,14 +55,14 @@ public class DefaultExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ResponseBody
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({Exception.class, CustomException.class})
     public ResponseEntity<ServiceResponseBody> defaultExceptionHandler(@RequestAttribute String logId, Exception ex) {
         String msg = "服务器异常，请联系管理员处理。";
-        if ("dev".equals(SpringContextAwareUtil.getActiveProfile()) || "test".equals(SpringContextAwareUtil.getActiveProfile())) {
+        if (!"prod".equalsIgnoreCase(!ObjectUtils.isEmpty(env.getActiveProfiles()) ? env.getActiveProfiles()[0] : env.getDefaultProfiles()[0])) {
             //开发、测试环境的错误消息，全部抛出
             msg = ex.getMessage();
         } else {
-            if (ex instanceof RuntimeException) {
+            if (ex instanceof CustomException) {
                 //自定义的错误消息，直接抛出
                 msg = ex.getMessage();
             }

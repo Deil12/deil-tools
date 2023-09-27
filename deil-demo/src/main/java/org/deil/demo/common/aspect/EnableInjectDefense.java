@@ -1,4 +1,4 @@
-package org.deil.demo.common.aspect.annotation;
+package org.deil.demo.common.aspect;
 
 import java.lang.annotation.*;
 

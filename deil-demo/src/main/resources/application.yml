@@ -1,13 +1,26 @@
 server:
 #  port: ${random.int[8095,8099]}
   port: 8090
-
 deil:
   utils:
 #    enabledLog: true
     threadpool:
       enabled: true
+      corePoolSize: 4
+      maxPoolSize: 10
+#      queueCapacity:
+#      threadNamePrefix: PropertiesTest
+#      keepAliveSeconds:
+#      allowtCoreThreadTimeOut:
+#      waitForTasksToCompleteOnShutdown:
+#      awaitTerminationSeconds:
+#      policys:
+
 spring:
+#  profiles:
+#    active: dev
+  #  application:
+#    name: blingbling
   quartz:
     properties:
       org:

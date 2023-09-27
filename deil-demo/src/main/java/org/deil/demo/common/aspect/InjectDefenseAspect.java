@@ -21,7 +21,7 @@ public class InjectDefenseAspect {
     public void pointCut() { }
 
     @Around(value = "pointCut()")*/
-    @Around(value = "@annotation(org.deil.demo.common.aspect.annotation.EnableInjectDefense)")
+    @Around(value = "@annotation(org.deil.demo.common.aspect.EnableInjectDefense)")
     public Object judgeEnable(ProceedingJoinPoint joinPoint) throws Throwable {
         if (!enabled) {
         }

@@ -44,7 +44,7 @@ public class QuartzManager {
         try {
             scheduler.setJobFactory(springJobFactory);
             // scheduler.clear();
-            List<TaskInfo> tasks = /*taskInfoService.selectTasks()*/null;
+            List<TaskInfo> tasks = taskInfoService.selectTasks()/*null*/;
             if (ObjectUtils.isEmpty(tasks)) {
                 log.info("当前无定时任务");
                 return;

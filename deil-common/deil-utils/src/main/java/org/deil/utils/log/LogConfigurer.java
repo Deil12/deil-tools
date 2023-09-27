@@ -2,7 +2,6 @@ package org.deil.utils.log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.deil.utils.pojo.properties.LogProperties;
-import org.deil.utils.log.annotation.LogTrace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

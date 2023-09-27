@@ -1,4 +1,4 @@
-package org.deil.utils.log.annotation;
+package org.deil.utils.log;
 
 import java.lang.annotation.*;
 
@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * @DATE 2022/11/27
  * @COPYRIGHT © Deil
  */
-@Target({ElementType.PARAMETER, ElementType.METHOD})
+@Target({ElementType.PARAMETER, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Log {

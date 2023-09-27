@@ -1,8 +1,6 @@
 package org.deil.utils.signature;
 
 import lombok.Data;
-import org.deil.utils.signature.annotation.UnEnableDecryptRequest;
-import org.deil.utils.signature.annotation.UnEnableEncryptResponse;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,9 @@
 package org.deil.demo;
 
 import lombok.RequiredArgsConstructor;
-import org.deil.utils.log.annotation.LogTrace;
-import org.deil.utils.log.annotation.Log;
+import org.deil.utils.exception.CustomException;
+import org.deil.utils.log.LogTrace;
+import org.deil.utils.log.Log;
 import org.deil.utils.pojo.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@Log
+@LogTrace
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
@@ -18,16 +21,25 @@ public class DemoController {
     private Logger log = LoggerFactory.getLogger(DemoController.class);
 
     //region 多线程
-    @Log
-    @LogTrace
+    //@Log
+    //@LogTrace
     @ResponseBody
     @PostMapping("testThread")
     public ResponseEntity<Result> testThread(@RequestAttribute String logId) {
         log.info("testThread");
         int i = 0;
-        while (i++ < 20) {
+        while (i++ < 5) {
             demoService.testPost();
         }
+        throw new CustomException(123,"q3rew");
+        //return ResponseEntity.ok(Result.OK(logId));
+    }
+    //endregion
+
+    //region 加验签
+    @ResponseBody
+    @PostMapping("testSignature")
+    public ResponseEntity<Result> testSignature(@RequestAttribute String logId) {
         return ResponseEntity.ok(Result.OK(logId));
     }
     //endregion
@@ -269,6 +281,7 @@ public class DemoController {
 
     @Resource
     private DemoService demoService;
+
     private void testTrace() {
         log.info("这是一行info日志");
         demoService.testPost();

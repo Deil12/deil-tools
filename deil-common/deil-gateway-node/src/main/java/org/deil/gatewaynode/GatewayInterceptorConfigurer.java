@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class GatewayInterceptorConfigure implements WebMvcConfigurer {
+public class GatewayInterceptorConfigurer implements WebMvcConfigurer {
     private GatewayProperties properties;
 
     @Autowired

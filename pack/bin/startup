@@ -8,8 +8,8 @@
 #         |-- XXXService (脚本文件)
 #     |-- XXX-1.0.0.jar (SpringBoot打包生成的jar)
 
-export PROFILES="prod"
-#export PROFILES="test"
+#export PROFILES="prod"
+export PROFILES="test"
 
 export BASE_DIR=$(cd $(dirname $0)/.. && pwd)
 export SERVER=${BASE_DIR##*/}

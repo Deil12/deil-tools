@@ -1,8 +1,9 @@
 package org.deil.utils.signature;
 
 import com.alibaba.fastjson2.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import org.deil.utils.pojo.vo.VOKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,9 +22,9 @@ import java.lang.reflect.Type;
  * @CODE Deil
  * @see ResponseBodyAdvice
  */
-@Slf4j
-@ControllerAdvice(basePackages = "**.controller")
+@ControllerAdvice(basePackages = "org.deil.demo")
 public class SignReqAdvice implements RequestBodyAdvice {
+    private Logger log = LoggerFactory.getLogger(SignReqAdvice.class);
 
     @Resource
     private SignatureProperties signatureProperties;

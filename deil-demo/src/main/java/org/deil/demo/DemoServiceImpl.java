@@ -1,5 +1,6 @@
 package org.deil.demo;
 
+import org.deil.utils.retry.Retryable;
 import org.deil.utils.web.ApacheHttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,10 @@ public class DemoServiceImpl implements DemoService {
     //@Async
     //@Async("getAsyncExecutor")
     @Async("getLogTraceExecutor")
+    //@Retryable(retryTimes = 4, retryInterval = 60)
     @Override
     public void testPost() {
+        //int i = 0 / 1;
         new ApacheHttpUtil("www.baidu.com", "", "").httpPost("www.baidu.com", "");
     }
 

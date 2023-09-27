@@ -17,7 +17,7 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner runTest(DemoService demoService) {
         return args -> {
             log.info("CommandLineRunner启动。。。");

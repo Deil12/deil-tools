@@ -16,6 +16,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
         <!-- ######################################## spring.factories生成 ######################################## -->
         <!-- ######################################## Spring2:@Configuration ######################################## -->
         <!-- ######################################## Spring3:@AutoConfiguration ######################################## -->
@@ -448,4 +453,36 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+                <securityEnable>false</securityEnable>
+                <devToolEnable>true</devToolEnable>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+                <securityEnable>true</securityEnable>
+                <devToolEnable>false</devToolEnable>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+                <securityEnable>true</securityEnable>
+                <devToolEnable>false</devToolEnable>
+            </properties>
+        </profile>
+    </profiles>
 </project>

@@ -20,12 +20,12 @@ public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        log.info("\033[42;30m---------------------- D e m o 初 始 化 ----------------------\033[0m");
+    //    log.info("\033[42;30m---------------------- D e m o 初 始 化 ----------------------\033[0m");
     }
 
     @PreDestroy
     public void destroy() {
-        log.info("\033[42;31m---------------------- D e m o 注 销 ----------------------\033[0m");
+    //    log.info("\033[42;31m---------------------- D e m o 注 销 ----------------------\033[0m");
     }
 
 }
