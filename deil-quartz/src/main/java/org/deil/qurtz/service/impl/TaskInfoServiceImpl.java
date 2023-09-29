@@ -2,7 +2,6 @@ package org.deil.qurtz.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import lombok.extern.slf4j.Slf4j;
 import org.deil.qurtz.commom.CodeMsg;
 import org.deil.qurtz.commom.EnumTaskEnable;
 import org.deil.qurtz.commom.ResponseFactory;
@@ -13,6 +12,8 @@ import org.deil.qurtz.dao.TaskInfoDao;
 import org.deil.qurtz.service.TaskInfoService;
 import org.deil.qurtz.config.TaskManager;
 import org.quartz.CronExpression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +28,9 @@ import java.util.Objects;
  * @DATE 2022/12/13
  * @CODE Deil
  */
-@Slf4j
 @Service
 public class TaskInfoServiceImpl implements TaskInfoService {
+    private Logger log = LoggerFactory.getLogger(TaskInfoServiceImpl.class);
 
     @Resource
     private TaskInfoDao taskInfoDao;

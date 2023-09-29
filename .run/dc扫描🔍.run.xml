@@ -25,7 +25,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="dependency-check:aggregate" />
+              <option value="dependency-check:update-only" />
               <option value="-DskipCheck=false" />
             </list>
           </option>

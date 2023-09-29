@@ -55,7 +55,7 @@
             <artifactId>spring-cloud-alibaba-dependencies</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
             <type>pom</type>
-            <!--<scope>import</scope>-->
+            <scope><!--import-->compile</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -94,8 +94,9 @@
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
-            <version>${nacos-client.version}</version>
-            <classifier>pure</classifier>
+            <version>1.4.1</version>
+            <!--<version>${nacos-client.version}</version>
+            <classifier>pure</classifier>-->
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
@@ -191,13 +192,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -205,56 +199,25 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <configuration><skip>${skipAntrun}</skip></configuration>
-                <executions>
-                    <execution>
-                        <id>CLEAN</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project-jarPack}"/>
-                                <delete>
-                                    <fileset dir="${project-jarPack}" includes="**/${project.build.finalName}.jar"></fileset>
-                                </delete>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>COPY</id>
-                        <phase>package</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project-jarPack}">
-                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.jar"></fileset>
-                                </copy>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-maven-plugin</artifactId>
-                <version>${jasypt-spring-boot-starter.version}</version>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <profiles>

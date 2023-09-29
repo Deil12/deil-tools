@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.15</version>
-        <relativePath/>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.deil</groupId>
     <artifactId>deil-tools</artifactId>
@@ -27,7 +21,6 @@
     </modules>
 
     <properties>
-        <!-- ######################################## deil-tools ######################################## -->
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -36,13 +29,22 @@
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
 
         <project-jarPack>${user.dir}/pack</project-jarPack>
-        <project-checkPack>${user.dir}/pack/check</project-checkPack>
+        <project-checkPack>${project-jarPack}/check</project-checkPack>
         <project-logPack>${user.dir}/logs</project-logPack>
         <skipCheck>true</skipCheck>
         <skipAntrun>false</skipAntrun>
+        <skipDocker>true</skipDocker>
         <skipProguard>true</skipProguard>
 
+        <spring-boot.version>2.7.15</spring-boot.version>
+        <junit-vintage-engine.version>5.9.2</junit-vintage-engine.version>
+        <lombok.version>1.18.28</lombok.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
+        <proguardVersion.version>7.1.1</proguardVersion.version>
 
         <!-- ######################################## deil-utils ######################################## -->
         <druid-spring-boot-starter.version>1.2.13-SNSAPSHOT</druid-spring-boot-starter.version>
@@ -59,9 +61,7 @@
         <hutool.version>5.8.21</hutool.version>
         <dom4j.version>2.1.4</dom4j.version>
         <log4j-api.version>2.20.0</log4j-api.version>
-        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <proguard-maven-plugin.version>2.6.0</proguard-maven-plugin.version>
-        <proguardVersion.version>7.1.1</proguardVersion.version>
         <swagger.version>2.9.2</swagger.version>
         <knife4j.version>2.0.4</knife4j.version>
 
@@ -76,27 +76,65 @@
 
         <!-- ######################################## deil-quartz ######################################## -->
         <pagehelper-spring-boot-starter.artifactId>1.4.1</pagehelper-spring-boot-starter.artifactId>
+
+        <!-- ######################################## deil-quartz ######################################## -->
+        <jasypt.version>1.9.3</jasypt.version>
+        <spring-core.version>5.3.29</spring-core.version>
+        <commons-codec.version>1.15</commons-codec.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit-vintage-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
+            <!-- 测试覆盖度 -->
+            <!--<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                    </formats>
+                    <check/>
+                </configuration>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.owasp</groupId>
@@ -113,6 +151,230 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Build-OS>${os.name}</Build-OS>
+                                <Built-By>Deil</Built-By>
+                                <Build-Jdk>${java.version}</Build-Jdk>
+                                <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+                                <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                    <configuration><skip>${skipAntrun}</skip></configuration>
+                    <executions>
+                        <execution>
+                            <id>CLEAN</id>
+                            <phase>clean</phase>
+                            <configuration>
+                                <target>
+                                    <mkdir dir="${project-jarPack}"/>
+                                    <delete>
+                                        <fileset dir="${project-jarPack}" includes="**/${project.build.finalName}**.*ar"></fileset>
+                                    </delete>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>COPY</id>
+                            <!--<phase>package</phase>-->
+                            <phase>install</phase>
+                            <configuration>
+                                <target>
+                                    <copy todir="${project-jarPack}">
+                                        <fileset dir="${project.build.directory}" includes="${project.build.finalName}**.*ar"></fileset>
+                                        <fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>
+                                    </copy>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--<plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <dockerHost>http://localhost:2375</dockerHost>
+                        <imageName>${project.artifactId}:${project.version}</imageName>
+                        <baseImage>java:8</baseImage>
+                        <maintainer>Deil</maintainer>
+                        <workdir>/opt</workdir>
+                        <entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
+                        &lt;!&ndash;<exposes></exposes>&ndash;&gt;
+                        <buildArgs>
+                            <jarFile>${project.build.finalName}.jar</jarFile>
+                        </buildArgs>
+                        <resources>
+                            <resource>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                                <targetPath>.</targetPath>
+                            </resource>
+                        </resources>
+                        <forceTags>true</forceTags>
+                    </configuration>
+                </plugin>-->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>1.4.13</version>
+                    <executions>
+                        <execution>
+                            <id>default</id>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skip>${skipDocker}</skip>
+                        <repository>${project.artifactId}</repository>
+                        <tag>${project.version}</tag>
+                        <buildArgs>
+                            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                        </buildArgs>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.github.ulisesbocchio</groupId>
+                    <artifactId>jasypt-maven-plugin</artifactId>
+                    <version>${jasypt-spring-boot-starter.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.github.wvengen</groupId>
+                    <artifactId>proguard-maven-plugin</artifactId>
+                    <version>${proguard-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals><goal>proguard</goal></goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <proguardVersion>${proguardVersion.version}</proguardVersion>
+                        <skip>${skipProguard}</skip>
+                        <obfuscate>true</obfuscate>
+                        <injar>${project.build.finalName}.jar</injar>
+                        <!-- <injar>classes</injar> -->
+                        <outjar>${project.build.finalName}-proguard.jar</outjar>
+                        <!--<outputDirectory>${project-jarPack}</outputDirectory>
+                        <inLibsFilter>!META-INF/**,!META-INF/versions/9/**.class</inLibsFilter>
+                        <proguardInclude>${project.basedir}/src/main/test/proguard.cfg</proguardInclude>-->
+                        <libs>
+                            <!-- Include main JAVA library required.-->
+                            <lib>${java.home}/lib/rt.jar</lib>
+                            <!--<lib>${java.home}/lib/jce.jar</lib>
+                            <lib>${java.home}/lib/jsse.jar</lib>-->
+                        </libs>
+                        <options>
+                            <!--<option>-target 1.8</option>
+                            <option>-adaptclassstrings </option>
+                            <option>-dontnote</option>-->
+                            <!--  ##默认是开启的，这里关闭shrink，即不删除没有使用的类/成员-->
+                            <option>-dontshrink</option>
+                            <!-- ##默认是开启的，这里关闭字节码级别的优化-->
+                            <option>-dontoptimize</option>
+                            <!--##对于类成员的命名的混淆采取唯一策略-->
+                            <option>-useuniqueclassmembernames</option>
+                            <!--- 混淆类名之后，对使用Class.forName('className')之类的地方进行相应替代-->
+                            <option>-adaptclassstrings </option>
+                            <option>-ignorewarnings</option>
+                            <!-- 混淆时不生成大小写混合的类名，默认是可以大小写混合-->
+                            <option>-dontusemixedcaseclassnames</option>
+                            <!-- This option will replace all strings in reflections method invocations with new class names.
+                                 For example, invokes Class.forName('className')-->
+                            <!-- <option>-adaptclassstrings</option> -->
+                            <!-- This option will save all original annotations and etc. Otherwise all we be removed from files.-->
+                            <!-- 不混淆所有特殊的类-->
+                            <option>-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod</option>
+                            <!-- This option will save all original names in interfaces (without obfuscate).-->
+                            <option>-keepnames interface **</option>
+                            <!--<option>-keepnames interface ** { *; }</option>-->
+                            <!-- This option will save all original methods parameters in files defined in -keep sections,
+                                 otherwise all parameter names will be obfuscate.-->
+                            <option>-keepparameternames</option>
+                            <!-- <option>-libraryjars **</option> -->
+                            <!-- This option will save all original class files (without obfuscate) but obfuscate all in domain package.-->
+                            <!--<option>-keep class !com.slm.proguard.example.spring.boot.domain.** { *; }</option>-->
+                            <option>-keep class !org.deil.utils.** { *; }</option>
+                            <option>-keep class org.deil.utils.LogTraceAutoConfigure { *; }</option>
+                            <option>-keep class org.deil.utils.pojo.** { *; }</option>
+                            <option>-keep class org.deil.utils.utils.** { *; }</option>
+                            <option>-keep class * implements java.io.Serializable </option>
+                            <!-- This option will save all original class files (without obfuscate) in service package-->
+                            <!--<option>-keep class com.slm.proguard.example.spring.boot.service { *; }</option>-->
+                            <!-- This option will save all original interfaces files (without obfuscate) in all packages.-->
+                            <option>-keep interface * extends * { *; }</option>
+                            <!-- <option>-keep @org.springframework.stereotype.Service class *</option> -->
+                            <!-- This option will save all original defined annotations in all class in all packages.-->
+                            <option>-keepclassmembers class * {
+                                @org.springframework.beans.factory.annotation.Value *;
+                                <!--@org.springframework.context.annotation.Bean *;
+                                @org.springframework.beans.factory.annotation.Autowired *;
+                                @org.springframework.stereotype.Service *;
+                                @org.springframework.stereotype.Component *;-->
+                                }
+                            </option>
+                        </options>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.guardsquare</groupId>
+                            <artifactId>proguard-base</artifactId>
+                            <version>${proguardVersion.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.guardsquare</groupId>
+                            <artifactId>proguard-core</artifactId>
+                            <version>${proguardVersion.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <profiles>

@@ -1,6 +1,7 @@
 package org.deil.qurtz.config;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,9 +16,9 @@ import javax.annotation.PreDestroy;
  * @DATE 2022/11/27
  * @COPYRIGHT © Deil
  */
-@Slf4j
 @Configuration
 public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
+    private Logger log = LoggerFactory.getLogger(AppConfig.class);
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

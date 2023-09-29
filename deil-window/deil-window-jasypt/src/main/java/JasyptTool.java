@@ -1,4 +1,3 @@
-import lombok.SneakyThrows;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.core.io.ClassPathResource;
@@ -27,9 +26,8 @@ import java.security.spec.X509EncodedKeySpec;
  * @COPYRIGHT © Deil
  */
 public class JasyptTool {
-    /**
-     * 报文解析私钥
-     */
+    //region ...
+    /* 私钥 */
     private final String PRIVATE_PEM = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClvQ3hzZwyfNpE\n" +
             "3sxNp5TpjLFQLKjxgml4L+F0ZZaiIl1t4hwQIEmv2W381ZzKHQF6xLR17ux2XcHu\n" +
             "BFSHcDb4ECIykyK4N8ZuGyFpNlXh2xf6ELjOnpy2xUL93vgMS1EzDaWF6jXfDjhX\n" +
@@ -56,9 +54,7 @@ public class JasyptTool {
             "zTBNTqaBTvhBNZP5FlrG1dHveof2jTbGVNqOW5fgR0FU308hC9MB8I9rPSfV11br\n" +
             "IhX5icfLtZh5cGd3w4D/wFol7PXfK67/ZDLrwZxcsdf4nh42BCVUg90LsBIisnna\n" +
             "ZpNcMwdze7g7BTlVTGHeWe8=\n";
-    /**
-     * 报文解析公钥
-     */
+    /* 公钥 */
     private final String PUBLI_PEM = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApb0N4c2cMnzaRN7MTaeU\n" +
             "6YyxUCyo8YJpeC/hdGWWoiJdbeIcECBJr9lt/NWcyh0BesS0de7sdl3B7gRUh3A2\n" +
             "+BAiMpMiuDfGbhshaTZV4dsX+hC4zp6ctsVC/d74DEtRMw2lheo13w44V/f1zX31\n" +
@@ -81,12 +77,14 @@ public class JasyptTool {
 
     public static String MODE = "byPooledPBE";
     public static String RESOURCE = "";
+    //endregion
 
     public JasyptTool() {
         //主窗口
         mainFrame = new JFrame("加密工具");
         mainFrame.setSize(400, 1000);
         mainFrame.setLayout(new GridLayout(5, 1));
+        mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("favicon.ico"));
         //mainFrame.setAlwaysOnTop(true);
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, 18);
 
@@ -433,8 +431,7 @@ public class JasyptTool {
      * @return {@link String }
      * @TIME 2023/01/31
      */
-    @SneakyThrows
-    public static String decryptByBase64(String decryptText) {
+    public static String decryptByBase64(String decryptText) throws UnsupportedEncodingException {
         return new String(java.util.Base64.getDecoder().decode(decryptText.getBytes("UTF-8")));
         //return new String(new BASE64Decoder().decodeBuffer(decryptText));
     }

@@ -1,6 +1,5 @@
 package org.deil.qurtz.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.deil.qurtz.commom.EnumTaskEnable;
 import org.deil.qurtz.commom.domain.entity.TaskInfo;
@@ -8,6 +7,8 @@ import org.deil.qurtz.commom.domain.vo.TaskInfoReq;
 import org.deil.qurtz.service.TaskInfoService;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,9 @@ import java.util.List;
  * @DATE 2022/12/13
  * @CODE Deil
  */
-@Slf4j
 @Component
 public class QuartzManager {
+    private Logger log = LoggerFactory.getLogger(QuartzManager.class);
 
     @Resource
     private /*final*/ Scheduler scheduler;

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="test">
+
+  <target name="clean">
+    <mkdir dir="${user.dir}/pack"/>
+    <delete>
+      <fileset dir="${user.dir}/pack" includes="**/${project.build.finalName}**.*ar"></fileset>
+    </delete>
+  </target>
+
+  <target name="install">
+    <copy todir="${user.dir}/pack">
+      <fileset dir="${project.build.directory}" includes="${project.build.finalName}**.*ar"></fileset>
+      <fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>
+    </copy>
+  </target>
+
+</project>

@@ -1,6 +1,7 @@
 package org.deil.gateway.filter;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -15,9 +16,9 @@ import java.util.UUID;
 /**
  * 设置通过网关的请求头
  */
-@Slf4j
 @Component
 public class HttpResponseFilter implements GlobalFilter, Ordered {
+    private Logger log = LoggerFactory.getLogger(HttpResponseFilter.class);
     public static String SIGNKEY_APPID = "appid";
     public static String SIGNKEY_APPSECRET = "appsecret";
     public static String SIGNKEY_NONCE = "nonce";

@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
@@ -25,9 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 import java.util.TimeZone;
 
-@Slf4j
 @Configuration
 public class AppConfig implements ApplicationListener<ContextRefreshedEvent> {
+    private Logger log = LoggerFactory.getLogger(AppConfig.class);
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("\033[42;30m---------------------- 后 台 网 关 初 始 化 [{}] ----------------------\033[0m", SpringContextAwareUtil.getActiveProfile());

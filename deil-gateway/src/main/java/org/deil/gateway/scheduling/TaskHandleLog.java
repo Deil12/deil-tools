@@ -1,7 +1,8 @@
 package org.deil.gateway.scheduling;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,10 @@ import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
 
-@Slf4j
 @Component
 @Data
 public class TaskHandleLog {
+    private Logger log = LoggerFactory.getLogger(TaskHandleLog.class);
 
     @Autowired
     private SendLogToFtpConfig sendLogToFtpConfig;

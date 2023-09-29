@@ -1,9 +1,10 @@
 package org.deil.qurtz.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.deil.qurtz.commom.domain.entity.TaskInfo;
 import org.deil.qurtz.commom.domain.vo.TaskInfoReq;
 import org.quartz.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,9 +14,9 @@ import javax.annotation.Resource;
  * @DATE 2022/12/13
  * @CODE Deil
  */
-@Slf4j
 @Component
 public class TaskManager {
+    private Logger log = LoggerFactory.getLogger(TaskManager.class);
 
     @Resource
     private /*final*/ Scheduler scheduler;

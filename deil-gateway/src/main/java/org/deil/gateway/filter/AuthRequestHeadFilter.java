@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.deil.gateway.common.GateProperties;
 import org.deil.gateway.common.AuthAccount;
 import org.deil.gateway.common.Result;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -25,8 +26,9 @@ import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Slf4j
 public class AuthRequestHeadFilter implements GatewayFilter, Ordered {
+    private Logger log = LoggerFactory.getLogger(AuthRequestHeadFilter.class);
+
     public static String SIGNKEY_APPID = "appid";
     public static String SIGNKEY_APPSECRET = "appsecret";
     public static String SIGNKEY_NONCE = "nonce";

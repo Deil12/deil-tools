@@ -26,7 +26,7 @@ public class BaseProperties {
     private String serverName = "kiss my ass";
 
     /**
-     * cron表达式（默认每秒）
+     * cron表达式
      */
     private String cron = "* 0/1 * * * ?";
 

@@ -42,18 +42,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.yml</include>
-                    <include>**/*.txt</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -62,42 +50,27 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <configuration><skip>${skipAntrun}</skip></configuration>
-                <executions>
-                    <execution>
-                        <id>CLEAN</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project-jarPack}"/>
-                                <delete>
-                                    <fileset dir="${project-jarPack}" includes="**/${project.build.finalName}.jar"></fileset>
-                                    <fileset dir="${project-jarPack}" includes="**/application.yml"></fileset>
-                                </delete>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>COPY</id>
-                        <phase>package</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project-jarPack}">
-                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.jar"></fileset>
-                                    <fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>
-                                </copy>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
+
+            <!--<plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>-->
+
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/config.yml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.txt</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 </project>
