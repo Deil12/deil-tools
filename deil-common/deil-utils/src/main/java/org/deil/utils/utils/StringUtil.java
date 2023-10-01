@@ -1,6 +1,5 @@
 package org.deil.utils.utils;
 
-import cn.hutool.core.util.ReUtil;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
@@ -642,7 +641,7 @@ public class StringUtil {
 		String[] array = content.split(separator);
 
 		// 计算分隔符出现次数，加1，因为如果有2个分隔符，那就表示要有3份数据
-		int count = ReUtil.count(separator, content);
+		int count = /*ReUtil.count(separator, content)*/0;
 
 		// 如果数量为0，表示没有，直接返回
 		if (count > 0) {

@@ -2,8 +2,7 @@ package org.deil.utils.log;
 
 import lombok.CustomLog;
 import org.springframework.core.task.TaskDecorator;
-
-import javax.annotation.Nonnull;
+import org.springframework.lang.NonNull;
 
 @CustomLog
 @SuppressWarnings("NullableProblems")
@@ -12,7 +11,7 @@ public class LogContextDecorator implements TaskDecorator {
      * {@inheritDoc}
      */
     @Override
-    public Runnable decorate(@Nonnull Runnable runnable) {
+    public Runnable decorate(@NonNull Runnable runnable) {
         String parentLogId = LogIdHolder.getLogId();
         //log.info("父线程LogId：{}", parentLogId);
         return () -> {

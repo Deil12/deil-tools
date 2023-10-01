@@ -1,9 +1,5 @@
 package org.deil.utils.utils;
 
-import cn.hutool.core.date.DateUnit;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
-import lombok.CustomLog;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -562,9 +558,9 @@ public class BeanUtil {
      * @param pattern 格式
      * @return 转换后的时间
      */
-    public static Date transformDate(Date date, String pattern) {
-        return cn.hutool.core.date.DateUtil.parse(cn.hutool.core.date.DateUtil.format(date, pattern), pattern);
-    }
+    //public static Date transformDate(Date date, String pattern) {
+    //    return cn.hutool.core.date.DateUtil.parse(cn.hutool.core.date.DateUtil.format(date, pattern), pattern);
+    //}
 
     /**
      * 解析时间，附带地区（不同地区时间表现方式不一致）
@@ -598,16 +594,16 @@ public class BeanUtil {
      * @param value    要计算的时间
      * @return 天数差值
      */
-    public static long calculateDifferenceDays(Date mainDate, Date value) {
-        // 计算时间差
-        long l = cn.hutool.core.date.DateUtil.betweenDay(mainDate, value, false);
-        // 判断主时间是否小于计算时间，如果小于则置为负数
-        if (mainDate.compareTo(value) < 0) {
-            l = -l;
-        }
-
-        return l;
-    }
+    //public static long calculateDifferenceDays(Date mainDate, Date value) {
+    //    // 计算时间差
+    //    long l = cn.hutool.core.date.DateUtil.betweenDay(mainDate, value, false);
+    //    // 判断主时间是否小于计算时间，如果小于则置为负数
+    //    if (mainDate.compareTo(value) < 0) {
+    //        l = -l;
+    //    }
+    //
+    //    return l;
+    //}
 
     /**
      * 计算时间之间的时差，以参数一 mainDate 为主
@@ -616,16 +612,16 @@ public class BeanUtil {
      * @param value    要计算的时间
      * @return 时差值
      */
-    public static long calculateDifferenceHours(Date mainDate, Date value) {
-        // 计算时间差
-        long l = cn.hutool.core.date.DateUtil.between(mainDate, value, DateUnit.HOUR);
-        // 判断主时间是否小于计算时间，如果小于则置为负数
-        if (mainDate.compareTo(value) < 0) {
-            l = -l;
-        }
-
-        return l;
-    }
+    //public static long calculateDifferenceHours(Date mainDate, Date value) {
+    //    // 计算时间差
+    //    long l = cn.hutool.core.date.DateUtil.between(mainDate, value, DateUnit.HOUR);
+    //    // 判断主时间是否小于计算时间，如果小于则置为负数
+    //    if (mainDate.compareTo(value) < 0) {
+    //        l = -l;
+    //    }
+    //
+    //    return l;
+    //}
 
     /**
      * 计算时间之间的分钟差，以参数一 mainDate 为主
@@ -634,16 +630,16 @@ public class BeanUtil {
      * @param value    要计算的时间
      * @return 分差值
      */
-    public static long calculateDifferenceMinutes(Date mainDate, Date value) {
-        // 计算时间差
-        long l = cn.hutool.core.date.DateUtil.between(mainDate, value, DateUnit.MINUTE);
-        // 判断主时间是否小于计算时间，如果小于则置为负数
-        if (mainDate.compareTo(value) < 0) {
-            l = -l;
-        }
-
-        return l;
-    }
+    //public static long calculateDifferenceMinutes(Date mainDate, Date value) {
+    //    // 计算时间差
+    //    long l = cn.hutool.core.date.DateUtil.between(mainDate, value, DateUnit.MINUTE);
+    //    // 判断主时间是否小于计算时间，如果小于则置为负数
+    //    if (mainDate.compareTo(value) < 0) {
+    //        l = -l;
+    //    }
+    //
+    //    return l;
+    //}
 
     /**
      * 替换危险字符
@@ -763,9 +759,9 @@ public class BeanUtil {
      * @param dateStr 日期字符串
      * @return Timestamp时间戳
      */
-    public static Timestamp date2Timestamp(String dateStr) {
-        return date2Timestamp(cn.hutool.core.date.DateUtil.parse(dateStr));
-    }
+    //public static Timestamp date2Timestamp(String dateStr) {
+    //    return date2Timestamp(cn.hutool.core.date.DateUtil.parse(dateStr));
+    //}
 
 
     /**
@@ -884,7 +880,7 @@ public class BeanUtil {
         Date date = null;
 
         try {
-            date = DateUtil.parse(defaultValueStr);
+            date = DateUtil.parseDateTime(defaultValueStr);
         } catch (Exception e) {
             // log.error("解析失败，进行二次解析... \n堆栈：{}", LogUtil.stacktraceToFiveLineString(e));
             try {
@@ -894,7 +890,7 @@ public class BeanUtil {
                     DateFormat format = new SimpleDateFormat("yyyy/ddMMM", Locale.US);
                     date = format.parse(defaultValueStr);
                 } catch (ParseException exc) {
-                    log.error("日期格式解析失败... 格式{} 异常{}堆栈:{}", defaultValueStr, exc.getMessage(), StrUtil.CRLF, exc);
+                    log.error("日期格式解析失败... 格式{} 异常{}堆栈:{}", defaultValueStr, exc.getMessage(), /*StrUtil.CRLF,*/ exc);
                 }
             }
         }

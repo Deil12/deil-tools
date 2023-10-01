@@ -1,12 +1,12 @@
 package org.deil.utils.log;
 
-import cn.hutool.core.stream.StreamUtil;
 import com.google.common.collect.Lists;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -116,7 +116,8 @@ public class LogUtil {
             String methodName = element.getMethodName();
 
             // (类名、方法名组合或单独类名)
-            boolean match = StreamUtil.of(ignoreClassAndMethodName).anyMatch(el -> {
+            /*boolean match = StreamUtil.of(ignoreClassAndMethodName).anyMatch(el -> {*/
+            boolean match = (Arrays.stream(ignoreClassAndMethodName)).anyMatch(el -> {
                 el = el.trim();
                 // 带包路径或者是类名.方法名
                 if (el.contains(".")) {
@@ -138,7 +139,8 @@ public class LogUtil {
             if ((Objects.equals(Thread.class.getName(), className) && Objects.equals("getStackTrace", methodName))
                     || (Objects.equals(LogUtil.class.getName(), className) && Objects.equals("getLastCallStackTraceElement", methodName))
                     // 过滤指定的 (类全限定名匹配，可以只写包名)
-                    || (StreamUtil.of(ignoreClassPrefix).anyMatch(el -> className.startsWith(el.trim())))
+                    /*|| (StreamUtil.of(ignoreClassPrefix).anyMatch(el -> className.startsWith(el.trim())))*/
+                    || ((Arrays.stream(ignoreClassPrefix)).anyMatch(el -> className.startsWith(el.trim())))
                     || match) {
 
                 continue;

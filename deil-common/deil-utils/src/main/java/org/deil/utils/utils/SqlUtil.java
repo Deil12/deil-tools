@@ -1,6 +1,5 @@
 package org.deil.utils.utils;
 
-import cn.hutool.core.date.DateUtil;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -207,7 +206,12 @@ public class SqlUtil {
         if (value instanceof Date) {
             // 只比较年份
             if (Objects.nonNull(defaultValue)) {
-                return Objects.equals(DateUtil.year((Date) value), DateUtil.year((Date) defaultValue));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime((Date) value);
+                int v = calendar.get(Calendar.YEAR);
+                calendar.setTime((Date) defaultValue);
+                int dv = calendar.get(Calendar.YEAR);
+                return Objects.equals(v, dv);
             }
 
         } else if (value instanceof BigDecimal) {
