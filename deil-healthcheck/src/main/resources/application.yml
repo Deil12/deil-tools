@@ -1,0 +1,14 @@
+server:
+#  port: 8090
+  port: ${random.int[8090,8095]}
+
+check:
+  configList:
+    - serverName: test1
+      cron: 0/1 * * * * ?
+      scriptLocation: /opt/restartApp.sh
+      checkUrl: https://v2.jinrishici.com/one.svg
+    - serverName: test2
+      cron: 0/1 * * * * ?
+      scriptLocation: /opt/restartApp.sh
+      checkUrl: https://localhost:${server.port}

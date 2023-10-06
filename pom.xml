@@ -12,7 +12,7 @@
 
     <modules>
         <module>deil-common</module>
-        <module>deil-healthCheck</module>
+        <module>deil-healthcheck</module>
         <module>deil-gateway</module>
         <module>deil-quartz</module>
         <module>deil-window</module>
@@ -29,41 +29,58 @@
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
 
         <project-jarPack>${user.dir}/pack</project-jarPack>
-        <project-checkPack>${project-jarPack}/check</project-checkPack>
+        <project-checkPack>${user.dir}/pack/check</project-checkPack>
         <project-logPack>${user.dir}/logs</project-logPack>
-        <skipCheck>true</skipCheck>
-        <skipAntrun>false</skipAntrun>
-        <skipDocker>true</skipDocker>
-        <skipProguard>true</skipProguard>
 
         <spring-boot.version>2.7.15</spring-boot.version>
+        <spring.version>5.3.29</spring.version>
         <junit-vintage-engine.version>5.9.2</junit-vintage-engine.version>
         <lombok.version>1.18.28</lombok.version>
+
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
-        <proguardVersion.version>7.1.1</proguardVersion.version>
+        <skipCheck>true</skipCheck>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <skipAntrun>false</skipAntrun>
+        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+        <skipDocker>true</skipDocker>
+        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
+        <proguard-maven-plugin.version>2.6.0</proguard-maven-plugin.version>
+        <skipProguard>true</skipProguard>
+        <proguard.version>7.1.1</proguard.version>
 
         <!-- ######################################## deil-utils ######################################## -->
-        <druid-spring-boot-starter.version>1.2.13-SNSAPSHOT</druid-spring-boot-starter.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
-        <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
+        <tomcat-embed-core.version>9.0.80</tomcat-embed-core.version>
+        <reactor-netty-http.version>1.0.35</reactor-netty-http.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <aspectjweaver.version>1.9.7</aspectjweaver.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+        <joda-time.version>2.10.13</joda-time.version>
+        <dom4j.version>2.1.4</dom4j.version>
+        <fastjson.version>2.0.38</fastjson.version>
+        <jackson-databind.version>2.15.2</jackson-databind.version>
+        <javase.version>3.5.1</javase.version>
+        <antisamy.version>1.7.3</antisamy.version>
+        <batik-css.version>1.17</batik-css.version>
+        <bcprov-jdk18on.version>1.76</bcprov-jdk18on.version>
+        <mica-auto.version>2.3.0</mica-auto.version>
+        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.4</knife4j.version>
+
+<!--
+        <mybatis-generato   r-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
+        <druid-spring-boot-starter.version>1.2.13-SNSAPSHOT</druid-spring-boot-starter.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <nacos.version>2.2.4</nacos.version>
         <grpc.version>1.57.2</grpc.version>
-        <antisamy.version>1.7.3</antisamy.version>
-        <batik-css.version>1.17</batik-css.version>
-        <fastjson.version>2.0.38</fastjson.version>
         <guava.version>32.1.2-jre</guava.version>
-        <joda-time.version>2.10.13</joda-time.version>
         <hutool.version>5.8.21</hutool.version>
-        <dom4j.version>2.1.4</dom4j.version>
         <log4j-api.version>2.20.0</log4j-api.version>
-        <proguard-maven-plugin.version>2.6.0</proguard-maven-plugin.version>
-        <swagger.version>2.9.2</swagger.version>
-        <knife4j.version>2.0.4</knife4j.version>
+-->
 
         <!-- ######################################## deil-gateway ######################################## -->
         <spring-cloud-starter-gateway.version>3.1.1</spring-cloud-starter-gateway.version>
@@ -77,9 +94,9 @@
         <!-- ######################################## deil-quartz ######################################## -->
         <pagehelper-spring-boot-starter.artifactId>1.4.1</pagehelper-spring-boot-starter.artifactId>
 
-        <!-- ######################################## deil-quartz ######################################## -->
+        <!-- ######################################## deil-healthcheck ######################################## -->
+        <logback-classic.version>1.2.12</logback-classic.version>
         <jasypt.version>1.9.3</jasypt.version>
-        <spring-core.version>5.3.29</spring-core.version>
         <commons-codec.version>1.15</commons-codec.version>
     </properties>
 
@@ -150,8 +167,34 @@
                     <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
                 </configuration>
             </plugin>
-        </plugins>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Build-OS>${os.name}</Build-OS>
+                            <Built-By>Deil</Built-By>
+                            <Build-Jdk>${java.version}</Build-Jdk>
+                            <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+                            <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-maven-plugin</artifactId>
+                <version>${jasypt-spring-boot-starter.version}</version>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -165,27 +208,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven-jar-plugin.version}</version>
-                    <configuration>
-                        <archive>
-                            <index>true</index>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            </manifest>
-                            <manifestEntries>
-                                <Build-OS>${os.name}</Build-OS>
-                                <Built-By>Deil</Built-By>
-                                <Build-Jdk>${java.version}</Build-Jdk>
-                                <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
-                                <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
                 </plugin>
 
                 <plugin>
@@ -231,7 +253,7 @@
                 <!--<plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>1.0.0</version>
+                    <version>${docker-maven-plugin.version}</version>
                     <configuration>
                         <dockerHost>http://localhost:2375</dockerHost>
                         <imageName>${project.artifactId}:${project.version}</imageName>
@@ -256,7 +278,7 @@
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>1.4.13</version>
+                    <version>${dockerfile-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>default</id>
@@ -276,12 +298,6 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>com.github.ulisesbocchio</groupId>
-                    <artifactId>jasypt-maven-plugin</artifactId>
-                    <version>${jasypt-spring-boot-starter.version}</version>
-                </plugin>
-
-                <plugin>
                     <groupId>com.github.wvengen</groupId>
                     <artifactId>proguard-maven-plugin</artifactId>
                     <version>${proguard-maven-plugin.version}</version>
@@ -292,7 +308,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <proguardVersion>${proguardVersion.version}</proguardVersion>
+                        <proguardVersion>${proguard.version}</proguardVersion>
                         <skip>${skipProguard}</skip>
                         <obfuscate>true</obfuscate>
                         <injar>${project.build.finalName}.jar</injar>
@@ -362,13 +378,13 @@
                         <dependency>
                             <groupId>com.guardsquare</groupId>
                             <artifactId>proguard-base</artifactId>
-                            <version>${proguardVersion.version}</version>
+                            <version>${proguard.version}</version>
                             <scope>runtime</scope>
                         </dependency>
                         <dependency>
                             <groupId>com.guardsquare</groupId>
                             <artifactId>proguard-core</artifactId>
-                            <version>${proguardVersion.version}</version>
+                            <version>${proguard.version}</version>
                             <scope>runtime</scope>
                         </dependency>
                     </dependencies>
