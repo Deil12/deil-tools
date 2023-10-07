@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @Log
-@LogTrace
+//@LogTrace
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class DemoController {
     private Logger log = LoggerFactory.getLogger(DemoController.class);
 
     //region 多线程
-    //@Log
+    @Log
     //@LogTrace
     @ResponseBody
     @PostMapping("testThread")
@@ -45,7 +45,7 @@ public class DemoController {
     //endregion
 
     @Log
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("test01")
     public ResponseEntity<Result> doTest0(@RequestAttribute String logId) {
@@ -57,7 +57,7 @@ public class DemoController {
     }
 
     //region 多请求
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq00")
     public ResponseEntity<Result> testReq00(@RequestAttribute String logId) {
@@ -68,7 +68,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq01")
     public ResponseEntity<Result> testReq01(@RequestAttribute String logId) {
@@ -79,7 +79,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq02")
     public ResponseEntity<Result> testReq02(@RequestAttribute String logId) {
@@ -90,7 +90,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq03")
     public ResponseEntity<Result> testReq03(@RequestAttribute String logId) {
@@ -101,7 +101,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq04")
     public ResponseEntity<Result> testReq04(@RequestAttribute String logId) {
@@ -112,7 +112,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq05")
     public ResponseEntity<Result> testReq05(@RequestAttribute String logId) {
@@ -123,7 +123,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq06")
     public ResponseEntity<Result> testReq06(@RequestAttribute String logId) {
@@ -134,7 +134,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq07")
     public ResponseEntity<Result> testReq07(@RequestAttribute String logId) {
@@ -145,7 +145,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq08")
     public ResponseEntity<Result> testReq08(@RequestAttribute String logId) {
@@ -156,7 +156,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq09")
     public ResponseEntity<Result> testReq09(@RequestAttribute String logId) {
@@ -168,7 +168,7 @@ public class DemoController {
     }
 
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq10")
     public ResponseEntity<Result> testReq10(@RequestAttribute String logId) {
@@ -179,7 +179,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq11")
     public ResponseEntity<Result> testReq11(@RequestAttribute String logId) {
@@ -190,7 +190,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq12")
     public ResponseEntity<Result> testReq12(@RequestAttribute String logId) {
@@ -201,7 +201,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq13")
     public ResponseEntity<Result> testReq13(@RequestAttribute String logId) {
@@ -212,7 +212,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq14")
     public ResponseEntity<Result> testReq14(@RequestAttribute String logId) {
@@ -223,7 +223,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq15")
     public ResponseEntity<Result> testReq15(@RequestAttribute String logId) {
@@ -234,7 +234,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq16")
     public ResponseEntity<Result> testReq16(@RequestAttribute String logId) {
@@ -245,7 +245,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq17")
     public ResponseEntity<Result> testReq17(@RequestAttribute String logId) {
@@ -256,7 +256,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq18")
     public ResponseEntity<Result> testReq18(@RequestAttribute String logId) {
@@ -267,7 +267,7 @@ public class DemoController {
         return ResponseEntity.ok(Result.OK(logId));
     }
 
-    @LogTrace
+    //@LogTrace
     @ResponseBody
     @PostMapping("testReq19")
     public ResponseEntity<Result> testReq19(@RequestAttribute String logId) {
@@ -286,9 +286,5 @@ public class DemoController {
         log.info("这是一行info日志");
         demoService.testPost();
         log.error("这是一行error日志");
-    }
-
-    private void testTrace2() {
-        log.info("这也是一行info日志");
     }
 }

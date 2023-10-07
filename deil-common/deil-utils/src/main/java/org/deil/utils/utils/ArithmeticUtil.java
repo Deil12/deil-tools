@@ -6,12 +6,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-/**
- * 算术工具
- *
- * @DATE 2023/02/17
- * @CODE Deil
- */
 @UtilityClass
 public class ArithmeticUtil {
 

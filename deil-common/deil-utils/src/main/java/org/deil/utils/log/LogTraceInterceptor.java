@@ -10,12 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-/**
- * 
- *
- * @DATE 2023/09/17
- * @CODE Deil
- */
 @Deprecated
 public class LogTraceInterceptor implements HandlerInterceptor {
 

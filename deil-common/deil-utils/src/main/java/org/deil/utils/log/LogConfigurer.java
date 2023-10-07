@@ -5,7 +5,6 @@ import org.deil.utils.pojo.properties.LogProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.Nullable;
@@ -15,8 +14,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
@@ -24,14 +23,6 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.UUID;
 
-/**
- * 添加拦截器
- * 自定义拦截器；在请求中添加logId值和requestTimestamp值
- * 并对头部Accept-Language进行检查
- *
- * @DATE 2023/01/18
- * @CODE Deil
- */
 @EnableWebMvc
 @Configuration
 public class LogConfigurer implements WebMvcConfigurer {
@@ -39,7 +30,7 @@ public class LogConfigurer implements WebMvcConfigurer {
 
     private LogProperties properties;
 
-    @Autowired
+    @Resource
     public void setProperties(LogProperties properties) {
         this.properties = properties;
     }
@@ -73,8 +64,8 @@ public class LogConfigurer implements WebMvcConfigurer {
                 }
                 HandlerMethod handlerMethod = (HandlerMethod) handler;
                 if (properties.isEnabled() &&
-                        (hasTargetAnnotation(handlerMethod.getBeanType(), LogTrace.class)
-                                || hasTargetAnnotation(handlerMethod.getMethod(), LogTrace.class))) {
+                        (hasTargetAnnotation(handlerMethod.getBeanType(), /*LogTrace*/Log.class)
+                                || hasTargetAnnotation(handlerMethod.getMethod(), /*LogTrace*/Log.class))) {
                     MDC.put(LOG_ID, "[" + tid + "]");
                 }
 

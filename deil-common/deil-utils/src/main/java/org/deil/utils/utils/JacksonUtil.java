@@ -19,13 +19,6 @@ import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-/**
- * jackson工具
- *
- * @DATE 2023/04/22
- * @CODE Deil
- * @SINCE 1.0.0
- */
 public class JacksonUtil {
 
     private static Logger log = LoggerFactory.getLogger(JacksonUtil.class);

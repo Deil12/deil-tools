@@ -17,11 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.UUID;
 
-/**
- * @PURPOSE 日志方面
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @Slf4j
 @Order(1)
 @Aspect

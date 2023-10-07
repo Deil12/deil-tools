@@ -6,9 +6,6 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-/**
- * 手动事务工具类
- */
 @Component
 public class TransactionUtil {
 

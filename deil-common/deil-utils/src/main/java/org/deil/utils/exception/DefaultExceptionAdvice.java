@@ -20,10 +20,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * @PURPOSE 异常处理程序
- * @DATE 2022/09/08
- */
 //@ControllerAdvice
 @RestControllerAdvice
 public class DefaultExceptionAdvice extends ResponseEntityExceptionHandler {

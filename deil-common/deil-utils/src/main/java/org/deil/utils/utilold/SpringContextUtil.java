@@ -6,11 +6,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-/**
- * @PURPOSE spring上下文
- * @DATE 2022/12/13
- * @CODE Deil
- */
 //@UtilityClass
 @Component
 @Lazy(false)

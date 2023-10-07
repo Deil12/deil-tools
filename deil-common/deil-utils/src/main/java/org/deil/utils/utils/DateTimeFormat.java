@@ -1,12 +1,5 @@
 package org.deil.utils.utils;
 
-/**
- * 日期时间枚举
- *
- * @DATE 2023/03/15
- * @CODE Deil
- * @see Enum
- */
 public enum DateTimeFormat {
 
     /**

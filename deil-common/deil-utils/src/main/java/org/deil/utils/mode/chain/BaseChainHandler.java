@@ -1,11 +1,5 @@
 package org.deil.utils.mode.chain;
 
-/**
- * 责任链处理器
- *
- * @DATE 2023/03/09
- * @CODE Deil
- */
 public abstract class BaseChainHandler<T> {
 
     /**

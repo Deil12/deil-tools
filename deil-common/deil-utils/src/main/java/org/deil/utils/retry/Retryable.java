@@ -2,12 +2,6 @@ package org.deil.utils.retry;
 
 import java.lang.annotation.*;
 
-/**
- * 
- *
- * @DATE 2023/09/22
- * @CODE Deil
- */
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

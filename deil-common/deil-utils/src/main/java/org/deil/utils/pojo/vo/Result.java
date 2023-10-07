@@ -6,14 +6,6 @@ import org.springframework.lang.Nullable;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/**
- * 全局响应
- *
- * @DATE 2023/04/19
- * @CODE Deil
- * @SINCE 1.0.0
- * @see ServiceResponseBody
- */
 public class Result<T> extends ServiceResponseBody {
 
     private final T data;

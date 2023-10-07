@@ -8,12 +8,6 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 签名配置
- *
- * @DATE 2023/04/08
- * @CODE Deil
- */
 @Data
 @Component
 @ConfigurationProperties(prefix = "deil.security.signature")

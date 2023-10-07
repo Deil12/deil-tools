@@ -4,12 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-/**
- * .net 委托
- *
- * @DATE 2023/02/14
- * @CODE Deil
- */
 public abstract class Delegator implements InvocationHandler {
 
     protected Object obj_orgin = null; //原始对象

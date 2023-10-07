@@ -255,7 +255,7 @@
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${docker-maven-plugin.version}</version>
                     <configuration>
-                        <dockerHost>http://localhost:2375</dockerHost>
+                        &lt;!&ndash;<dockerHost>http://localhost:2375</dockerHost>&ndash;&gt;
                         <imageName>${project.artifactId}:${project.version}</imageName>
                         <baseImage>java:8</baseImage>
                         <maintainer>Deil</maintainer>

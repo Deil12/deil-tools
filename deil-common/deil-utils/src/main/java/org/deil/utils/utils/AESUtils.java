@@ -14,11 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Locale;
 
-/**
- * AES 加密工具类
- * @DATE 2022/12/26
- * @CODE Deil
- */
 @UtilityClass
 public class AESUtils {
 

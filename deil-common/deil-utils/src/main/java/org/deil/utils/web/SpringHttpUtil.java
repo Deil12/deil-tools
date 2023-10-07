@@ -10,12 +10,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-/**
- * SpringHttp工具
- *
- * @DATE 2023/01/18
- * @CODE Deil
- */
 //@EnableWebMvc
 //@Configuration
 public class SpringHttpUtil {

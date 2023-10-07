@@ -16,10 +16,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @PURPOSE 
- * @DATE 2022/11/28
- */
 @Configuration
 @MapperScan({"org.deil.utils.test"})
 public class DataSourceConfig extends org.apache.ibatis.session.Configuration {

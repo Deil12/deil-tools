@@ -5,12 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.regex.Pattern;
 
-/**
- * 注入防御工具
- *
- * @DATE 2023/03/10
- * @CODE Deil
- */
 @Slf4j
 @UtilityClass
 public class InjectDefenseUtil {

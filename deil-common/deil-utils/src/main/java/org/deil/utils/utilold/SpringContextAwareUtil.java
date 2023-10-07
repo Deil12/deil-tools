@@ -8,10 +8,6 @@
 //
 //import java.util.Locale;
 //
-///**
-// * @PURPOSE
-// * @DATE 2022/09/08
-// */
 //@Component
 //@UtilityClass
 //public class SpringContextAwareUtil implements ApplicationContextAware {

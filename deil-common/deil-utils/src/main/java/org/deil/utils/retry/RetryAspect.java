@@ -8,12 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-/**
- * 
- *
- * @DATE 2023/09/22
- * @CODE Deil
- */
 @Slf4j
 @Aspect
 @Component

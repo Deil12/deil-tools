@@ -1,11 +1,5 @@
 package org.deil.utils.delegate;
 
-/**
- * 接口回调
- *
- * @DATE 2023/02/15
- * @CODE Deil
- */
 public interface CallBack {
     void doSomeThing(int i);
 }

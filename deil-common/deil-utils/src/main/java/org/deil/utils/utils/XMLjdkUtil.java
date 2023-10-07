@@ -9,12 +9,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-/**
- * 
- *
- * @DATE 2023/03/28
- * @CODE Deil
- */
 @UtilityClass
 public class XMLjdkUtil {
 

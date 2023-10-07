@@ -2,12 +2,6 @@ package org.deil.utils.exception;
 
 import org.slf4j.helpers.MessageFormatter;
 
-/**
- * 
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 public class CustomException extends RuntimeException {
 
     private final Integer code;

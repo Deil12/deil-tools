@@ -15,13 +15,6 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-/**
- * 请求通知
- *
- * @DATE 2022/09/06
- * @CODE Deil
- * @see ResponseBodyAdvice
- */
 @ControllerAdvice(basePackages = "org.deil.demo")
 public class SignReqAdvice implements RequestBodyAdvice {
     private Logger log = LoggerFactory.getLogger(SignReqAdvice.class);

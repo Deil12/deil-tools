@@ -1,9 +1,5 @@
 package org.deil.utils.datasource;
 
-/** 
- * @PURPOSE 
- * @DATE 2022/11/28
- */
 public enum DataSourceEnum {
 
     /**

@@ -19,11 +19,6 @@ import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-/**
- * @PURPOSE 杰克逊工具
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @Slf4j
 @UtilityClass
 public class JacksonUtil {

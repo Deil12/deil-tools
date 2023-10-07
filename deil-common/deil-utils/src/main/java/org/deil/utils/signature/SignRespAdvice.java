@@ -18,13 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * 响应通知
- *
- * @DATE 2022/09/06
- * @CODE Deil
- * @see ResponseBodyAdvice
- */
 @Deprecated
 @Slf4j
 @ControllerAdvice(basePackages = "**.controller")

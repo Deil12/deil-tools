@@ -2,10 +2,6 @@ package org.deil.utils.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-/**
- * @PURPOSE 
- * @DATE 2022/11/28
- */
 public class MultipleDataSource extends AbstractRoutingDataSource {
 
     /**

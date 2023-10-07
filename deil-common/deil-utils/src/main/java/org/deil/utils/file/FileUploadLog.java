@@ -2,12 +2,6 @@ package org.deil.utils.file;
 
 import java.util.Date;
 
-/**
- * 
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 public class FileUploadLog {private Integer id;
 
     // 唯一编码

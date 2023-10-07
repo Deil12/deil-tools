@@ -4,7 +4,7 @@ scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没�
 debug:      当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
 configuration 子节点为 appender、logger、root -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <property name="APP_NAME" value="deil-quartz" />
+    <property name="APP_NAME" value="deil-utils" />
     <!--日志文件所在目录，如果是tomcat，"log"写法日志文件会在${TOMCAT_HOME}/bin/logs/目录下-->
     <property name="LOG_HOME" value="logs"/>
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger输出日志的logger名 %msg：日志消息，%n是换行符 -->

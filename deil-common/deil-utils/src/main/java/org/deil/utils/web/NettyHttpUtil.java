@@ -21,12 +21,6 @@ import reactor.netty.http.client.HttpClient;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * NettyHttp工具
- *
- * @DATE 2023/01/18
- * @CODE Deil
- */
 @EnableWebMvc
 @Configuration
 public class NettyHttpUtil {

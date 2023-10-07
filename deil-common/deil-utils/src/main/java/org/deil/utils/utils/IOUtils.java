@@ -9,12 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * 
- *
- * @DATE 2023/09/19
- * @CODE Deil
- */
 public class IOUtils {
     public static void writeFile(String data, File file) throws IOException {
         OutputStream out = null;

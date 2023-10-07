@@ -6,12 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-/**
- * 
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 @Component
 public class PaymentStrategyFactory {
 

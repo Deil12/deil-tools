@@ -8,11 +8,6 @@ import java.io.*;
 import java.util.Enumeration;
 import java.util.Properties;
 
-/**
- * @PURPOSE 
- * @DATE 2022/11/11
- * @COPYRIGHT © csair.com 
- */
 @Slf4j
 public class PropertiesUtil {
 

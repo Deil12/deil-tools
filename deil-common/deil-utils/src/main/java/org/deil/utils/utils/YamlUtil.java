@@ -9,12 +9,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-/**
- * 
- *
- * @DATE 2023/02/13
- * @CODE Deil
- */
 @UtilityClass
 public class YamlUtil {
 

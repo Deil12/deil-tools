@@ -4,12 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.security.SecureRandom;
 
-/**
- * 
- *
- * @DATE 2023/09/19
- * @CODE Deil
- */
 public class CaptchaUtil {
     private static CaptchaUtil captchaUtil;
 

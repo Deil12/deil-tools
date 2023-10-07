@@ -4,13 +4,6 @@ import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * IP工具
- *
- * @DATE 2023/06/24
- * @CODE Deil
- * @SINCE 1.0.0
- */
 @UtilityClass
 public class IPUtil {
 

@@ -6,14 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * 全局响应
- *
- * @DATE 2022/06/24
- * @CODE Deil
- * @SINCE 1.0.0
- * @see Serializable
- */
 @ApiModel("响应体")
 public abstract class ServiceResponseBody implements Serializable {
 

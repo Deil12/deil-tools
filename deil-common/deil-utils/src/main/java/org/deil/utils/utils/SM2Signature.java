@@ -29,12 +29,6 @@ import org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 
-/**
- *
- *
- * @DATE 2023/09/19
- * @CODE Deil
- */
 public class SM2Signature {
     private static final BouncyCastleProvider bc = new BouncyCastleProvider();
 

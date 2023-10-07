@@ -17,11 +17,6 @@ import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/**
- * @PURPOSE Java反射工具类
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @UtilityClass
 public class ReflectUtils {
 

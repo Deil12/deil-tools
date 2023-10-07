@@ -3,12 +3,6 @@ package org.deil.utils.pojo.dto;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
-/**
- * 
- *
- * @DATE 2023/09/19
- * @CODE Deil
- */
 public class PageRequestDTO {
     @Range(min = 1L)
     @NotNull

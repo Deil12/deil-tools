@@ -12,14 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 import java.util.UUID;
 
-/**
- * 添加拦截器
- * 自定义拦截器；在请求中添加logId值和requestTimestamp值
- * 并对头部Accept-Language进行检查
- *
- * @TIME 2023/01/19
- * @CODE Deil
- */
 @Deprecated
 public class LogIdInterceptor implements HandlerInterceptor {
 

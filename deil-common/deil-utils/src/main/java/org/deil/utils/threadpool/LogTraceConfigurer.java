@@ -8,7 +8,7 @@ import java.util.concurrent.Executor;
 public interface LogTraceConfigurer {
 
     @Nullable
-    default Executor getLogTraceExecutor(){
+    default Executor getDeilUtilsExecutor(){
         return null;
     }
 

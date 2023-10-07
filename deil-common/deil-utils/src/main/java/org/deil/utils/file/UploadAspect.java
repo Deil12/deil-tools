@@ -19,12 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import java.util.concurrent.*;
 
-/**
- * 
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 @Component
 @Aspect
 public class UploadAspect {

@@ -10,11 +10,6 @@ import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.Key;
 
-/**
- * @PURPOSE 秘密工具
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @Slf4j
 @UtilityClass
 public class SecretUtil {

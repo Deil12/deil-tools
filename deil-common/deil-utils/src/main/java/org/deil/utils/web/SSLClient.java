@@ -12,13 +12,6 @@ import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-/**
- * 用于进行Https请求的HttpClient
- *
- * @DATE 2023/02/16
- * @CODE Deil
- * @see DefaultHttpClient
- */
 public class SSLClient extends DefaultHttpClient {
 
     public SSLClient() throws Exception{

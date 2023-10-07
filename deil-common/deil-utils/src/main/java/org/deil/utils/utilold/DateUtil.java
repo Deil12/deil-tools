@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-/**
- * @PURPOSE 日期工具类
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 public class DateUtil {
 
 	private static Logger log = LoggerFactory.getLogger(DateUtil.class);

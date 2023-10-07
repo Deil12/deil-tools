@@ -14,14 +14,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 
-/**
- * threadpool配置类
- *
- * @DATE 2023/04/17
- * @CODE Deil
- * @SINCE 1.0.0
- * @see AsyncConfigurer
- */
 //@Configuration
 @EnableAsync
 //@ComponentScan
@@ -40,7 +32,7 @@ public class ThreadPoolLogTraceConfigurer implements /*AsyncConfigurer*/LogTrace
     @Bean
     @Override
     /*public Executor getAsyncExecutor() {*/
-    public Executor getLogTraceExecutor() {
+    public Executor getDeilUtilsExecutor() {
         ThreadPoolTaskLogTraceExecutor executor = new ThreadPoolTaskLogTraceExecutor();
         //核心线程数Runtime.getRuntime().availableProcessors()：线程池创建时候初始化的线程数
         executor.setCorePoolSize(threadPoolProperties.getCorePoolSize());

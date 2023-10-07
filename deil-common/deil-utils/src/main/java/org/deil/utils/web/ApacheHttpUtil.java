@@ -20,12 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-/**
- * ApacheHttp工具类
- *
- * @DATE 2023/02/16
- * @CODE Deil
- */
 public class ApacheHttpUtil {
 
     private static Logger logger = LoggerFactory.getLogger(ApacheHttpUtil.class);

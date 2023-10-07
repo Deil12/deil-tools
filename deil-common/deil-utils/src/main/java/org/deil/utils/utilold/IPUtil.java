@@ -4,11 +4,6 @@ import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @PURPOSE iputil
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @UtilityClass
 public class IPUtil {
     /**

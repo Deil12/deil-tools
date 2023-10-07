@@ -10,12 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * 
- *
- * @DATE 2023/03/28
- * @CODE Deil
- */
 @UtilityClass
 public class XMLdom4jUtil {
 

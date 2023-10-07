@@ -16,11 +16,6 @@ import org.apache.commons.codec.binary.Base64;
 
 //import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-/**
- * AES 加密工具类
- * @DATE 2022/12/26
- * @CODE Deil
- */
 @UtilityClass
 public class AESCustomUtils {
     public static final String KEY_ALGORITHMS = "AES";

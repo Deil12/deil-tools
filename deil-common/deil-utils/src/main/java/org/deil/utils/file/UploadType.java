@@ -3,12 +3,6 @@ package org.deil.utils.file;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 public enum  UploadType {
     未知(0,"未知"),
     图片(1,"图片"),

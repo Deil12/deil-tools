@@ -5,7 +5,7 @@ deil:
   utils:
 #    enabledLog: true
     threadpool:
-      enabled: true
+      enabled: false
       corePoolSize: 4
       maxPoolSize: 10
 #      queueCapacity:
@@ -17,10 +17,10 @@ deil:
 #      policys:
 
 spring:
-#  profiles:
-#    active: dev
-  #  application:
-#    name: blingbling
+  profiles:
+    active: dev
+  application:
+    name: blingbling
   quartz:
     properties:
       org:

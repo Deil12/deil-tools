@@ -1,8 +1,5 @@
 package org.deil.utils.log;
 
-/**
- * 请求线程 logId 持有者
- */
 public class LogIdHolder {
 
     private static final ThreadLocal<String> LOG_CONTEXT = new ThreadLocal<>();

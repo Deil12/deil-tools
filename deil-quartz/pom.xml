@@ -12,11 +12,12 @@
 
     <dependencies>
         <!-- ######################################## 自定义依赖 ######################################## -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.deil</groupId>
             <artifactId>deil-utils</artifactId>
             <version>${project.parent.version}</version>
-        </dependency>-->
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>

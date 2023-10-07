@@ -10,9 +10,6 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.Key;
 
-/**
- * DES 加密工具类
- */
 @Slf4j
 @UtilityClass
 public class DESUtils {

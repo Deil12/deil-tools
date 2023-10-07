@@ -13,11 +13,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/**
- * @PURPOSE 网络工具
- * @DATE 2022/11/27
- * @COPYRIGHT © Deil
- */
 @Slf4j
 @UtilityClass
 public class WebUtil {

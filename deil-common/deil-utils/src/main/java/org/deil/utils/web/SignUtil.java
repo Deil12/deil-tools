@@ -9,12 +9,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Sign工具类
- *
- * @DATE 2023/02/16
- * @CODE Deil
- */
 public class SignUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(SignUtil.class); // 日志记录

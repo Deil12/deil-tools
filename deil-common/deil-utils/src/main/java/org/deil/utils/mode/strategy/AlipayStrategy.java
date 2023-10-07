@@ -4,12 +4,6 @@ import org.deil.utils.mode.factory.PaymentStrategy;
 
 import java.math.BigDecimal;
 
-/**
- *
- *
- * @DATE 2023/09/23
- * @CODE Deil
- */
 public class AlipayStrategy implements PaymentStrategy {
 
     @Override
