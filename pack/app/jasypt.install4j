@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.4" transformSequenceNumber="10">
-  <directoryPresets config="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/bin" />
-  <application name="Jasypt-tool" applicationId="5849-4052-2169-4970" mediaDir="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/app" shortName="Jasypt" version="1.2.0" macVolumeId="c1d48a7a6f788e76">
+  <directoryPresets config="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/app" />
+  <application name="Jasypt-tool" applicationId="5849-4052-2169-4970" mediaDir="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/app/jasypt" shortName="Jasypt" version="1.2.0" macVolumeId="c1d48a7a6f788e76">
     <languages>
       <principalLanguage id="zh_CN" />
     </languages>
@@ -18,8 +18,8 @@
     </entries>
   </files>
   <launchers>
-    <launcher name="Jasypt" id="26" icnsFile="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/bin/favicon.icns">
-      <executable name="Jasypt" iconSet="true" iconFile="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/bin/favicon.ico" executableDir="bin" stderrFile="${installer:sys.installerDir}/logs/error.log" redirectStdout="true" stdoutFile="${installer:sys.installerDir}/logs/output.log" executableMode="gui" singleInstance="true" globalSingleInstance="true" />
+    <launcher name="Jasypt" id="26" icnsFile="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/app/favicon.icns">
+      <executable name="Jasypt" iconSet="true" iconFile="/Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/pack/app/favicon.ico" executableDir="bin" stderrFile="${launcher:sys.launcherDirectory}/logs/error.log" redirectStdout="true" stdoutFile="${launcher:sys.launcherDirectory}/logs/output.log" executableMode="gui" singleInstance="true" globalSingleInstance="true" />
       <java mainClass="org.springframework.boot.loader.JarLauncher" vmParameters="-Dfile.encoding=UTF-8">
         <classPath>
           <archive location="libs/deil-window-jasypt-1.2.0.jar" failOnError="false" />
