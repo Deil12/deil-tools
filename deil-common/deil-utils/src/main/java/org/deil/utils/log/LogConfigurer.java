@@ -1,7 +1,6 @@
 package org.deil.utils.log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.deil.utils.pojo.properties.LogProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

@@ -4,6 +4,6 @@ public interface DemoService {
 
     void test();
 
-    void testPost();
+    void testHttp();
 
 }

@@ -2,7 +2,7 @@
 //
 //import org.apache.commons.lang3.ArrayUtils;
 //import org.apache.commons.lang3.StringUtils;
-//import org.deil.utils.pojo.properties.ThreadPoolProperties;
+//import org.deil.utils.threadpool.ThreadPoolProperties;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;

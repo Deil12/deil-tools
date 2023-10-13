@@ -1,8 +1,8 @@
-package org.deil.utils.pojo.properties;
+package org.deil.utils.log;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "deil.utils.log")
+@ConfigurationProperties(prefix = "deil.log")
 public class LogProperties {
 
     private boolean enabled = Boolean.TRUE;

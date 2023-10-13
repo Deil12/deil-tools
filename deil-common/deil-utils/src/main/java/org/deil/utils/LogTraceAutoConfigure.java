@@ -1,6 +1,6 @@
 package org.deil.utils;
 
-import org.deil.utils.pojo.properties.LogProperties;
+import org.deil.utils.log.LogProperties;
 import org.deil.utils.log.LogConfigurer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

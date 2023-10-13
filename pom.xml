@@ -32,8 +32,8 @@
         <project-checkPack>${user.dir}/pack/check</project-checkPack>
         <project-logPack>${user.dir}/logs</project-logPack>
 
-        <spring-boot.version>2.7.15</spring-boot.version>
-        <spring.version>5.3.29</spring.version>
+        <spring-boot.version>2.7.16</spring-boot.version>
+        <spring.version>5.3.30</spring.version>
         <junit-vintage-engine.version>5.9.2</junit-vintage-engine.version>
         <lombok.version>1.18.28</lombok.version>
 
@@ -64,15 +64,17 @@
         <fastjson.version>2.0.38</fastjson.version>
         <jackson-databind.version>2.15.2</jackson-databind.version>
         <javase.version>3.5.1</javase.version>
+        <minio.version>8.4.3</minio.version>
         <antisamy.version>1.7.3</antisamy.version>
         <batik-css.version>1.17</batik-css.version>
         <bcprov-jdk18on.version>1.76</bcprov-jdk18on.version>
         <mica-auto.version>2.3.0</mica-auto.version>
         <swagger.version>2.9.2</swagger.version>
         <knife4j.version>2.0.4</knife4j.version>
+        <annotations.version>3.0.1</annotations.version>
 
 <!--
-        <mybatis-generato   r-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
+        <mybatis-generator-maven-plugin.version>1.4.2</mybatis-generator-maven-plugin.version>
         <druid-spring-boot-starter.version>1.2.13-SNSAPSHOT</druid-spring-boot-starter.version>
         <javax.persistence-api.version>2.2</javax.persistence-api.version>
         <nacos.version>2.2.4</nacos.version>
@@ -123,9 +125,48 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <!--<exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-web</artifactId>
+                    </exclusion>
+                </exclusions>-->
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!--<repositories>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2412667-release-qjQwgr/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2412667-snapshot-SlZE45/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>-->
+    <!--<distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2412667-release-qjQwgr/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2412667-snapshot-SlZE45/</url>
+        </snapshotRepository>
+    </distributionManagement>-->
 
     <build>
         <plugins>
@@ -313,7 +354,7 @@
                         <obfuscate>true</obfuscate>
                         <injar>${project.build.finalName}.jar</injar>
                         <!-- <injar>classes</injar> -->
-                        <outjar>${project.build.finalName}-proguard.jar</outjar>
+                        <outjar>${project.build.finalName}-min.jar</outjar>
                         <!--<outputDirectory>${project-jarPack}</outputDirectory>
                         <inLibsFilter>!META-INF/**,!META-INF/versions/9/**.class</inLibsFilter>
                         <proguardInclude>${project.basedir}/src/main/test/proguard.cfg</proguardInclude>-->
@@ -357,6 +398,8 @@
                             <option>-keep class org.deil.utils.LogTraceAutoConfigure { *; }</option>
                             <option>-keep class org.deil.utils.pojo.** { *; }</option>
                             <option>-keep class org.deil.utils.utils.** { *; }</option>
+                            <option>-keep class org.deil.utils.datasource.** { *; }</option>
+                            <option>-keep class org.deil.utils.wedatasource.** { *; }</option>
                             <option>-keep class * implements java.io.Serializable </option>
                             <!-- This option will save all original class files (without obfuscate) in service package-->
                             <!--<option>-keep class com.slm.proguard.example.spring.boot.service { *; }</option>-->

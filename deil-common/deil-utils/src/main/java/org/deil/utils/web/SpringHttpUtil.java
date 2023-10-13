@@ -1,59 +1,58 @@
 package org.deil.utils.web;
 
+import com.alibaba.fastjson2.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Consts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 //@EnableWebMvc
 //@Configuration
 public class SpringHttpUtil {
-    private Logger log = LoggerFactory.getLogger(SpringHttpUtil.class);
+    private static Logger log = LoggerFactory.getLogger(SpringHttpUtil.class);
 
-    private int connectTimeout = 10000;
+    private static int connectTimeout = 10;
 
-    private int readTimeout = 3000;
+    private static int readTimeout = 3;
 
-    private int writeTimeout = 3000;
+    private static int writeTimeout = 3;
 
-    String url;
+    static String uri;
 
-    HttpMethod httpMethod;
+    static HttpMethod httpMethod;
 
-    MultiValueMap<String, String> params;
+    static MultiValueMap<String, String> params;
 
-    public SpringHttpUtil(String url, HttpMethod httpMethod, MultiValueMap<String, String> params){
-        this.url = url;
-        this.httpMethod = httpMethod;
-        this.params = params;
+    public SpringHttpUtil(String uri) {
+        this.uri = uri;
     }
 
-    /**
-     * http post
-     * */
-    public static String post(String url, MultiValueMap<String, String> params) {
-        return  httpRestClient(url, HttpMethod.POST, params);
+    public String get(@Nullable String api, MultiValueMap<String, String> params) {
+        return httpRestClient(api, HttpMethod.GET, params);
     }
 
-    /**
-     * http get
-     * */
-    public static String get(String url, MultiValueMap<String, String> params) {
-        return  httpRestClient(url, HttpMethod.GET, params);
+    public String post(@Nullable String api, MultiValueMap<String, String> params) {
+        return httpRestClient(api, HttpMethod.POST, params);
     }
 
-    /**
-     * HttpMethod  post/get
-     * */
-    private static String httpRestClient(String url, HttpMethod method, MultiValueMap<String, String> params) {
+    //public String def(String uri, HttpMethod httpMethod, MultiValueMap<String, String> params) {
+    //    this.uri = uri;
+    //    this.httpMethod = httpMethod;
+    //    this.params = params;
+    //    return httpRestClient("", httpMethod, params);
+    //}
+
+    private static String httpRestClient(String api, HttpMethod method, MultiValueMap<String, String> params) {
+        String url = uri + StringUtils.defaultIfEmpty(api, "");
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(10*1000);
-        requestFactory.setReadTimeout(10*1000);
+        requestFactory.setConnectTimeout(connectTimeout * 1000);
+        requestFactory.setReadTimeout(readTimeout * 1000);
         RestTemplate client = new RestTemplate(requestFactory);
         HttpHeaders headers = new HttpHeaders();
         //headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -61,26 +60,29 @@ public class SpringHttpUtil {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         //  执行HTTP请求
         ResponseEntity<String> response;
-        try{
+        try {
             response = client.exchange(url, method, requestEntity, String.class);
+            int statusCode = response.getStatusCodeValue();
+            if (statusCode == 200) {
+                log.info("[{}]请求成功:{}", url, response.getBody());
+            } else {
+                log.info("[{}]请求失败:{}", url, response.getBody());
+            }
             return response.getBody();
-        }
-        catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             //log.error("\033[0;31m------------- 出现异常 HttpClientErrorException -------------\n" +
             //        e.getMessage() + "\n" +
             //        e.getStatusText() + "\n" +
             //        "-------------responseBody-------------\n" +
             //        e.getResponseBodyAsString() + "\033[0m"
             //);
-            //e.printStackTrace();
-            throw e;
+            log.error("[{}]请求异常{}", url, e.getCause());
+            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("[{}]请求异常", url, e.getCause());
+            e.printStackTrace();
         }
-        catch (Exception e) {
-            //log.error("\033[0;31m------------- HttpRestUtils.httpRestClient() 出现异常 Exception -------------\n" +
-            //        e.getMessage() + "\033[0m"
-            //);
-            throw e;
-        }
+        return null;
     }
 
 }

@@ -15,7 +15,8 @@
         <!--<dependency>
             <groupId>org.deil</groupId>
             <artifactId>deil-utils</artifactId>
-            <version>${project.parent.version}</version>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>-->
 
         <dependency>

@@ -1,11 +1,11 @@
-package org.deil.utils.pojo.properties;
+package org.deil.utils.threadpool;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
-@ConfigurationProperties(prefix = "deil.utils.threadpool")
+@ConfigurationProperties(prefix = "deil.threadpool")
 public class ThreadPoolProperties {
 
     private boolean enabled = Boolean.FALSE;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.UUID;
@@ -23,11 +24,12 @@ import java.util.UUID;
 @Component
 public class LogAspect {
 
-    private final ObjectMapper objectMapper;
+    @Resource
+    private ObjectMapper objectMapper;
 
-    public LogAspect(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    //public LogAspect(ObjectMapper objectMapper) {
+    //    this.objectMapper = objectMapper;
+    //}
 
     @Around(value = "@annotation(org.deil.utils.log.Log)")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {

@@ -2,12 +2,11 @@ server:
 #  port: ${random.int[8095,8099]}
   port: 8090
 deil:
-  utils:
-#    enabledLog: true
-    threadpool:
+  threadpool:
       enabled: false
       corePoolSize: 4
       maxPoolSize: 10
+#      keep-alive-seconds:
 #      queueCapacity:
 #      threadNamePrefix: PropertiesTest
 #      keepAliveSeconds:

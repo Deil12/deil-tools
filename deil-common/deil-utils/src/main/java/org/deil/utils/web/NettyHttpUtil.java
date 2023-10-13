@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @EnableWebMvc
@@ -26,25 +27,21 @@ import java.util.concurrent.TimeUnit;
 public class NettyHttpUtil {
     private Logger log = LoggerFactory.getLogger(NettyHttpUtil.class);
 
-    private int connectTimeout = 10000;
+    private int connectTimeout = 10;
 
-    private int readTimeout = 3000;
+    private int readTimeout = 3;
 
-    private int writeTimeout = 3000;
+    private int writeTimeout = 3;
 
-    /**
-     * 注入 WebClient
-     *
-     * @param objectMapper ObjectMapper实例
-     * @return WebClient 实例
-     * @see WebClient
-     */
-    @Bean("webClient")
-    public WebClient webClient(ObjectMapper objectMapper) {
+    @Resource
+    public ObjectMapper objectMapper;
+
+    @Bean
+    public WebClient webClient() {
         HttpClient httpClient = HttpClient.create().tcpConfiguration(client -> client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectTimeout)
                 .doOnConnected(
-                        conn -> conn.addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.MILLISECONDS))
-                                .addHandlerLast(new WriteTimeoutHandler(writeTimeout, TimeUnit.MILLISECONDS))));
+                        conn -> conn.addHandlerLast(new ReadTimeoutHandler(readTimeout, TimeUnit.SECONDS))
+                                .addHandlerLast(new WriteTimeoutHandler(writeTimeout, TimeUnit.SECONDS))));
 
         ExchangeStrategies strategies = ExchangeStrategies.builder()
                 .codecs((ClientCodecConfigurer clientDefaultCodecsConfigurer) -> {
