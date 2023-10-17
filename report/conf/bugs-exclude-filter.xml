@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!--<Match>&lt;!&ndash;过滤类&ndash;&gt;
+        <Class name="org.deil.utils.web.ApacheHttpUtil" />
+    </Match>-->
+    <Match><!--过滤包：（老项目在接入findbugs时，尽量不要过滤整个包，而是把现有的类逐个过滤即可，这样不妨碍新增加的文件参与扫描）-->
+        <Package name="org.deil.utils" />
+    </Match>
+    <!--<Match>&lt;!&ndash;过滤方法&ndash;&gt;
+        <Class name="org.deil.utils.web.ApacheHttpUtil" />
+        <Method name="post"></Method>
+    </Match>
+    <Match>&lt;!&ndash;过滤异常&ndash;&gt;
+        &lt;!&ndash;装箱后拆箱紧接着装箱，忽略不处理 &ndash;&gt;
+        &lt;!&ndash; Boxed value is unboxed and then immediately reboxed&ndash;&gt;
+        <Package name="~.*" />
+        <Bug pattern="BX_UNBOXING_IMMEDIATELY_REBOXED" />
+    </Match>-->
+</FindBugsFilter>
