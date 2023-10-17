@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="加解密工具🔧" type="Application" factoryName="Application">
+  <configuration default="false" name="🔧加解密工具" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="JasyptTool" />
     <module name="deil-window-jasypt" />
     <method v="2">

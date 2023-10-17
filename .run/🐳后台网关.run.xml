@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="后台网关🐳" type="docker-deploy" factoryName="dockerfile" server-name="Docker_Local">
+  <configuration default="false" name="🐳后台网关" type="docker-deploy" factoryName="dockerfile" server-name="Docker_Local">
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="deil/gateway:1.0.0" />

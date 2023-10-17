@@ -1,12 +1,12 @@
 #IntelliJ
 .idea
 pack
+report
 logs
 test
 target
 *.iml
 rebel.xml
-
 
 # Compiled class file
 *.class

@@ -24,32 +24,28 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <project.build.sourceEncoding>${maven.compiler.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${maven.compiler.encoding}</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
 
         <project-jarPack>${user.dir}/pack</project-jarPack>
-        <project-checkPack>${user.dir}/pack/check</project-checkPack>
+        <project-reportPack>${user.dir}/report</project-reportPack>
         <project-logPack>${user.dir}/logs</project-logPack>
+
+        <skipJavadoc>true</skipJavadoc>
+        <skipCheck>true</skipCheck>
+        <skipCheckstyle>true</skipCheckstyle>
+        <skipAntrun>false</skipAntrun>
+        <skipDocker>true</skipDocker>
+        <skipProguard>true</skipProguard>
+        <proguard.version>7.1.1</proguard.version>
 
         <spring-boot.version>2.7.16</spring-boot.version>
         <spring.version>5.3.30</spring.version>
         <junit-vintage-engine.version>5.9.2</junit-vintage-engine.version>
         <lombok.version>1.18.28</lombok.version>
-
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <dependency-check-maven.version>8.4.0</dependency-check-maven.version>
-        <skipCheck>true</skipCheck>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
-        <skipAntrun>false</skipAntrun>
-        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
-        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
-        <skipDocker>true</skipDocker>
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
-        <proguard-maven-plugin.version>2.6.0</proguard-maven-plugin.version>
-        <skipProguard>true</skipProguard>
-        <proguard.version>7.1.1</proguard.version>
 
         <!-- ######################################## deil-utils ######################################## -->
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
@@ -172,47 +168,8 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
-            </plugin>
-            <!-- 测试覆盖度 -->
-            <!--<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <formats>
-                        <format>html</format>
-                    </formats>
-                    <check/>
-                </configuration>
-            </plugin>-->
-
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${dependency-check-maven.version}</version>
-                <configuration>
-                    <formats>HTML</formats>
-                    <outputDirectory>${project-checkPack}/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
-                    <skip>${skipCheck}</skip>
-                    <versionCheckEnabled>true</versionCheckEnabled>
-                    <autoUpdate>true</autoUpdate>
-                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
-                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <index>true</index>
@@ -231,9 +188,263 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <skip>${skipJavadoc}</skip>
+                    <reportOutputDirectory>${project-reportPack}</reportOutputDirectory>
+                    <destDir>javadocs</destDir>
+                    <aggregate>true</aggregate>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <tags>
+                        <tag>
+                            <name>PURPOSE</name>
+                            <placement>a</placement>
+                            <head>描述</head>
+                        </tag>
+                    </tags>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <!-- 配置单测失败几次后停止执行 -->
+                    <skipAfterFailureCount>0</skipAfterFailureCount>
+                    <!-- 不允许跳过单测 -->
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-maven-plugin</artifactId>
                 <version>${jasypt-spring-boot-starter.version}</version>
+            </plugin>
+
+            <plugin><!-- https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>8.4.0</version>
+                <configuration>
+                    <skip>${skipCheck}</skip>
+                    <formats>HTML</formats>
+                    <outputDirectory>${project-reportPack}/dependency-check/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
+                    <versionCheckEnabled>true</versionCheckEnabled>
+                    <autoUpdate>true</autoUpdate>
+                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                </configuration>
+            </plugin>
+
+            <plugin><!-- 测试覆盖度 https://www.mojohaus.org/cobertura-maven-plugin -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>HTML</formats>
+                    <outputDirectory>${project-reportPack}/cobertura/cobertura-report[${project.artifactId}]</outputDirectory>
+                    <!--<aggregate>true</aggregate>
+                    <check/>-->
+                    <check>
+                        <!--每个类的分支覆盖率-->
+                        <branchRate>85</branchRate>
+                        <!--每个类的代码行覆盖率-->
+                        <lineRate>85</lineRate>
+                        <!--校验失败则中止.即为true时如果校验失败则打包执行失败,反之则只是打出告警日志-->
+                        <haltOnFailure>true</haltOnFailure>
+                        <!--整体的分支覆盖率-->
+                        <totalBranchRate>85</totalBranchRate>
+                        <!--整体的代码行覆盖率-->
+                        <totalLineRate>85</totalLineRate>
+                        <!--每个包的分支行覆盖率-->
+                        <packageBranchRate>85</packageBranchRate>
+                        <!--每个包的代码行覆盖率-->
+                        <packageLineRate>85</packageLineRate>
+                        <regexes>
+                            <!--通过表达式设定覆盖率阈值-->
+                            <regex>
+                                <pattern>org.deil.utils.*</pattern>
+                                <branchRate>90</branchRate>
+                                <lineRate>80</lineRate>
+                            </regex>
+                        </regexes>
+                    </check>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>&lt;!&ndash; https://www.eclemma.org/jacoco/trunk/doc/maven.html &ndash;&gt;
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <configuration>
+                    <outputDirectory>${project-reportPack}/jacoco/jacoco-report[${project.artifactId}]</outputDirectory>
+                    &lt;!&ndash;<includes>
+                        <include>com/src/**/*</include>
+                    </includes>&ndash;&gt;
+                    &lt;!&ndash; rules裏面指定覆蓋規則 &ndash;&gt;
+                    <rules>
+                        <rule implementation="org.jacoco.maven.RuleConfiguration">
+                            <element>BUNDLE</element>
+                            <limits>　　
+                                &lt;!&ndash; 指定方法覆蓋到50% &ndash;&gt;
+                                <limit implementation="org.jacoco.report.check.Limit">
+                                    <counter>METHOD</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.50</minimum>
+                                </limit>
+                                &lt;!&ndash; 指定分支覆蓋到50% &ndash;&gt;
+                                <limit implementation="org.jacoco.report.check.Limit">
+                                    <counter>BRANCH</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>0.50</minimum>
+                                </limit>
+                                &lt;!&ndash; 指定類覆蓋到100%，不能遺失任何類 &ndash;&gt;
+                                <limit implementation="org.jacoco.report.check.Limit">
+                                    <counter>CLASS</counter>
+                                    <value>MISSEDCOUNT</value>
+                                    <maximum>0</maximum>
+                                </limit>
+                            </limits>
+                        </rule>
+                    </rules>
+                </configuration>
+                <executions>
+                    &lt;!&ndash;<execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>&ndash;&gt;
+                    &lt;!&ndash;<execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>target/jacoco.exec</dataFile>
+                            <outputDirectory>${project-reportPack}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>&ndash;&gt;
+                    &lt;!&ndash;<execution>
+                        <id>jacoco-site</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>&ndash;&gt;
+                    &lt;!&ndash;<execution>
+                        <id>prepare-integration-tests</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                        </configuration>
+                    </execution>&ndash;&gt;
+                </executions>
+            </plugin>-->
+
+            <plugin><!-- https://spotbugs.readthedocs.io/en/stable/maven.html -->
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.1.3</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>${project-reportPack}/spotbugs/spotbugs-report[${project.artifactId}]</xmlOutputDirectory>
+                    <outputDirectory>${project-reportPack}/spotbugs/spotbugs-report[${project.artifactId}]</outputDirectory>
+                    <!-- 设置分析工作的等级，可以为Min、Default和Max -->
+                    <effort>Low</effort>
+                    <!-- Low、Medium和High (Low最严格) High只扫描严重错误。建议用Medium-->
+                    <threshold>Medium</threshold>
+                    <failOnError>false</failOnError>
+                    <includeTests>false</includeTests>
+                    <!--<skip>${skipFindbugs}</skip>-->
+                    <!--<skipEmptyReport>true</skipEmptyReport>-->
+                    <!--<excludeFilterFile>${project-reportPack}/conf/bugs-exclude-filter.xml</excludeFilterFile>-->
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin><!-- https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-checker-config.html -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <skip>${skipCheckstyle}</skip>
+                    <configLocation>${project-reportPack}/conf/checkstyle-alibaba.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <!--<executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.38</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -254,7 +465,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>${maven-antrun-plugin.version}</version>
+                    <version>1.8</version>
                     <configuration><skip>${skipAntrun}</skip></configuration>
                     <executions>
                         <execution>
@@ -265,6 +476,7 @@
                                     <mkdir dir="${project-jarPack}"/>
                                     <delete>
                                         <fileset dir="${project-jarPack}" includes="**/${project.build.finalName}**.*ar"></fileset>
+                                        <fileset dir="${project-jarPack}" includes="**/cobertura/**"></fileset>
                                     </delete>
                                 </target>
                             </configuration>
@@ -274,13 +486,11 @@
                         </execution>
                         <execution>
                             <id>COPY</id>
-                            <!--<phase>package</phase>-->
-                            <phase>install</phase>
+                            <phase><!--package-->install</phase>
                             <configuration>
                                 <target>
                                     <copy todir="${project-jarPack}">
                                         <fileset dir="${project.build.directory}" includes="${project.build.finalName}**.*ar"></fileset>
-                                        <fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>
                                     </copy>
                                 </target>
                             </configuration>
@@ -294,7 +504,7 @@
                 <!--<plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>${docker-maven-plugin.version}</version>
+                    <version>1.0.0</version>
                     <configuration>
                         &lt;!&ndash;<dockerHost>http://localhost:2375</dockerHost>&ndash;&gt;
                         <imageName>${project.artifactId}:${project.version}</imageName>
@@ -319,7 +529,7 @@
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>${dockerfile-maven-plugin.version}</version>
+                    <version>1.4.13</version>
                     <executions>
                         <execution>
                             <id>default</id>
@@ -341,7 +551,7 @@
                 <plugin>
                     <groupId>com.github.wvengen</groupId>
                     <artifactId>proguard-maven-plugin</artifactId>
-                    <version>${proguard-maven-plugin.version}</version>
+                    <version>2.6.0</version>
                     <executions>
                         <execution>
                             <phase>package</phase>

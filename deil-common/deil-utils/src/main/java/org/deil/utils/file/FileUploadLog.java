@@ -2,7 +2,8 @@ package org.deil.utils.file;
 
 import java.util.Date;
 
-public class FileUploadLog {private Integer id;
+public class FileUploadLog {
+    private Integer id;
 
     // 唯一编码
     private String batchNo;
@@ -20,5 +21,4 @@ public class FileUploadLog {private Integer id;
     private Date endTime;
     // 开始时间
     private Date startTime;
-
 }

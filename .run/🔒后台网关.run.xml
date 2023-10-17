@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="⬆️" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="🔒后台网关" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -25,13 +25,11 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
-              <option value="install" />
-              <option value="org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy" />
-              <option value="-DskipTests" />
-              <option value="-pl" />
-              <option value="deil-common/deil-utils" />
-              <option value="-am" />
+              <option value="jasypt:encrypt" />
+              <option value="-Djasypt.plugin.path=file:src/main/resources/bootstrap-dev.properties" />
+              <option value="-Djasypt.encryptor.password=password" />
+              <option value="-Djasypt.encryptor.algorithm=PBEWithMD5AndDES" />
+              <option value="-Djasypt.encryptor.iv-generator-classname=org.jasypt.iv.NoIvGenerator" />
             </list>
           </option>
           <option name="pomFileName" />
@@ -39,7 +37,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/deil-gateway" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>

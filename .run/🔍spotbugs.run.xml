@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="⬆️" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="🔍spotbugs" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -25,13 +25,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
-              <option value="install" />
-              <option value="org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy" />
-              <option value="-DskipTests" />
-              <option value="-pl" />
-              <option value="deil-common/deil-utils" />
-              <option value="-am" />
+              <option value="spotbugs:check" />
             </list>
           </option>
           <option name="pomFileName" />
