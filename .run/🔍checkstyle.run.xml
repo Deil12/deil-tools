@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="🔍dc扫描" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
+  <configuration default="false" name="🔍checkstyle" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -25,8 +25,8 @@
           </option>
           <option name="goals">
             <list>
-              <option value="dependency-check:aggregate" />
-              <option value="-DskipCheck=false" />
+              <option value="checkstyle:check" />
+              <option value="-DskipCheckstyle=false" />
             </list>
           </option>
           <option name="pomFileName" />

@@ -16,6 +16,7 @@
         <module>deil-repository</module>
         <module>deil-gateway-node</module>
         <module>deil-quartz-node</module>
+        <module>deil-utils-maven-plugin</module>
     </modules>
 
 </project>

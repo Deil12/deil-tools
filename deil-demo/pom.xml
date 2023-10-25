@@ -50,4 +50,45 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.deil</groupId>
+                <artifactId>deil-utils-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <!--<urls>
+                        &lt;!&ndash;<url>file:///Users/d/Documents/Deil/BAKSPACE/SOURCE/deil-tools/deil-common/deil-maven-plugin/src/main/resources/accountpsd.md</url>&ndash;&gt;
+                        <url>classpath:src/main/resources/accountpsd.md</url>
+                    </urls>-->
+                    <!--<files>
+                        <url>resources/accountpsd.md</url>
+                    </files>-->
+
+                    <!--<jasyptPassword>password</jasyptPassword>-->
+                    <!--<quiet>true</quiet>
+                    <algorithm>PBEWithHmacSHA512AndAES_256</algorithm>
+                    <poolSize>1</poolSize>
+                    <keyObtentionIteration>100000</keyObtentionIteration>
+                    <saltGeneratorClassName>org.jasypt.salt.RandomSaltGenerator</saltGeneratorClassName>
+                    <ivGeneratorClassName>org.jasypt.iv.NoIvGenerator</ivGeneratorClassName>
+                    <stringOutputType>base64</stringOutputType>-->
+                </configuration>
+                <!--<executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-properties</goal>
+                        </goals>
+                        <configuration>
+                            <urls>
+                                <url>classpath:src/main/resources/accountpsd.md</url>
+                                &lt;!&ndash;<url>classpath:accountpsd.md</url>&ndash;&gt;
+                            </urls>
+                        </configuration>
+                    </execution>
+                </executions>-->
+            </plugin>
+        </plugins>
+    </build>
 </project>

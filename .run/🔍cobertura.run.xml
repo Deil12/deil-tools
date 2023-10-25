@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="📚javadoc" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
+  <configuration default="false" name="🔍cobertura" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -25,9 +25,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
-              <option value="install" />
-              <option value="-DskipJavadoc=false" />
+              <option value="cobertura:cobertura" />
             </list>
           </option>
           <option name="pomFileName" />

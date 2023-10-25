@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="🔍cobertura覆盖率" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
+  <configuration default="false" name="🐳healthcheck" type="MavenRunConfiguration" factoryName="Maven" folderName="tool">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -25,7 +25,12 @@
           </option>
           <option name="goals">
             <list>
-              <option value="cobertura:cobertura" />
+              <option value="clean" />
+              <option value="package" />
+              <option value="-pl" />
+              <option value="deil-healthcheck" />
+              <option value="-am" />
+              <option value="-DskipDocker=false" />
             </list>
           </option>
           <option name="pomFileName" />
