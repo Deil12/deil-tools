@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="♻️" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="⬆utils" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -27,7 +27,8 @@
             <list>
               <option value="clean" />
               <option value="install" />
-              <option value="-DskipProguard=false" />
+              <option value="org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy" />
+              <option value="-DskipTests" />
               <option value="-pl" />
               <option value="deil-common/deil-utils" />
               <option value="-am" />

@@ -25,6 +25,7 @@
           </option>
           <option name="goals">
             <list>
+              <option value="clean" />
               <option value="checkstyle:check" />
               <option value="-DskipCheckstyle=false" />
             </list>
