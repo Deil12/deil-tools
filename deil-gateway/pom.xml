@@ -184,6 +184,11 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>${jasypt-spring-boot-starter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>6.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -204,6 +209,10 @@
             <plugin>
                 <groupId>com.github.wvengen</groupId>
                 <artifactId>proguard-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>net.roseboy</groupId>
+                <artifactId>classfinal-maven-plugin</artifactId>
             </plugin>
         </plugins>
 

@@ -53,13 +53,12 @@
     </appender>
 
     <!--输出到logstash-->
-    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        &lt;!&ndash;<destination>10.79.5.89:4560</destination>&ndash;&gt;
-        <destination>127.0.0.1:4560</destination>
+    <!--<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>10.79.10.29:5040</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
             <includeCallerData>true</includeCallerData>
             <timeZone>UTC</timeZone>
-            <customFields>{"server_name":"customsMoveService"}</customFields>
+            <customFields>{"service_name":"gateway"}</customFields>
         </encoder>
     </appender>-->
 
@@ -86,14 +85,15 @@
     <springProfile name="local, dev">
         <root level="INFO">
             <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="LOGSTASH" />-->
             <appender-ref ref="async_file_info"/>
             <appender-ref ref="async_file_error"/>
-            <!--<appender-ref ref="logstash"/>-->
         </root>
     </springProfile>
     <springProfile name="test, preProd, prod">
         <root level="INFO">
             <appender-ref ref="STDOUT" />
+            <!--<appender-ref ref="LOGSTASH" />-->
             <appender-ref ref="async_file_info"/>
             <appender-ref ref="async_file_error"/>
         </root>

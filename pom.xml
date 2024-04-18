@@ -18,6 +18,7 @@
         <module>deil-window</module>
         <module>deil-demo</module>
         <module>deil-web</module>
+        <module>deil-scheduler</module>
     </modules>
 
     <properties>
@@ -307,16 +308,25 @@
             <plugin><!-- https://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>8.4.0</version>
+                <version>8.4.3</version>
                 <configuration>
                     <skip>${skipCheck}</skip>
-                    <formats>HTML</formats>
-                    <outputDirectory>${project-reportPack}/dependency-check/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
-                    <versionCheckEnabled>true</versionCheckEnabled>
                     <autoUpdate>true</autoUpdate>
+                    <outputDirectory>${project-reportPack}/dependency-check/dependency-check-report[${project.artifactId}]_${maven.build.timestamp}.html</outputDirectory>
+                    <formats>HTML</formats>
                     <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+                    <versionCheckEnabled>true</versionCheckEnabled>
                     <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                    <hostedSuppressionsForceUpdate>true</hostedSuppressionsForceUpdate>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin><!-- https://spotbugs.readthedocs.io/en/stable/maven.html -->
                 <groupId>com.github.spotbugs</groupId>
@@ -350,7 +360,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>DEIL-VALIDATE</id>
+                        <id>DEIL-CHECKSTYLE</id>
                         <phase>none</phase>
                         <goals>
                             <goal>check</goal>
@@ -404,7 +414,7 @@
                         </execution>
                         <execution>
                             <id>DEIL-COPY</id>
-                            <phase>install</phase>
+                            <phase>package</phase>
                             <configuration>
                                 <target>
                                     <copy todir="${project-jarPack}">
@@ -549,27 +559,24 @@
                     </dependencies>-->
                 </plugin>
                 <plugin><!-- https://gitee.com/roseboy/classfinal -->
-                    <!--
-                        1. 加密后,方法体被清空,保留方法参数、注解等信息.主要兼容swagger文档注解扫描
-                        2. 方法体被清空后,反编译只能看到方法名和注解,看不到方法体的具体内容
-                        3. 加密后的项目需要设置javaagent来启动,启动过程中解密class,完全内存解密,不留下任何解密后的文件
-                        4. 启动加密后的jar,生成xxx-encrypted.jar,这个就是加密后的jar文件,加密后不可直接执行
-                        5. 无密码启动方式,java -javaagent:xxx-encrypted.jar -jar xxx-encrypted.jar
-                        6. 有密码启动方式,java -javaagent:xxx-encrypted.jar='-pwd= 密码' -jar xxx-encrypted.jar
-                    -->
                     <groupId>net.roseboy</groupId>
                     <artifactId>classfinal-maven-plugin</artifactId>
                     <version>1.2.1</version>
                     <configuration>
-                        <password>#</password><!-- #表示启动时不需要密码,事实上对于代码混淆来说,这个密码没什么用,它只是一个启动密码 -->
+                        <!--
+                            1. 无密码启动方式,java -javaagent:xxx-encrypted.jar -jar xxx-encrypted.jar
+                            2. 有密码启动方式,java -javaagent:xxx-encrypted.jar='-pwd= 密码' -jar xxx-encrypted.jar
+                        -->
+                        <password>#</password><!-- #表示启动时不需要密码,仅是一个启动密码 -->
                         <excludes>org.spring</excludes>
                         <packages>${project.groupId}</packages><!-- 加密的包名,多个包用逗号分开 -->
-                        <cfgfiles>*.yml,*.properties</cfgfiles><!-- 加密的配置文件,多个包用逗号分开 -->
-                        <!--<libjars>hutool-all.jar</libjars>--> <!-- jar包lib下面要加密的jar依赖文件,多个包用逗号分开 -->
-                        <!--<code>xxxx</code>--> <!-- 指定机器启动,机器码 -->
+                        <cfgfiles>*.yml,*.properties,logback*.xml</cfgfiles><!-- 加密的配置文件,多个包用逗号分开 -->
+                        <!--<libjars>hutool-all.jar</libjars>--><!-- jar包lib下面要加密的jar依赖文件,多个包用逗号分开 -->
+                        <!--<code>xxxx</code>--><!-- 指定机器启动,机器码 -->
                     </configuration>
                     <executions>
                         <execution>
+                            <id>DEIL-CLASSFINAL</id>
                             <phase>package</phase>
                             <goals>
                                 <goal>classFinal</goal>

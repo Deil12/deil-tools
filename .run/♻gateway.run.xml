@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="🔍checkstyle" type="MavenRunConfiguration" factoryName="Maven" folderName="tools">
+  <configuration default="false" name="♻gateway" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -26,8 +26,10 @@
           <option name="goals">
             <list>
               <option value="clean" />
-              <option value="checkstyle:check" />
-              <option value="-DskipCheckstyle=false" />
+              <option value="install" />
+              <option value="-pl" />
+              <option value="deil-gateway" />
+              <option value="-am" />
             </list>
           </option>
           <option name="pomFileName" />
