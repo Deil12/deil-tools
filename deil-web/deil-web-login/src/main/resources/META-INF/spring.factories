@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.deil.login.common.LoginWebConfig,\
+  org.deil.login.common.LoginInject,\
+  org.deil.login.common.LoginRegister,\
+  org.deil.login.controller.LoginController,\
+  org.deil.login.common.utils.SpringContextAwareUtil

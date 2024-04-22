@@ -1,0 +1,19 @@
+server:
+  port: 1114
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#  mvc:
+#    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false #开发配置为false,避免修改模板还要重启服务器
+#    mode: LEGACYHTML5
+#    encoding: UTF-8 #编码 可不用配置
+#    prefix: classpath:/templates/ #配置模板路径，默认是templates，可以不用配置
+deil:
+  login:
+#    auto: true
+    title: sucker
+    pwd: 123
+#    exclude: /favicon.ico, /static/**, /login, /doLogin, /rain

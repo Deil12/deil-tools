@@ -39,6 +39,7 @@ class StartComputer implements Command {
 
 }
 
+@SuppressWarnings("unchecked")
 class CommandStudy {
 
     public static Map commandMap = new HashMap();

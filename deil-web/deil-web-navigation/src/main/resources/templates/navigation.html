@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="CN">
+<!-- <html lang="en" style="background-color: #000"> -->
+
+<head>
+    <meta charset="utf-8"/>
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8, maximum-scale=2.0, user-scalable=yes" />-->
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico"/>
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="http://www.goupu.com.cn/favicon.ico"/>
+      <link rel="bookmark" type="image/x-icon" href="http://www.goupu.com.cn/favicon.ico"/> -->
+    <title> 江湖有雾 </title>
+    <base target="_blank"/>
+    <style>
+        /* 小屏幕手机端 */
+        @media (min-width: 0px) and (max-width: 768px) {
+            .div1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+        }
+
+        /* 中等屏幕（桌面显示器，大于等于 992px） */
+        @media (min-width: 768px) and (max-width: 992px) {
+            .div1 {
+                width: 300px;
+                height: 300px;
+                background-color: blue;
+            }
+        }
+
+        /* 大屏幕（大桌面显示器，大于等于 1200px） */
+        @media (min-width: 992px) {
+            .div1 {
+                width: 500px;
+                height: 500px;
+                background-color: aqua;
+            }
+        }
+    </style>
+    <style>
+        /* 右键菜单 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #menu {
+            transition: all .2s;
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            opacity: 0;
+            background-color: #eff1f1;
+            box-shadow: #888 2px 2px 0;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            list-style: none;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #menu li {
+            text-align: center;
+            cursor: pointer;
+            height: 55px;
+            line-height: 55px;
+        }
+
+        #menu li:hover {
+            background: #333;
+            color: white;
+        }
+    </style>
+    <style>
+        body,
+        html {
+            color: white;
+            text-align: center;
+            background: #000;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        h4 {
+            position: relative;
+            text-align: left;
+            margin-left: 120px;
+            margin-top: 60px;
+        }
+
+        a {
+            color: white;
+            text-decoration-color: red;
+        }
+
+        .tr_h {
+            font-style: italic;
+            font-weight: bolder;
+            background-color: red;
+            border-radius: 12px;
+        }
+
+        .tr_note {
+            text-align: left;
+            font-style: italic;
+        }
+
+        .tr_table > td {
+            text-align: left;
+            font-style: italic;
+            width: 16.6%;
+        }
+
+        .div_form {
+            position: relative;
+            border: 0.3rem outset red;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .div_form > table {
+            /* border-top: 3px topset whitesmoke;
+              width: 100%; text-align: center; border-radius: 12px; */
+            width: 100%;
+        }
+
+        .div_form > button,
+        .form_input > button {
+            position: relative;
+            border-radius: 24px;
+            width: 20%;
+            font-style: italic;
+            font-size: large;
+            background: linear-gradient(135deg, #ff0000 30%, #000000 100%);
+            padding: 3px;
+            display: inline-block;
+        }
+
+        .form_input > input,
+        .div_form > input {
+            border-radius: 24px;
+            width: 40%;
+            /* background: linear-gradient(135deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b); */
+            /* background: linear-gradient(135deg,#0000ff,#00ffff,#88ff00,#ffff00,#ff8800); */
+            background: linear-gradient(135deg, #ffff00, #ff8800, #ff0000);
+            font-style: italic;
+            font-size: large;
+        }
+
+        .form_button > button,
+        .form_button > input {
+            position: relative;
+            border-radius: 24px;
+            width: 30%;
+            font-style: italic;
+            font-size: large;
+            background: linear-gradient(135deg, #ff0000 50%, #000000 100%);
+            padding: 3px;
+            display: inline-block;
+        }
+
+        .div_box {
+            position: -webkit-sticky;
+            position: fixed;
+            top: 1%;
+            height: 50px;
+            width: 100%;
+        }
+
+        .div_box > div {
+            position: relative;
+            cursor: pointer;
+            width: 10%;
+            height: 50px;
+            opacity: .3;
+            float: left;
+            transition: all .7s ease 0s;
+        }
+
+        .div_box > div:hover {
+            position: relative;
+            opacity: 1;
+        }
+
+        /* 内联框架 */
+        /* iframe{ */
+        /* position: -webkit-sticky; */
+        /* position: relative; */
+        /* width: 120%; border: 0; } */
+
+        /* 小弹窗 */
+        .nav_pop > div {
+            display: inline-block;
+        }
+
+        .nav_pop > div.is_active .notifications {
+            width: fit-content;
+            display: -webkit-box;
+            animation: note 0.7s ease-in-out forwards;
+        }
+
+        .nav_pop .notifications {
+            list-style: none;
+            display: none;
+            border-radius: 12px;
+            position: absolute;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes note {
+            0% {
+                opacity: 0;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                filter: alpha(opacity=0);
+                -webkit-transform: scale(0.1) rotate(30deg) translateY(50px);
+                transform: scale(0.1) rotate(30deg) translateY(50px);
+            }
+
+            50% {
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+                opacity: 1;
+                -ms-filter: none;
+                -webkit-filter: none;
+                filter: none;
+            }
+
+            70% {
+                -webkit-transform: rotate(5deg);
+                transform: rotate(5deg);
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false" onselectstart="return false">
+
+<!-- ################## 背景块 ################## -->
+<canvas id="sparks"></canvas>
+
+<!-- ################## 工具栏块 ################## -->
+<h4>
+    <a href="https://roadmap.sh" title="roadmap.sh">
+        <svg width="64" height="64" viewBox="0 0 1078 1081">
+            <image id="yun" width="1078" height="1081" x="0" y="0" href="/static/img/t9.png"/>
+        </svg>
+    </a>
+    <!-- <a onclick="window.open('https://music.163.com/#/artist?id=8103', '', 'width=680, height=300, top=520')" title="网易云"><svg viewBox="0 0 1024 1024" width="50" height="50" fill='white'> -->
+    <a onclick="window.open('https://music.163.com/#/my/m/music/playlist?id=147847032')" title="网易云">
+    <!--<a onclick="window.open('https://music.163.com/#/my/m/music/playlist?id=443350541')" title="网易云">-->
+        <svg viewBox="0 0 1024 1024"
+             width="50" height="50" fill='white'>
+            <path
+                    d="M667.3 336.294q0-3.39-3.39-8.475c-2.26-2.26-5.085-5.085-8.475-7.91a91.408 91.408 0 0 0-10.169-5.65c-3.39-1.13-6.78-2.26-9.6-2.26-5.085 0-11.3 1.695-18.079 3.955-3.955 1.13-7.345 2.26-10.734 3.39a75.263 75.263 0 0 1-10.734 2.825 669.733 669.733 0 0 1-76.271 9.04l-76.842 5.651c-10.169 1.13-20.339 1.13-30.508 1.13-10.734 0-21.469 0.565-31.638 1.13a40.021 40.021 0 0 1-7.91 0.565 28.358 28.358 0 0 0-6.78 1.13 19.536 19.536 0 0 0-6.78 3.955c-2.26 1.695-3.39 3.955-3.39 7.345a13.569 13.569 0 0 0 3.39 8.475 21.117 21.117 0 0 0 7.345 8.475 37.117 37.117 0 0 0 9.6 6.78 15.783 15.783 0 0 0 9.6 2.825 121.97 121.97 0 0 0 19.774-1.695c3.39-0.565 7.345-1.13 10.734-1.695s6.78-1.13 10.734-1.695c10.169-0.565 20.339-1.695 31.638-2.825 10.734-0.565 23.164-1.13 36.723-2.26q-5.085 49.153-10.169 108.475t-5.075 120.336c0 23.729 0.565 44.068 2.26 61.017 1.13 16.949 2.26 29.379 3.955 36.158 1.13 5.65 5.085 9.6 11.864 12.994a48.164 48.164 0 0 0 19.774 4.52 30.373 30.373 0 0 0 15.819-4.52c4.52-2.825 6.78-6.78 6.78-12.429a56.339 56.339 0 0 0-1.13-9.04l-2.26-9.04c-1.13-2.825-1.695-5.65-2.825-9.04a23.421 23.421 0 0 1-1.695-9.04c-1.13-10.169-2.26-25.989-2.825-48.023-1.13-21.469-1.13-46.893-1.13-75.141 0-25.989 1.13-53.107 3.39-82.486 2.26-28.249 5.085-58.192 7.345-88.7a1017.409 1017.409 0 0 1 57.062-5.085 392.205 392.205 0 0 0 52.542-7.345 51.819 51.819 0 0 0 12.994-5.085c3.386-2.258 5.086-6.212 5.086-10.732z">
+            </path>
+        </svg>
+    </a>
+    <span id="jinrishici-sentence">诗词装填中....</span>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+</h4>
+
+<!-- ################## 地址请求块 ################## -->
+<div class="div_form">
+    <!-- ------------------ 地址项 ------------------ -->
+    <datalist id="服务器">
+        <option value="localhost">本地</option>
+        <option value="10.79.10.29">回执测试</option>
+        <option value="10.79.10.30">回执准上线</option>
+        <option value="10.79.5.89">nacos</option>
+        <option value="10.79.10.22">nacos/sonar</option>
+        <option value="10.79.10.74">cargo_mq</option>
+        <option value="10.79.5.112">测试_mq</option>
+        <option value="10.80.116.16" , title="8849">生产_nacos</option>
+        <option value="10.80.119.20">回执生产_1</option>
+        <option value="10.80.119.21">回执生产_2</option>
+        <option value="exchangebackground.csair.com">回执生产_2</option>
+    </datalist>
+    <datalist id="镜像库">
+        <option value="hub.docker.com/repositories">hub.docker</option>
+        <option value="">阿里云</option>
+        <option value="c.163yun.com/dashboard#/ccr/list">网易</option>
+    </datalist>
+
+    <input type="text" id="bing" placeholder="bing"
+           onkeypress="if(event.keyCode==13){window.open('https://cn.bing.com/search?q='+document.getElementById('bing').value)}"
+           onsubmit="return false"/><br/>
+    <input type="text" id="google" placeholder="google"
+           onkeypress="if(event.keyCode==13){window.open('https://www.google.com.hk/search?q='+document.getElementById('google').value)}"
+           onsubmit="return false"/><br/>
+    <input type="text" id="baidu" placeholder="baidu"
+           onkeypress="if(event.keyCode==13){window.open('http://www.baidu.com/s?wd='+document.getElementById('baidu').value)}"
+           onsubmit="return false"/><br/>
+    <!-- <input type="text" id="geekbang" placeholder="geekbang"
+      onkeypress="if(event.keyCode==13){window.open('https://s.geekbang.org/search/c=0/k='+document.getElementById('geekbang').value+'/t=')}"
+      onsubmit="return false" /><br /> -->
+    <input type="text" placeholder="Bilibili" id="bilibili"
+           onkeypress="if(event.keyCode==13){window.open('http://search.bilibili.com/all?keyword='+document.getElementById('bilibili').value)}"/><br/>
+    <input type="text" id="mvn" placeholder="Maven依赖搜索(官方)"
+           onkeydown="var e=window.event || arguments[0];if(e.keyCode==13){window.open('https://mvnrepository.com/search?q='+document.getElementById('mvn').value)}"
+           onsubmit="false"/><br/>
+    <input type="text" id="sonatype" placeholder="Maven依赖搜索(sonatype)"
+           onkeydown="var e=window.event || arguments[0];if(e.keyCode==13){window.open('https://central.sonatype.com/search?q='+document.getElementById('sonatype').value)}"
+           onsubmit="false"/><br/>
+
+    <!-- ------------------ 日常工作 ------------------ -->
+    <button type="button" style="color: white;" onclick="window.open('http://om.csair.com/')">om考勤</button>
+    <button type="button" style="color: white;" onclick="window.open('https://login.csair.com/')">入网认证</button>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://10.79.10.133/child/whfadmin-app/home')">货运资源中心
+    </button>
+    <p><br/></p>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://aircargo.csair.com/kibana/s/windows-tang/app/home#/')">ELK
+    </button>
+    <button type="button" style="color: white;"
+            onclick="window.open('http://stbtm.csair.com/TM2.0/login.jsp')">智策平台
+    </button>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://www.tapd.csair.cn/my_dashboard')">Tapd
+    </button>
+    <p><br/></p>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://ilearning.csair.com/#/study/course/index')">学习中心
+    </button>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://10.79.248.17/#/codeCheck/code-check-list?newTaskType=0')">安全缺陷分析
+    </button>
+    <button type="button" style="color: white;"
+            onclick="window.open('https://10.79.248.18/#/project/projectList?product=1')">漏洞组件分析
+    </button>
+    <p><br/></p>
+    <button type="button" style="color: white;" onclick="window.open('')">...</button>
+    <button type="button" style="color: white;" onclick="window.open('')">...</button>
+    <button type="button" style="color: white;" onclick="window.open('')">...</button>
+    <p><br/></p>
+
+    <div class="div_form">
+        <!-- ------------------ 准中间件 ------------------ -->
+        <input type="text" placeholder="Knife4j_Api:[ip]/doc.html" list="服务器" id="knife4jApi"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('knife4jApi').value + '/doc.html')}"
+               style="color: white;"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Swagger2_Api:[ip]/swagger-ui.html" list="服务器" id="swagger2Api"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('swagger2Api').value + '/swagger-ui.html')}"
+               style="color: white;"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Swagger3_Api:[ip]/swagger-ui/index.html" list="服务器" id="swagger3Api"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('swagger3Api').value + '/swagger-ui/index.html')}"
+               style="color: white;"/>
+        <p><br/></p>
+
+        <hr style="height:5px;border:none;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Nacos:8848/nacos" list="服务器" id="nacos"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('nacos').value + ':8848/nacos')}"
+               style="background: linear-gradient(135deg, rgb(65,144,255) 50%, red 100%);" title="[nacos/nacos]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Jenkins:8080" list="服务器" id="jenkins"
+               onkeypress="if(event.keyCode==13){window.open('http://'+ document.getElementById('jenkins').value + ':8080')}"
+               onsubmit="return false" style="background: linear-gradient(135deg, rgb(0,76,179) 50%, red 100%);"
+               title="[admin/admin]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Sonar:9000" list="服务器" id="sonar"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('sonar').value + ':9000')}"
+               style="background: linear-gradient(135deg, rgb(69,149,197) 50%, red 100%);" title="[admin/admin]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="RabbitMQ:15672" list="服务器" id="rabbitMQ"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('rabbitMQ').value + ':15672')}"
+               style="background: linear-gradient(135deg, rgb(255,102,0) 50%, red 100%);" title="[admin/admin]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="RocketMQ:8180" list="服务器" id="rocketMQ"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('rocketMQ').value + ':8180')}"
+               style="background: linear-gradient(135deg, rgb(00, 96, 88) 50%, red 100%)"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="kibana:5601/app/kibana" list="服务器" id="kibana"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('kibana').value + ':5601/app/kibana')}"
+               style="background: linear-gradient(135deg, rgb(240, 191, 48), rgb(17, 165, 220), rgb(49, 190, 177))"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="ES:9200" list="服务器" id="es"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('es').value + ':9200')}"
+               style="background: linear-gradient(135deg, rgb(240, 191, 48), rgb(17, 165, 220), rgb(49, 190, 177))"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Sentinel:8858/#/dashboard" list="服务器" id="sentinel"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('sentinel').value + ':8858/#/dashboard')}"
+               title="[sentinel/sentinel]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Druid:[ip]/druid" list="服务器" id="druid"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('druid').value + '/druid')}"
+               title="[root/root]"/>
+        <p><br/></p>
+
+        <!-- ------------------ 中间件 ------------------ -->
+        <input type="text" placeholder="Portainer:9000" list="服务器" id="portainer"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('portainer').value + ':9000')}"
+               style="background: linear-gradient(135deg, rgb(48, 66, 106) 50%, red 100%)"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="NginxWebUI:[ip]" list="服务器" id="nginxwebUI"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('nginxwebUI').value)}"
+               style="background: linear-gradient(135deg, rgb(0, 150, 137) 50%, red 100%)"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Dubbo:8080/dubbo-admin-2.6.0" list="服务器" id="dubbo"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('dubbo').value + ':8080/dubbo-admin-2.6.0')}"
+               style="background: linear-gradient(135deg, rgb(32,99,170) 50%, red 100%);" title="[guest/guest]"/>
+        <p><br/></p>
+
+        <input type="text" placeholder="Zipkin:9411" list="服务器" id="zipkin"
+               onkeypress="if(event.keyCode==13){window.open('http://'+document.getElementById('zipkin').value + ':9411')}"/>
+        <p><br/></p>
+
+        <!-- <button type="button" onclick="window.open('https://www.dootask.com/manage/file')">dootask协作工具</button>
+        <button type="button" onclick="window.open('https://www.tapd.cn/')">tapd敏捷开发</button>
+        <button type="button" onclick="window.open('http://codeup.aliyun.com')">云效托管</button>
+        <button type="button" onclick="window.open('http://javainterview.gitee.io/luffy/2021/08/19/01-Java基础/01.%20注解')">3y对线</button><br/>
+         -->
+        <input type="text" placeholder="镜像库" list="镜像库" id="repository"
+               onkeypress="if(event.keyCode==13){window.open('https://'+document.getElementById('repository').value)}"
+               style="color: white;"/>
+        <p><br/></p>
+
+        <form class="form_input">
+            <input type="text" id="camscanner" placeholder="" value="w103.camscanner.com/files/holder"/>
+            <button type="button" onclick="window.open('http://'+document.getElementById('camscanner').value)"
+                    title="">扫描全能王
+            </button>
+        </form>
+        <br/>
+
+        <form class="form_input">
+            <input type="text" id="ES_head"
+                   value="chrome-extension://ffmkiejjmecolpfloofpjologoblkegm/elasticsearch-head/index.html"
+                   placeholder=""/>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('http://'+document.getElementById('ES_head').value)">ES_head
+            </button>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm/related?utm_source=chrome-ntp-icon')">
+                Extension
+            </button>
+        </form>
+        <br/>
+
+        <!-- <form class="form_input">
+          <input type="text" id="postman" value="web.postman.co/workspace/My-Workspace~24120c99-25b2-4026-868b-4a3b3c5d3331/request/19862987-16e1703f-6527-45c6-b8d1-a6b896300bfd" placeholder="deil12.server:8206/doc.html"/>
+          <button type="button" onclick="window.open('https://'+document.getElementById('postman').value)">postman</button>
+        </form> -->
+
+        <form class="form_input">
+            <input type="text" id="apifox" value="https://www.apifox.cn/web/project/682750"
+                   placeholder="www.apifox.cn/web/main"/>
+            <button type="button" onclick="window.open('https://'+document.getElementById('apifox').value)">apifox
+            </button>
+        </form>
+
+        <form class="form_input">
+            <input type="text" id="postwoman" value="hoppscotch.io/cn" placeholder="deil12.server:8206/doc.html"/>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('https://'+document.getElementById('postwoman').value)">postwoman
+            </button>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('https://chrome.google.com/webstore/detail/hoppscotch-browser-extens/amknoiejhlmhancpahfcfcfhllgkpbld')">
+                Extension
+            </button>
+        </form>
+
+        <form class="form_input">
+            <input type="text" id="Tabbed_Postman"
+                   value="chrome-extension://coohjcphdfgbiolnekdpbcijmhambjff/index.html"
+                   placeholder="deil12.server:8206/doc.html"/>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('https://'+document.getElementById('Tabbed_Postman').value)">Tabbed_Postman
+            </button>
+            <button type="button" style="width: 10%;"
+                    onclick="window.open('https://chrome.google.com/webstore/detail/tabbed-postman-rest-clien/coohjcphdfgbiolnekdpbcijmhambjff')">
+                Extension
+            </button>
+        </form>
+
+        <form class="form_input">
+            <input type="text" id="showdoc" value="www.showdoc.com.cn/item/index"
+                   placeholder="www.showdoc.com.cn/item/index"/>
+            <button type="button"
+                    onclick="window.open('https://'+document.getElementById('showdoc').value)">showdoc
+            </button>
+        </form>
+    </div>
+    <br/>
+
+    <!-- ----------------- 文档等 ------------------ -->
+    <div class="div_form">
+        <form class="form_button" aria-placeholder="后端">
+            <button type="button" onclick="window.open('http://nav.rbtree.cn/')">红黑编程</button>
+            <button type="button" onclick="window.open('https://www.sqlfather.com')">SQL及模拟数据</button>
+            <button type="button" onclick="window.open('https://oneinstack.com/auto/')">软件环境命令</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.code-nav.cn/')">编程导航</button>
+            <button type="button" onclick="window.open('https://www.mianshiya.com/')">面试鸭</button>
+            <button type="button"
+                    onclick="window.open('https://snailclimb.gitee.io/2018/09/18/java/java%E5%9F%BA%E7%A1%80/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/')">
+                javaguide
+            </button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://mybatis.org/mybatis-3/zh/index.html')">MyBatis文档
+            </button>
+            <button type="button" onclick="window.open('http://redisdoc.com/')">Redis文档</button>
+            <button type="button" onclick="window.open('https://git-scm.com/book/zh/v2')">Git文档</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://gitee.com/all-about-git')">Git文档相关</button>
+            <button type="button" onclick="window.open('https://www.matools.com/api/java8')">JDK文档相关</button>
+            <button type="button" onclick="window.open('https://www.linuxcool.com/')">linux命令大全</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://igs.sqlzoo.net/wiki/SQL_Tutorial/zh')">SQL_Tutorial
+            </button>
+            <button type="button" onclick="window.open('https://man.linuxde.net/')">linuxde</button>
+            <button type="button" onclick="window.open('https://www.toyaml.com/index.html')">properties&yaml</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.connectionstrings.com/mysql/')">数据源连接字符</button>
+            <button type="button"
+                    onclick="window.open('https://www.slf4j.org/codes.html#StaticLoggerBinder')">slf4j文档
+            </button>
+            <button type="button" onclick="window.open('http://www.xuesql.cn/')">自学SQL网</button>
+            <p><br/></p>
+
+            <button type="button"
+                    onclick="window.open('https://www.cs.usfca.edu/~galles/visualization/Algorithms.html')">数据结构可视化
+            </button>
+            <button type="button" onclick="window.open('https://visualgo.net/zh')">visualgo_数据&算法可视化</button>
+            <button type="button" onclick="window.open('https://ihateregex.io/')">ihateregex_可视化正则</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://thesecretlivesofdata.com/raft/')">一致性算法raft</button>
+            <button type="button" onclick="window.open('https://www.codecademy.com/')">codecademy互动/教程</button>
+            <button type="button" onclick="window.open('https://juejin.cn/')">(掘金)</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.pianshen.com/')">(程序员大本营)</button>
+            <button type="button"
+                    onclick="window.open('http://heavy_code_industry.gitee.io/code_heavy_industry/')">代码重工
+            </button>
+            <button type="button"
+                    onclick="window.open('https://www.wiz.cn/wapp/folder/3a8457d0-0161-11ec-aaab-1dca6eca4a16')">为知笔记
+            </button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.wdbyte.com')">未读代码</button>
+            <button type="button" onclick="window.open('https://zhile.io')">知了</button>
+            <button type="button" onclick="window.open('')"></button>
+            <p><br/></p>
+
+            <hr
+                    style="height:5px;border:none;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);"/>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.30secondsofcode.org/')">30s代码片段</button>
+            <button type="button" onclick="window.open('https://www.hutool.cn/docs/#/?id=📦安装')">hutool_工具类</button>
+            <button type="button" onclick="window.open('https://pythontutor.com/java.html#mode=edit')">可视化_代码执行</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://fastdep.louislivi.com/#/README')">fastdep简化</button>
+            <button type="button"
+                    onclick="window.open('https://terryz.gitee.io/selectpage/guide.html')">selectpage分页
+            </button>
+            <button type="button"
+                    onclick="window.open('https://www.jenkins.io/zh/doc/book/installing/#prerequisites')">jenkins文档
+            </button>
+            <p><br/></p>
+
+            <hr
+                    style="height:5px;border:none;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);"/>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://leetcode-cn.com/')">力扣</button>
+            <button type="button" onclick="window.open('https://books.halfrost.com/leetcode/')">LeetCode_Cookbook
+            </button>
+            <button type="button" onclick="window.open('https://www.codewars.com/')">codewars_代码挑战</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://t.zoukankan.com/page-3.html')">(走看看-开发者的网上家园)</button>
+            <button type="button" onclick="window.open('https://tech.meituan.com/')">美团技术团队</button>
+            <button type="button" onclick="window.open('https://www.oschina.net/blog')">开源博客</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://github.phodal.com/')">GitHub漫游指南</button>
+            <button type="button" onclick="window.open('http://www.ideabuffer.cn/')">IdeaBuffer_反应式系统</button>
+            <button type="button" onclick="window.open('https://www.captainai.net/')">床长人工智能教程</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.36kr.com/search/articles/java')">36Kr</button>
+            <button type="button"
+                    onclick="window.open('https://www.tmtpost.com/search?q=java&time=1636733633&code=f3b79c45193f0fed45eb44f780fb1171')">
+                钛媒体
+            </button>
+            <button type="button" onclick="window.open('https://www.huxiu.com/')">虎嗅</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://sspai.com/search/post/java')">创业邦</button>
+            <button type="button" onclick="window.open('https://sspai.com/')">少数派</button>
+            <button type="button" onclick="window.open('https://www.qimai.cn/')">七麦数据</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.itjuzi.com/')">IT橘子</button>
+            <button type="button" onclick="window.open('http://s.iresearch.cn/search/java/')">艾瑞网</button>
+            <button type="button" onclick="window.open('')"></button>
+            <p><br/></p>
+        </form>
+        <p style="color: red;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);">日常</p>
+
+        <!-- 导航&前端 -->
+        <form class="form_button" aria-placeholder="导航&前端">
+
+            <button type="button" onclick="window.open('https://www.bcnav.cn/')">果酱云导航</button>
+            <button type="button" onclick="window.open('https://www.coderutil.com/')">程序员网址工具导航</button>
+            <button type="button" onclick="window.open('http://martinku.vivi123.top/')">马丁库导航</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://hack.chat/')">hack_chat</button>
+            <button type="button" onclick="window.open('https://cybermap.kaspersky.com/cn')">网络攻击</button>
+            <button type="button"
+                    onclick="window.open('https://soft.iamhefang.cn/content/can-i-coding-in-android.html')">何方的软件分享
+            </button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://c.runoob.com/')">菜鸟工具</button>
+            <button type="button" onclick="window.open('https://nav.sbkko.com/')">SBKKO导航</button>
+            <button type="button" onclick="window.open('http://www.toolfk.com/')">ToolFk_在线工具箱</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://www.frontendjs.com/')">前站导航</button>
+            <button type="button" onclick="window.open('https://www.toolnb.com/toolslist/14.html')">爱资料工具</button>
+            <button type="button" onclick="window.open('http://tool.mkblog.cn/')">网页工具箱</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://www.atoolbox.net/Category.php?Id=29')">一个工具箱</button>
+            <button type="button" onclick="window.open('https://www.91sotu.com/')">搜图导航</button>
+            <button type="button" onclick="window.open('http://www.godbasin.com/')">被删的前端游乐场</button>
+            <p><br/></p>
+
+            <button type="button"
+                    onclick="window.open('https://www.w3school.com.cn/html/html5_intro.asp')">W3School
+            </button>
+            <button type="button"
+                    onclick="window.open('https://developer.mozilla.org/zh-CN/docs/Web')">MDN_Web_Docs
+            </button>
+            <button type="button"
+                    onclick="window.open('https://element.eleme.cn/#/zh-CN/component/installation')">Element_ui文档
+            </button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.flaticon.com/')">flaticon_ico图标库</button>
+            <button type="button" onclick="window.open('https://www.iconfont.cn/')">iconfont_阿里图标库</button>
+            <button type="button" onclick="window.open('https://realfavicongenerator.net/')">favicon_制作</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://macosicons.com/#/')">mac图标</button>
+            <button type="button" onclick="window.open('https://www.iconfont.cn/')"></button>
+            <button type="button" onclick="window.open('https://realfavicongenerator.net/')"></button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.grabient.com/')">grabient_css渐变色</button>
+            <button type="button" onclick="window.open('https://codepen.io/electerious/pen/rroqdL')">codepen_样式库
+            </button>
+            <button type="button" onclick="window.open('https://www.jq22.com/')">jq22_Jquery组件库</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://navnav.co/')">navnav_css组件库</button>
+            <button type="button" onclick="window.open('https://html.spec.whatwg.org/')">html5标签</button>
+            <button type="button" onclick="window.open('http://www.555soft.com/')">三五软件资源导航</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.oschina.net/project')">开源软件</button>
+            <button type="button" onclick="window.open('https://www.remove.bg/zh/upload')">图片消除背景工具</button>
+            <button type="button" onclick="window.open('https://www.aconvert.com/image/')">aconvert.com_格式转换</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://zhongguose.com/')">中国色</button>
+            <button type="button" onclick="window.open('https://cn.vuejs.org/v2/guide/syntax.html')">Vue.js模板</button>
+            <button type="button"
+                    onclick="window.open('https://fastdep.louislivi.com/#/module/fastdep-datasource')">fastdep简化依赖
+            </button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.layui.com/')">layui</button>
+            <button type="button" onclick="window.open('https://www.spiderflow.org/intro.html')">spiderflow图形化爬虫
+            </button>
+            <button type="button"
+                    onclick="window.open('https://shimowendang.com/docs/yThkYwkJq9gWdw6G/read')">python手册
+            </button>
+            <p><br/></p>
+
+            <button type="button"
+                    onclick="window.open('https://www.topgoer.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/gorm/gorm%E7%94%A8%E6%B3%95%E4%BB%8B%E7%BB%8D.html')">
+                go手册
+            </button>
+            <button type="button"
+                    onclick="window.open('https://wizardforcel.gitbooks.io/msdn-csharp/content/guide/65.html')">C#手册
+            </button>
+            <button type="button" onclick="window.open('http://c.biancheng.net/view/2780.html')">C#教程</button>
+            <hr
+                    style="height:5px;border:none;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);"/>
+            <p><br/></p>
+
+            <button type="button"
+                    onclick="window.open('https://wallpapers.microsoft.design/')">Microsoft_Design_Wallpapers
+            </button>
+            <button type="button" onclick="window.open('https://wallhaven.cc/')">WallHaven</button>
+            <button type="button" onclick="window.open('https://wall.alphacoders.com/')">WALLPAPER_ABYSS</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://www.passportindex.org/byColor.php')">各国护照</button>
+            <button type="button" onclick="window.open('https://www.meteorshowers.org/view/Ursids')">meteorshowers
+            </button>
+            <button type="button" onclick="window.open('https://wannengrun.com/zh/')">万能命令</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://www.dalipan.com/#/')">大力盘</button>
+            <button type="button" onclick="window.open('https://www.alltoall.net/')">在线格式转换</button>
+            <button type="button" onclick="window.open('http://www.hippter.com/')">PPT资源导航</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('http://duososo.com/index.php')">多搜搜</button>
+            <button type="button" onclick="window.open('https://hao.uisdc.com/')">设计师网址导航</button>
+            <button type="button" onclick="window.open('https://www.aigei.com/')">爱给免费素材</button>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('https://jianwai.youdao.com/index/0')">网易见外工作台</button>
+            <button type="button" onclick="window.open('https://apple.sqlsec.com')">国光的黑苹果</button>
+            <button type="button" onclick="window.open('')"></button>
+            <hr
+                    style="height:5px;border:none;background: linear-gradient(135deg,#000,#00f,#0f0,#8f0,#ff0,#f80,#f00,#000);"/>
+            <p><br/></p>
+
+            <button type="button" onclick="window.open('')"></button>
+            <button type="button" onclick="window.open('')"></button>
+            <button type="button" onclick="window.open('')"></button>
+            <p><br/></p>
+        </form>
+    </div>
+    <br/>
+
+    <!-- --------------- 环境&命令行 ---------------- -->
+    <div class="div_form">
+        <!-- 环境 -->
+        <table>
+            <tr>
+                <th colspan="100%" class="tr_h">Windows软件</th>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://www.wepe.com.cn/download.html" target="_blank">微PE工具箱</a></td>
+                <td><a href="https://fliqlo.com/download/FliqloScr.zip" target="_blank">fliqlo锁屏</a></td>
+                <td><a href="https://www.realvnc.com/en/connect/download/vnc/" target="_blank">VNC远程</a></td>
+                <td><a href="https://www.winxray.com/下载中心" target="_blank">winXray代理</a></td>
+                <td><a href="https://mirrors.sdu.edu.cn/#/mirror" target="_blank">山大镜像站</a></td>
+                <td><a href="https://geekuninstaller.com/download" target="_blank">GEEK</a></td>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="http://www.tbtool.cn/download/index.html" target="_blank">图吧工具箱</a></td>
+                <td><a href="http://www.u.tools/" target="_blank">UTOOLS</a></td>
+                <td><a href="https://translucenttb.en.softonic.com/" target="_blank">TranslucentTB</a></td>
+                <td><a href="https://wws.lanzouo.com/b0d9o1i6h" target="_blank">typora-0-11-18(9mba)</a></td>
+                <td><a href="" target="_blank">...</a></td>
+                <td><a href="" target="_blank">...</a></td>
+            </tr>
+
+            <tr>
+                <th colspan="100%" class="tr_h"><a href="https://cdk8s.gitbook.io/github/" target="_blank"
+                                                   style="color: black;">IntelliJ-IDEA-Tutorial</a></th>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://plugins.jetbrains.com/search?isPaid=false&orderBy=downloads">Lombok</a></td>
+                <td>DatabaseNavigator</td>
+                <td>SequenceDiagram</td>
+                <td>JRebelandXRebel</td>
+                <td>Translate</td>
+                <td>GrepConsole</td>
+            </tr>
+
+            <tr>
+                <th colspan="100%" class="tr_h"
+                    style="background: linear-gradient(135deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b);">环境
+                </th>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://www.oracle.com/java/technologies/downloads/archive/" target="_blank">JDK≥8u221</a>
+                </td>
+                <td><a href="https://maven.apache.org/download.cgi" target="_blank">MAVEN≥3.5.0</a></td>
+                <td><a href="https://git-scm.com/download/win" target="_blank">GIT</a></td>
+                <td><a href="https://www.jetbrains.com/zh-cn/idea/download/other.html" target="_blank">IDEA</a></td>
+                <td><a href="https://www.exception.site/essay/how-to-free-use-idea-202021-by-resigter-code"
+                       target="_blank">IDEA激活</a></td>
+                <td><a href="https://songzixian.com/developtool/1449.html" target="_blank">IDEA激活2</a></td>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://www.voidtools.com/zh-cn/downloads/" target="_blank">EVERYTHING</a></td>
+                <td><a href="https://tomcat.apache.org/whichversion.html" target="_blank">TOMCAT</a></td>
+                <td><a
+                        href="https://customerconnect.vmware.com/cn/downloads/info/slug/desktop_end_user_computing/vmware_workstation_pro/16_0#product_downloads"
+                        target="_blank">VMware_ws_pro</a></td>
+                <td><a href="https://www.centos.org/download/" target="_blank">CentOS7_DVD_1708</a></td>
+                <td><a href="https://tortoisegit.org/download/" target="_blank">git龟</a></td>
+                <td><a href="https://datastation.multiprocess.io/docs/latest/Installation.html"
+                       target="_blank">datastation</a></td>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://www.apipost.cn/download.html" target="_blank">apipost</a></td>
+                <td><a href="http://iscute.cn/chfs" target="_blank">chfs目录共享</a></td>
+            </tr>
+
+            <tr>
+                <th colspan="100%" class="tr_h"><a href="https://spring.io/projects/spring-boot"
+                                                   target="_blank">Spring官方项目</a></th>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://spring.io/projects/spring-boot#learn" target="_blank">spring_boot</a></td>
+                <td><a href="https://spring.io/projects/spring-security-oauth#learn" target="_blank">spring_security_oauth</a>
+                </td>
+                <td><a href="https://spring.io/projects/spring-cloud-zookeeper#learn"
+                       target="_blank">spring_cloud_zookeeper</a></td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+        </table>
+        <p><br/></p>
+
+        <!-- 命令行 -->
+        <table class="tr_note">
+            <tr>
+                <th colspan="2" class="tr_h"
+                    style="background: linear-gradient(135deg,#0000ff,#00ffff,#88ff00,#ffff00,#ff8800); color: black;">
+                    <a
+                            href="https://msdn.itellyou.cn/" target="_blank">Windows</a></th>
+            </tr>
+            <tr>
+                <td>内网穿透</td>
+                <td>
+                    <button onclick="window.open('https://natapp.cn/#download')">download</button>
+                    <button
+                            onclick="window.open('https://natapp.cn/tunnel/edit/76ewx5lv68')">修改authtoken
+                    </button>
+                    <br/><input
+                        type="text" placeholder="" value="natapp -authtoken="/></td>
+            </tr>
+            <tr>
+                <td>端口占用</td>
+                <td>netstat -aon|findstr "80"</td>
+            </tr>
+            <tr>
+                <td>ip地址查看</td>
+                <td>ipconfig</td>
+            </tr>
+            <tr>
+                <td>ping..IP地址</td>
+                <td>ping [IP]</td>
+            </tr>
+            <tr>
+                <td>telnet..端口</td>
+                <td>telnet [IP] [端口]</td>
+            </tr>
+            <tr>
+                <td>清除DNS</td>
+                <td>ipconfig/flushdns</td>
+            </tr>
+            <tr>
+                <td>初始化UWP应用(当前用户)</td>
+                <td>Get-AppxPackage | % { Add-AppxPackage -DisableDevelopmentMode -Register
+                    "$($_.InstallLocation)\AppxManifest.xml" -verbose }
+                </td>
+            </tr>
+            <tr>
+                <td>初始化UWP应用(所有用户)</td>
+                <td>Get-AppxPackage -AllUsers| Foreach {Add-AppxPackage -DisableDevelopmentMode -Register
+                    "$($_.InstallLocation)\AppXManifest.xml"}
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="2" class="tr_h"
+                    style="background: linear-gradient(135deg,#0000ff,#00ffff,#88ff00,#ffff00,#ff8800); color: black;">
+                    <a
+                            href="https://msdn.itellyou.cn/" target="_blank">Mac</a></th>
+            </tr>
+            <tr>
+                <td>fping工具</td>
+                <td>fping -ug ${$(ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d
+                    "addr:")}/24 |
+                    pbcopy<br>
+                    -a 显示存活IP，就是在ping测结果中，过滤能ping通的IP<br>
+                    -u 显示不可到达IP，就是在ping测结果中，过滤不能ping通的IP<br>
+                    -g 指定网段，或者指定开始和结束IP<br>
+                    -c 指定ping次数<br>
+                    -b 指定icmp包大小<br>
+                    -f 从文件获取ping的地址，注意，不能与 -g 参数同时使用，非要结合，可以用python的循环解决<br>
+                    -l 无限ping
+                </td>
+            </tr>
+            <tr>
+                <td>制作SSL证书</td>
+                <td>openssl genrsa -des3 -out ssl.key 1024//生成rsa私钥，des3算法，1024位强度，ssl.key是秘钥文件名。<br>
+                    openssl req -new -key ssl.key -out ssl.csr//生成 CSR（证书签名请求）, Common Name 应该与域名保持一致<br>
+                    openssl rsa -in ssl.key -out ssl_no_psw.key//终端执行删除密码命令,这里目录和生成私钥的目录一致<br>
+                    openssl x509 -req -days 3650 -in ssl.csr -signkey ssl_no_psw.key -out ssl.crt//生成自签名证书
+                </td>
+            </tr>
+            <tr>
+                <td>制作ca证书</td>
+                <td>genrsa -out ca.key 2048<br>
+                    req -new -x509 -days 3650 -key ca.key -out ca.pem<br>
+                    genrsa -out server.key 2048<br>
+                    req -new -key server.key -out server.csr<br>
+                    x509 -req -sha256 -CA ca.pem -CAkey ca.key -CAcreateserial -days 3650 -in server.csr -out server.pem<br>
+                    <br>
+                    ecparam -genkey -name secp384r1 -out client.key<br>
+                    req -new -key client.key -out client.csr<br>
+                    x509 -req -sha256 -CA ca.pem -CAkey ca.key -CAcreateserial -days 3650 -in client.csr -out client.pem
+                </td>
+            </tr>
+            <tr>
+                <td>生成SSH密钥</td>
+                <td>ls -al ~/.ssh<br>
+                    ssh-keygen -t rsa -b 4096 -C "xxxxxx@email.com"
+                </td>
+            </tr>
+            <tr>
+                <td>生成PKCS密钥</td>
+                <td>openssl genrsa -out pri#1.pem<br>
+                    openssl pkcs8 -topk8 -inform PEM -in pri#1.pem -outform PEM -nocrypt -out pri#8.pem<br>
+                    openssl rsa -in pri#1.pem -pubout -out public#8.pem<br>
+                    openssl rsa -pubin -in pub#8.pem -RSAPublicKey_out -out pub#1.pem<br>
+                    <br>
+                    openssl rsa -in pub#1.pem -pubout -RSAPublicKey_in -out pub#8.pem<br>
+                </td>
+            </tr>
+            <tr>
+                <td>WPA攻击</td>
+                <td>sudo /System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport<br>
+                    aireplay-ng -a [BSSID] -0 11 en0<br>
+                    airport en0 sniff 11<br>
+                    aircrack-ng /tmp/airportSniffXXX.cap<br>
+                    sudo aircrack-ng -w dic.txt /tmp/airportSniffXXX.cap<br>
+                </td>
+            </tr>
+            <tr>
+                <td>端口占用</td>
+                <td>sudo lsof -i tcp:port</td>
+            </tr>
+            <tr>
+                <td>杀死进程</td>
+                <td>sudo kill -9 PID</td>
+            </tr>
+            <tr>
+                <td>字符转码</td>
+                <td>iconv -f GBK -t UTF-8 /**.txt > /**.txt</td>
+            </tr>
+            <tr>
+                <td>批量转码</td>
+                <td>find *.txt -exec sh -c "iconv -f GBK -t UTF8 {} > {}.txt" \;</td>
+            </tr>
+
+            <tr>
+                <th colspan="2" class="tr_h"
+                    style="background: linear-gradient(135deg,#0000ff,#00ffff,#88ff00,#ffff00,#ff8800); color: black;">
+                    <a
+                            href="http://isoredirect.centos.org/centos/7/isos/x86_64/" target="_blank">Linux</a></th>
+            </tr>
+            <tr>
+                <td>xxx相关进程</td>
+                <td>ps -ef | grep 进程名 | grep -v grep</td>
+            </tr>
+            <tr>
+                <td>xxx端口信息</td>
+                <td>netstat -anp|grep 进程名</td>
+            </tr>
+            <tr>
+                <td>ip地址查看</td>
+                <td>ifconfig -a</td>
+            </tr>
+            <tr>
+                <td>nmtui文本框</td>
+                <td>nmtui</td>
+            </tr>
+            <tr>
+                <td>权限修改</td>
+                <td>chmod [+/-][r/w/x] 目标名</td>
+            </tr>
+            <tr>
+                <td>安装包下载</td>
+                <td>wget -P /opt 下载链接</td>
+            </tr>
+            <tr>
+                <td>程序运行相关</td>
+                <td>systemctl status/restart/stop [目标服务名, 如mysqld.service]</td>
+            </tr>
+            <tr>
+                <td>查看rpm已安装软件</td>
+                <td>rpm -qa | grep -i [目标名]</td>
+            </tr>
+            <tr>
+                <td>删除rpm所安装软件</td>
+                <td>rpm -ev [包名]</td>
+            </tr>
+            <tr>
+                <td>查找文件夹</td>
+                <td>whereis [文件夹名]<br/>find / -name [文件夹名]</td>
+            </tr>
+            <tr>
+                <td>删除文件夹</td>
+                <td>rm -rf [文件夹路径]</td>
+            </tr>
+            <tr>
+                <td>ab高并发工具</td>
+                <td>yum install -y httpd-tools</td>
+            </tr>
+            <tr>
+                <td>请求头</td>
+                <td>1000请求，100并发<br/>ab -c 500 -n 10000 -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64)
+                    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36" http://localhost/
+                </td>
+            </tr>
+            <tr>
+                <td>get</td>
+                <td><input type="text" placeholder="" value="ab -n 1000 -c 100 'http:// '"/></td>
+            </tr>
+            <tr>
+                <td>post</td>
+                <td><input type="text" placeholder=""
+                           value="ab -n 1000 -c 100 -p post.data -T application/x-www-form-urlencoded 'http:// '"/>
+                    <button
+                            type="button" onclick="window.open('file:///C:/post.data')"
+                            title="username=admin&password=123456">post.data参数文件
+                    </button>
+                </td>
+            </tr>
+
+
+            <!-- JDK -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="https://www.oracle.com/java/technologies/downloads/archive/"
+                                                target="_blank">*** JDK ***</a></th>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>echo $JAVA_HOME</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>echo $PATH</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>java -version</td>
+            </tr>
+
+            <!-- TomCat -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">*** TomCat ***</a></th>
+            </tr>
+            <tr>
+                <td>日志</td>
+                <td>tail -F catalina.out</td>
+            </tr>
+            <tr>
+                <td>开启</td>
+                <td>/opt/apache-tomcat-7.0.75/bin/startup.sh</td>
+            </tr>
+            <tr>
+                <td>关闭</td>
+                <td>/opt/apache-tomcat-7.0.75/bin/shutdown.sh</td>
+            </tr>
+
+            <!-- MySQL -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">*** MySql ***</a></th>
+            </tr>
+            <tr>
+                <td>MySQL版本</td>
+                <td>mysqladmin --version</td>
+            </tr>
+            <tr>
+                <td>数据库字符集</td>
+                <td>show variables like "%char%";</td>
+            </tr>
+            <tr>
+                <td>MySQL所需库</td>
+                <td>yum install -y libaio perl net-tools</td>
+            </tr>
+            <tr>
+                <td>连接MySQL服务器</td>
+                <td>mysql -u root -p</td>
+            </tr>
+            <tr>
+                <td class="tr_h">**MySQL优化相关**</td>
+                <td></td>
+            </tr>
+            <tr class="tr_note">
+                <td>( 数据库字符集 )</td>
+                <td>( /etc/my.cnf 末添加并重启服务 )<br/>character_set_server=UTF8</td>
+            </tr>
+            <tr class="tr_note">
+                <td>( 开启自定义函数功能 )</td>
+                <td>( /etc/my.cnf 末添加并重启服务 )<br/>log_bin_trust_function_creators=1</td>
+            </tr>
+            <tr>
+                <td>(Linux 防火墙在运行中并不允许 3306 端口访问)</td>
+                <td>systemctl stop firewalld.service<br/>systemctl disable firewalld.service</td>
+            </tr>
+            <tr>
+                <td class="tr_h">**用户权限相关**</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>授权</td>
+                <td>grant select,insert,delete,update on *.* to [指定用户名];<br/>grant all privileges on *.* to root@'%'
+                    identified by '[root对应密码]';
+                </td>
+            </tr>
+            <tr>
+                <td>销权</td>
+                <td>REVOKE ALL PRIVILEGES ON *.* FROM [指定用户名]@'%';<br/>REVOKE select,insert,update,delete ON *.* FROM
+                    [指定用户名]@'%';
+                </td>
+            </tr>
+            <!-- Mycat -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">Mycat</a></th>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://codeload.github.com/MyCATApache/Mycat-Server/zip/Mycat-server-1675-release">源码下载</a>
+                </td>
+                <td>https://codeload.github.com/MyCATApache/Mycat-Server/zip/Mycat-server-1675-release</td>
+            </tr>
+            <tr class="tr_note">
+                <td>JVM参数</td>
+                <td>-DMYCAT_HOME=[Mycat包main目录绝对路径]\main<br/>-XX:MaxDirectMemorySize=512M</td>
+            </tr>
+
+            <!-- Redis -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">*** Redis ***</a></th>
+            </tr>
+            <tr>
+                <td>日志</td>
+                <td>tail /var/redislogs/redis.log</td>
+            </tr>
+            <tr>
+                <td>server</td>
+                <td>/usr/local/redis/bin/redis-server /usr/local/redis/redis.conf</td>
+            </tr>
+            <tr>
+                <td>cli</td>
+                <td>/usr/local/redis/bin/redis-cli</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>/javaprogram/redis-server /javaprogram/redis.conf</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>/javaprogram/redis-cli</td>
+            </tr>
+            <tr>
+                <td>哨兵</td>
+                <td>/usr/local/redis/bin/redis-server /usr/local/cluster-redis/sentinel.conf --sentinel</td>
+            </tr>
+            <!-- Redis集群 -->
+            <tr>
+                <td class="tr_h"><a href="http://www.redis.cn/topics/cluster-tutorial.html">
+                    <link href="/images/favicon.png" rel="shortcut icon">
+                    **Redis集群**
+                </a></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>gcc</td>
+                <td>yum install gcc-c++</td>
+            </tr>
+            <tr>
+                <td>ruby</td>
+                <td>yum install rubyyum install rubygems</td>
+            </tr>
+            <tr>
+                <td>redis源码包上传编译</td>
+                <td>make---make出错时使用-----<br/>
+                    make MALLOC=libc---以上依然出错时使用------<br/>
+                    cd src/<br/>
+                    chmod 777 mkreleasehdr.sh ----返回redis根目录再次执行<br/>
+                    make MALLOC=libc即可----
+                </td>
+            </tr>
+            <tr>
+                <td>创建目录/实例</td>
+                <td>/usr/local/redis-cluster/redis-1<br/>make install PREFIX=/usr/local/redis/cluster/redis-1</td>
+            </tr>
+            <tr>
+                <td>修改节点配置</td>
+                <td>daemonize yes #守护式启动修改配置<br/>
+                    ​ port 7001 #（修改运行端口7002 7003 .....）<br/>
+                    ​ cluster-enabled yes #(632行)
+                </td>
+            </tr>
+            <tr>
+                <td>启动/查看实例</td>
+                <td>cd /usr/local/java0223/cluster/redis-1/bin<br/>
+                    ./redis-server redis.conf<br/>
+                    ps -ef | grep redis
+                </td>
+            </tr>
+            <tr>
+                <td>redis-3.0.0.gem脚本上传/安装</td>
+                <td>gem install redis-3.0.0.gem</td>
+            </tr>
+            <tr>
+                <td>ruby搭建redis集群</td>
+                <td>./redis-trib.rb create --replicas 1 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004
+                    127.0.0.1:7005 127.0.0.1:7006
+                </td>
+            </tr>
+            <tr>
+                <td>gcc</td>
+                <td>yum install gcc-c++</td>
+            </tr>
+
+            <!-- Docker -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">*** Docker ***</a></th>
+            </tr>
+            <tr>
+                <td>docker cp</td>
+                <td>本地文件系统(OS操作系统|宿主机)和容器之间进行文件或者文件夹拷贝</td>
+            </tr>
+            <tr>
+                <td>docker exec</td>
+                <td>登录一个容器，使用命令行操作正在运行的容器</td>
+            </tr>
+            <tr>
+                <td>容器存为镜像</td>
+                <td>docker commit (容器名) (镜像名)</td>
+            </tr>
+            <tr>
+                <td>镜像导出tar</td>
+                <td>docker save -o (文件名.tar) (镜像名)</td>
+            </tr>
+            <tr>
+                <td>tar文件恢复镜像</td>
+                <td>docker load -i (tar文件)</td>
+            </tr>
+            <tr>
+                <td>容器挂载目录</td>
+                <td>docker run -di --name=容器名 -v 本地目录:(容器目录)/usr/local 镜像名</td>
+            </tr>
+            <tr>
+                <td>关停的容器</td>
+                <td>docker ps -f status=exited</td>
+            </tr>
+            <tr>
+                <td>容器自启</td>
+                <td>docker update --restart=always 容器名</td>
+            </tr>
+            <tr>
+                <td>容器数据</td>
+                <td>docker inspect 容器名</td>
+            </tr>
+            <tr>
+                <td>容器日志</td>
+                <td>docker logs -f 容器名</td>
+            </tr>
+            <tr>
+                <td>容器内IP</td>
+                <td>docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+                    $(docker ps
+                    -aq)
+                </td>
+            </tr>
+            <tr>
+                <td class="tr_h" style="background-color: orange;">推送镜像仓库</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>hub仓库</td>
+                <td>docker login -u 用户名 -p 密码</td>
+            </tr>
+            <tr>
+                <td>网易仓库</td>
+                <td>docker login -u 用户名 -p 密码 hub.c.163.com</td>
+            </tr>
+            <tr>
+                <td>阿里仓库</td>
+                <td>docker login -u 用户名 -p 密码 registry.cn-shenzhen.aliyuncs.com</td>
+            </tr>
+            <tr>
+                <td>构建</td>
+                <td>docker build -t 镜像名:版本 .</td>
+            </tr>
+            <tr>
+                <td>标记</td>
+                <td>docker tag [用户名/已有镜像名] 用户名/镜像名</td>
+            </tr>
+            <tr>
+                <td>推送</td>
+                <td>docker push 用户名/镜像名[:版本]</td>
+            </tr>
+            <!-- redis容器 -->
+            <tr>
+                <td class="tr_h">** Redis **</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>docker exec -it redis /bin/bash</td>
+            </tr>
+            <tr>
+                <td>进入redis实例</td>
+                <td>redis-cli -c -p 6380</td>
+            </tr>
+            <tr>
+                <td>集群状态</td>
+                <td>cluster info</td>
+            </tr>
+            <tr>
+                <td>链接实例</td>
+                <td>cluster meet localhost 6380</td>
+            </tr>
+            <tr>
+                <td>分配槽位</td>
+                <td>redis-cli -c -p 6379 cluster addslots {0..16383}</td>
+            </tr>
+            <tr>
+                <td>计算槽位</td>
+                <td>cluster keyslot</td>
+            </tr>
+            <!-- Portainer容器 -->
+            <tr>
+                <td class="tr_h">** Portainer **</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>开放端口</td>
+                <td>vim /usr/lib/systemd/system/docker.service<br/>ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H
+                    unix://var/run/docker.sock
+                </td>
+            </tr>
+            <tr>
+                <td>重启服务</td>
+                <td>systemctl daemon-reload<br/>systemctl restart docker</td>
+            </tr>
+            <tr>
+                <td>创建</td>
+                <td>docker run -d -p 9000:9000 \
+                    --restart=always \
+                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    --name portainer portainer/portainer
+                </td>
+            </tr>
+            <!-- kod容器 -->
+            <tr>
+                <td class="tr_h">** 可道云 **</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>wget -P /opt https://static.kodcloud.com/update/download/kodbox.1.22.zip</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>unzip kodbox.1.22.zip && chmod -Rf 777 ./*</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>docker pull yangxuan8282/kodexplorer</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>docker run -id --name=kodcloud -p 1114:80 yangxuan8282/kodexplorer</td>
+            </tr>
+            <!-- fastDFS容器 -->
+            <tr>
+                <td class="tr_h">** fastDFS **</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>拉取</td>
+                <td>docker pull morunchang/fastdfs</td>
+            </tr>
+            <tr>
+                <td>运行tracker</td>
+                <td>docker run -d --name tracker --net=host morunchang/fastdfs sh tracker.sh</td>
+            </tr>
+            <tr>
+                <td>运行storage</td>
+                <td>docker run -d --name storage --net=host -e TRACKER_IP=deil12.vhost:22122 -e GROUP_NAME=group1
+                    morunchang/fastdfs sh storage.sh
+                </td>
+            </tr>
+            <tr>
+                <td>配置内置Nginx</td>
+                <td>docker exec -it storage /bin/bash</td>
+            </tr>
+            <tr class="tr_note">
+                <td>...</td>
+                <td>vi /etc/nginx/conf/nginx.conf<br/>
+                    #添加<br/>
+                    location ~ /M00 {<br/>
+                    add_header Cache-Control no-store;<br/>
+                    ngx_fastdfs_module;<br/>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <!-- Git -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="https://git-scm.com/downloads" target="_blank">*** Git ***</a>
+                </th>
+            </tr>
+            <tr>
+                <td><a href="https://tortoisegit.org/download/" target="_blank">tortoiseGit_Git任务工具</a></td>
+                <td>https://tortoisegit.org/download/</td>
+            </tr>
+            <tr>
+                <td class="tr_h">##本地##</td>
+                <td></td>
+            </tr>
+            <!-- SSH公钥 -->
+            <tr>
+                <td>生成sshkey</td>
+                <td>ssh-keygen -t ed25519 -C "deil12@163.com"<br/>ssh-keygen -t rsa -b 4096 -C "deil12@163.com</td>
+            </tr>
+            <tr>
+                <td>[添加id_rsa]</td>
+                <td>ssh-add ~/.ssh/id_rsa</td>
+            </tr>
+            <tr>
+                <td>公钥</td>
+                <td>cat ~/.ssh/id_ed25519.pub<br/>cat ~/.ssh/id_rsa.pub</td>
+            </tr>
+            <tr>
+                <td>添加本机SSH可信</td>
+                <td>ssh -T git@gitee.com<br/>ssh -T git@github.com</td>
+            </tr>
+            <!-- 创建版本库 -->
+            <tr>
+                <td>克隆远程版本库</td>
+                <td>git clone (url)</td>
+            </tr>
+            <tr>
+                <td>本地库初始化</td>
+                <td>git init</td>
+            </tr>
+            <!-- 修改/提交 -->
+            <tr>
+                <td>查看状态</td>
+                <td>git status</td>
+            </tr>
+            <tr>
+                <td>查看变更</td>
+                <td>git diff</td>
+            </tr>
+            <tr>
+                <td>跟踪文件/添加暂存区</td>
+                <td>git add [ . / (file) ]</td>
+            </tr>
+            <!--  -->
+            <tr>
+                <td>追踪,</td>
+                <td>git add [目标文件名]</td>
+            </tr>
+            <tr>
+                <td>提交本地库</td>
+                <td>git commit -m "库名" [目标文件名](冲突时不带文件名提交)</td>
+            </tr>
+            <tr>
+                <td>版本记录</td>
+                <td>git reflog</td>
+            </tr>
+            <tr>
+                <td>切换版本</td>
+                <td>git reset --(hard/mixed/soft) 版本哈希值</td>
+            </tr>
+            <tr>
+                <td>查看分支</td>
+                <td>git branch -v</td>
+            </tr>
+            <tr>
+                <td>创建分支</td>
+                <td>git branch 分支名</td>
+            </tr>
+            <tr>
+                <td>切换分支</td>
+                <td>git checkout 目标分支名</td>
+            </tr>
+            <tr>
+                <td>目标合并到当前</td>
+                <td>git merge 目标分支</td>
+            </tr>
+
+            <tr>
+                <td class="tr_h">##远程##</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>当前远程地址</td>
+                <td>git remote add 库别名 url路径</td>
+            </tr>
+            <tr>
+                <td>推送</td>
+                <td>git push 库别名 分支名</td>
+            </tr>
+
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">*** Nginx ***</a></th>
+            </tr>
+            <tr>
+                <td>配置文件</td>
+                <td>vi /usr/local/nginx/conf/nginx.conf
+                </th>
+            </tr>
+            <tr>
+                <td>配置重加载</td>
+                <td>/usr/local/nginx/sbin/nginx -s reload
+                </th>
+            </tr>
+
+            <!-- Elasticsearch -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="https://elasticsearch.cn/download/" target="_blank">***
+                    Elasticsearch
+                    ***</a></th>
+            </tr>
+            <tr>
+                <td>日志</td>
+                <td>cat /var/log/elasticsearch/集群名.log</td>
+            </tr>
+            <tr>
+                <td>启动</td>
+                <td>systemctl start elasticsearch.service</td>
+            </tr>
+            <tr>
+                <td>重加载</td>
+                <td>systemctl restart elasticsearch.service</td>
+            </tr>
+            <tr>
+                <td>测试连接</td>
+                <td>curl http://deil12.vhost:9200</td>
+            </tr>
+            <!-- 中文分词器 -->
+            <tr>
+                <th colspan="2" class="tr_h">** 中文分词器 **</th>
+            </tr>
+            <tr>
+                <th colspan="2">* SmartCN Analyzer *</th>
+            </tr>
+            <tr>
+                <td>安装</td>
+                <td>/usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-smartcn</td>
+            </tr>
+            <tr class="tr_note">
+                <td>跨域问题</td>
+                <td>config -> elasticsearch.yml<br/>
+                    #添加<br/>
+                    http.cors.enable: true<br/>
+                    http.cors.allow-origin: "*"<br/>
+                    network.host: 127.0.0.1<br/>
+                    cluster.initial_master_nodes: ["node-1"]
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">* IK Analyzer *</th>
+            </tr>
+            <tr>
+                <td>拉取</td>
+                <td>wget -P /opt
+                    https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.4.0/elasticsearch-analysis-ik-7.4.0.zip
+                </td>
+            </tr>
+            <tr>
+                <td>解压</td>
+                <td>unzip elasticsearch-analysis-ik-7.4.0.zip -d /usr/share/elasticsearch/plugins/ik</td>
+            </tr>
+            <!-- Kibana -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">** Kibana **( http://deil12.vhost:5601 )</a>
+                </th>
+            </tr>
+            <tr>
+                <td>启动</td>
+                <td>/opt/kibana-7.4.0-linux-x86_64/bin/kibana --allow-root</td>
+            </tr>
+
+            <!-- Netty -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="https://netty.io/downloads.html" target="_blank">Netty</a></th>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td></td>
+            </tr>
+
+            <!-- VM优化 -->
+            <tr>
+                <th colspan="2" class="tr_h"><a href="" target="_blank">VM程序配置</a></th>
+            </tr>
+            <tr>
+                <td>Maven:</td>
+                <td>中文乱码: 浏览器控制台>>>配置tomcat环境时Server->VM option项填入[-Dfile.encoding=UTF-8]</td>
+            </tr>
+            <tr>
+                <td>IDEA配置多线程</td>
+                <td>Configuration -> Environment variables: server:port=0000</td>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td></td>
+            </tr>
+
+        </table>
+
+        <!-- 前端 -->
+        <table>
+            <tr>
+                <th colspan="100%" class="tr_h"
+                    style="background: linear-gradient(135deg,#0000ff,#00ffff,#88ff00,#ffff00,#ff8800); color: black;">
+                    前端
+                </th>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="https://nodejs.org/zh-cn/download/">NodeJS</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+            </tr>
+            <tr class="tr_table">
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+                <td><a href="">...</a></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th colspan="2" class="tr_h" style="background-color: aqua;"><a href="" target="_blank">前端</a></th>
+            </tr>
+            <tr>
+                <td>npm</td>
+                <td>npm -v</td>
+            </tr>
+            <tr>
+                <td>cnpm</td>
+                <td>npm install -g cnpm --registry=https://registry.npm.taobao.org</td>
+            </tr>
+            <tr>
+                <td>淘宝镜像</td>
+                <td>npm config set registry https://registry.npm.taobao.org</td>
+            </tr>
+            <tr>
+                <td>配置信息</td>
+                <td>npm config list</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ------------------ 工具 ------------------ -->
+    <!-- <div class="div_box"><iframe height=47 src="https://music.163.com" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe></div> -->
+
+    <!-- ------------------ 工具栏 ------------------ -->
+    <!-- <div class="div_box" style="margin-top: 60px;"> -->
+    <div class="div_box">
+        <!-- 弹出组件 -->
+        <div class="nav_pop">
+            <div>
+                <svg viewBox="0 0 1024 1024" width="1" height="50"></svg>
+                <ul class="notifications"></ul>
+            </div>
+            <div>
+                <svg viewBox="0 0 1024 1024" width="50" height="50">
+                    <path
+                            d="M1009.319087 5.274069a31.995081 31.995081 0 0 0-35.194589 0l-959.852422 639.901615a31.995081 31.995081 0 0 0 5.759114 56.311342l250.201532 100.144603 117.741897 206.04832A31.995081 31.995081 0 0 0 416.13029 1023.99744a31.995081 31.995081 0 0 0 27.515769-15.677589l66.549768-110.70298 310.032333 124.140914A31.995081 31.995081 0 0 0 832.06634 1023.99744a31.995081 31.995081 0 0 0 31.99508-26.875867l159.975404-959.852423a31.995081 31.995081 0 0 0-14.717737-31.995081zM100.658794 665.012634L841.984815 170.688637l-539.117111 575.911453a63.990162 63.990162 0 0 0-8.638672-5.119213z m225.565319 105.263816L931.890992 121.096261 416.13029 926.092493z m479.926211 177.252747l-273.237989-109.423176a63.990162 63.990162 0 0 0-19.83695-3.839409L934.450598 182.206866z"
+                            fill="#ff0000"></path>
+                </svg>
+                <ul class="notifications">
+                    <div>
+                        <form class="form_input">
+                            <input type="button" id="toast" style="width: min-content" value="WinXray节点"/><br/>
+                            <button type="button" style="width: 50%; background: yellow;"
+                                    onclick="window.open('https://mail.runjian.com/')">runjian
+                            </button>
+                            <button type="button" style="width: 50%; background: yellow;"
+                                    onclick="window.open('https://mail.163.com/')">163
+                            </button>
+                            <button type="button" style="width: 50%; background: yellow;"
+                                    onclick="window.open('https://mail.sina.com.cn/')">sina
+                            </button>
+                            <button type="button" style="width: 50%; background: yellow;"
+                                    onclick="window.open('https://mail.qq.com/')">QQ
+                            </button>
+                            <button type="button" style="width: 50%; background: yellow;"
+                                    onclick="window.open('https://mail.aliyun.com/')">ali
+                            </button>
+                        </form>
+                    </div>
+                    <!-- pacman -->
+                    <div>
+                        <iframe src="https://search.chongbuluo.com/pacman/pacman.html"
+                                style="margin: auto; border-radius: 12px;"
+                                frameborder="0" height="208px" width="484px" scrolling="no" webkitallowfullscreen="true"
+                                mozallowfullscreen="true" allowfullscreen></iframe>
+                    </div>
+                    <!-- 俄罗斯方块 -->
+                    <!-- <div>
+                      <iframe src="http://guozhivip.com/fun/els/" style="margin: auto; border-radius: 12px;" frameborder="0" height="423px" width="283px"></iframe>
+                    </div> -->
+                </ul>
+            </div>
+            <div>
+                <svg viewBox="0 0 1024 1024" width="1" height="50"></svg>
+                <ul class="notifications"></ul>
+            </div>
+        </div>
+        <!-- Github -->
+        <div>
+            <a href="https://github.com/Deil12?tab=repositories" target="_blank">
+                <svg viewBox="0 0 1024 1024" width="50" height="50">
+                    <path fill="#fff"
+                          d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9 23.5 23.2 38.1 55.4 38.1 91v112.5c0.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"/>
+                </svg>
+            </a>
+        </div>
+        <!-- Gitee -->
+        <div>
+            <a href="https://gitee.com/deil12/projects" target="_blank">
+                <svg viewBox="0 0 1024 1024" width="50" height="50">
+                    <path fill="#c71d23"
+                          d="M512 1024C229.248 1024 0 794.752 0 512S229.248 0 512 0s512 229.248 512 512-229.248 512-512 512z m259.168-568.896h-290.752a25.28 25.28 0 0 0-25.28 25.28l-0.032 63.232c0 13.952 11.296 25.28 25.28 25.28h177.024a25.28 25.28 0 0 1 25.28 25.28v12.64a75.84 75.84 0 0 1-75.84 75.84h-240.224a25.28 25.28 0 0 1-25.28-25.28v-240.192a75.84 75.84 0 0 1 75.84-75.84h353.92a25.28 25.28 0 0 0 25.28-25.28l0.064-63.2a25.312 25.312 0 0 0-25.28-25.312H417.184a189.632 189.632 0 0 0-189.632 189.6v353.952c0 13.952 11.328 25.28 25.28 25.28h372.928a170.656 170.656 0 0 0 170.656-170.656v-145.376a25.28 25.28 0 0 0-25.28-25.28z"/>
+                </svg>
+            </a>
+        </div>
+        <!-- Gitlab -->
+        <!-- <div>
+          <a href="http://10.79.10.127" target="_blank">
+            <svg t="1655809983534" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              p-id="2137" width="50" height="50">
+              <path
+                d="M59.544137 403.419429L512.115566 983.405714 16.09728 623.396571a39.936 39.936 0 0 1-14.299429-43.995428l57.709715-176.018286z m264.009143 0h377.161143L512.152137 983.405714zM210.40128 53.723429l113.152 349.696H59.544137l113.152-349.696a20.041143 20.041143 0 0 1 37.705143 0z m754.285714 349.696l57.709715 176.018285a39.862857 39.862857 0 0 1-14.299429 43.995429l-496.018286 360.009143 452.571429-579.986286z m0 0h-264.009143l113.152-349.696a20.041143 20.041143 0 0 1 37.705143 0z"
+                fill="#d81e06" p-id="2138"></path>
+            </svg>
+          </a>
+        </div> -->
+        <!-- coding -->
+        <div>
+            <a href="https://codingcorp.coding.csair.com" target="_blank">
+                <svg t="1693459756566" class="icon" viewBox="0 0 1362 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     p-id="1600" width="55" height="55">
+                    <path
+                            d="M396.699 596.955c0 0 0 0 0 0 0 14.475 9.773 26.211 21.827 26.211 12.057 0 21.827-11.737 21.827-26.211 0 0 0 0 0 0 0 0 0 0 0 0 0-14.475-9.773-26.211-21.827-26.211-12.057 0-21.827 11.737-21.827 26.211s0 0 0 0z"
+                            p-id="1601" fill="#d81e06"></path>
+                    <path
+                            d="M915.141 596.955c0 0 0 0 0 0 0 14.475 9.773 26.211 21.827 26.211 12.057 0 21.827-11.737 21.827-26.211 0 0 0 0 0 0 0 0 0 0 0 0 0-14.475-9.773-26.211-21.827-26.211-12.057 0-21.827 11.737-21.827 26.211s0 0 0 0z"
+                            p-id="1602" fill="#d81e06"></path>
+                    <path
+                            d="M1251.226 428.593c-35.806 0-67.188 22.704-84.729 56.775-59.689-129.436-183.865-249.357-337.327-298.738-82.806-33.039-140.954-96.454-148.142-170.567-7.187 74.114-65.335 137.527-148.142 170.567-153.462 49.385-277.639 169.299-337.327 298.738-17.541-34.070-48.923-56.775-84.729-56.775-54.99 0-99.567 53.524-99.567 119.562 0 66.030 44.576 119.562 99.567 119.562 16.724 0 32.475-4.972 46.313-13.726 4.735 214.402 237.349 353.577 523.893 353.951 286.535-0.371 519.157-139.542 523.893-353.951 13.839 8.753 29.593 13.726 46.313 13.726 54.99 0 99.567-53.524 99.567-119.562-0.007-66.030-44.593-119.562-99.578-119.562zM156.086 585.521c-4.658 17.214-25.392 24.543-46.313 16.384s-34.105-28.731-29.444-45.945c4.658-17.214 25.392-24.543 46.313-16.384s34.105 28.737 29.444 45.945zM681.023 948.257c-229.82-0.356-415.935-108.67-415.935-263.725 0-3.247 0.119-6.465 0.274-9.678 0.053-1.056 0.108-2.114 0.18-3.171 0.142-2.191 0.339-4.37 0.558-6.549 0.292-2.918 0.638-5.826 1.062-8.719 0.042-0.287 0.076-0.575 0.119-0.858 4.626-30.474 16.471-76.976 34.358-103.783 42.977-62.164 119.634-103.578 207.083-103.578 67.324 0 128.206 24.588 172.301 64.238 44.094-39.651 104.974-64.238 172.301-64.238 87.453 0 164.108 41.42 207.083 103.578 17.889 26.801 29.734 73.307 34.358 103.783 0.042 0.287 0.076 0.575 0.119 0.858 0.429 2.892 0.771 5.804 1.062 8.719 0.215 2.179 0.411 4.352 0.558 6.549 0.071 1.056 0.125 2.114 0.18 3.171 0.157 3.211 0.274 6.43 0.274 9.678 0 155.051-186.117 263.359-415.935 263.725zM1252.272 601.902c-20.921 8.16-41.658 0.831-46.313-16.384s8.527-37.781 29.444-45.945c20.921-8.16 41.658-0.831 46.313 16.384 4.658 17.214-8.527 37.781-29.444 45.945z"
+                            p-id="1603" fill="#d81e06"></path>
+                </svg>
+            </a>
+        </div>
+        <!-- ProcessOn -->
+        <div>
+            <a href="https://www.processon.com/diagrams" target="_blank">
+                <svg t="1667355046870" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     p-id="7966" width="48" height="48">
+                    <path
+                            d="M631.419 260.65c-15.167-4.027-43.173-6.047-84.026-6.047H373.306v243.842l175.948 0.001c58.18 0 99.5-10.854 123.951-32.575 24.447-21.712 36.676-52.272 36.676-91.673 0-28.539-7.196-52.971-21.587-73.29-14.395-20.319-33.354-33.735-56.87-40.253l-0.002-0.004zM903.814 6.569H119.092C57.438 6.569 6.993 57.135 6.993 118.935v786.59c0 61.801 50.446 112.366 112.099 112.366h784.722c61.654 0 112.1-50.566 112.1-112.366v-786.59c-0.001-61.799-50.448-112.366-112.1-112.366zM747.479 518.686c-36.835 40.179-103.375 60.263-199.627 60.263H373.296v277.345h-90.063V174.096h256.722c45.185 0 79.687 2.177 103.524 6.516 33.424 5.585 61.436 16.213 84.026 31.877 22.592 15.667 40.774 37.622 54.551 65.845 13.769 28.234 20.656 59.258 20.656 93.072 0 58.014-18.417 107.108-55.246 147.284l0.013-0.004z"
+                            p-id="7967" fill="#d81e06"></path>
+                </svg>
+            </a>
+        </div>
+        <!--  -->
+        <!-- <div>
+          <a href="" target="_blank">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path fill="#ff0000" d="M826.492061 0.061707l3.125788 0.350304c55.24023 9.485152 109.294816 193.825841 97.168912 343.567284-15.116961 186.38862-116.812877 325.594-317.375331 383.394143l-3.718611 0.997019 3.098843 0.485036c15.009175 2.155716 32.06628 3.503039 50.928797 3.826396l9.565991 0.08084c28.401562 0 37.482517 38.237018 12.125904 51.009637-137.804164 69.467958-295.494811 64.05172-471.131796-14.82055C168.78302 833.946662 148.222876 907.941624 148.222876 991.017541a26.946454 26.946454 0 1 1-53.892908 0C94.329968 759.924754 236.607244 591.239954 515.314414 487.550001a26.946454 26.946454 0 0 1 18.781678 50.497654c-130.232211 48.47667-227.023872 110.48046-291.102539 186.415566 111.666104 48.395831 213.335074 64.05172 305.653624 47.506598l3.853343-0.754501-1.212591-0.37725a185.526333 185.526333 0 0 1-13.06903-4.904255l-5.982112-2.667699c-14.470246-6.817453-25.329666-14.82055-31.257887-24.413487-12.934298-20.721823-0.808394-43.38379 20.66793-47.156294l3.341361-0.431143 9.431258-1.643733c215.302165-39.557394 320.393334-163.645813 337.82769-341.088211l0.808394-8.89233c5.631809-69.387118-3.071896-142.654526-21.664949-206.086477a439.577499 439.577499 0 0 0-13.203762-38.587322l-4.095861-9.862402-0.511983 1.347323c-46.671258 121.797971-127.133368 218.535739-203.284046 256.449399l-6.332417 3.04495c-35.03039 15.979247-67.608652 8.89233-63.081648-31.662083 0.619768-5.497077 1.994038-11.155832 4.392272-18.512214l4.284486-12.179797c2.398234-6.467149 8.542026-22.904486 10.697742-28.994384 4.203647-11.937279 7.652793-23.039218 10.293545-33.521389l1.320377-5.604862-21.718842 14.335513c-49.554528 32.335744-74.318319 45.270042-97.761734 53.138407l-22.527235 7.059971c-30.422546 9.835456-53.246192 19.940376-108.405583 48.773081-111.854729 58.527697-157.178664 151.223498-138.181415 283.988675a26.946454 26.946454 0 0 1-53.353978 7.625846C127.743571 475.370203 184.007766 360.308846 316.449586 291.029514l16.437337-8.515079c49.177278-25.30272 72.836264-35.084283 105.091169-45.296989l15.1978-4.688683 4.580897-1.562894c25.706917-9.107901 58.366019-28.617134 150.280372-91.510157a26.946454 26.946454 0 0 1 42.063414 20.021215c2.775485 33.063299-3.044949 65.318204-15.736729 103.420489l-4.095861 11.910333-2.748538 7.437221 2.748538-1.832359c63.916988-44.003559 131.229229-137.426914 165.828476-250.494233l3.044949-10.320492A26.946454 26.946454 0 0 1 826.492061 0.034761z"></path></svg>
+          </a>
+        </div> -->
+        <!-- Excalidraw画图 -->
+        <div>
+            <a href="https://excalidraw.com" title="画图">
+                <svg viewBox="0 0 1024 1024" width="50" height="50">
+                    <path
+                            d="M223.94 831.74V615.55c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v216.18c0 17.06-13.83 30.88-30.88 30.88-17.05 0.01-30.88-13.82-30.88-30.87zM594.54 542.64H378.36c-17.06 0-30.88-13.83-30.88-30.88 0-17.06 13.83-30.88 30.88-30.88h216.18c17.06 0 30.88 13.83 30.88 30.88 0 17.05-13.82 30.88-30.88 30.88z"
+                            fill="#ff0000"></path>
+                    <path
+                            d="M627.42 862.62H252.83c-15.95 0-28.89-12.93-28.89-28.89v-3.99c0-15.95 12.93-28.89 28.89-28.89h374.59c15.95 0 28.89 12.93 28.89 28.89v3.99c0 15.96-12.94 28.89-28.89 28.89zM328.95 635.28H180.71c-27.29 0-49.41-22.12-49.41-49.41V437.63c0-27.29 22.12-49.41 49.41-49.41h148.24c27.29 0 49.41 22.12 49.41 49.41v148.24c0 27.29-22.12 49.41-49.41 49.41z m-12.36-86.47v-74.12c0-13.65-11.06-24.71-24.71-24.71h-74.12c-13.65 0-24.71 11.06-24.71 24.71v74.12c0 13.65 11.06 24.71 24.71 24.71h74.12c13.65 0 24.71-11.06 24.71-24.71zM693.37 372.78v-92.65c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v92.65c0 17.06-13.83 30.88-30.88 30.88-17.06 0-30.88-13.83-30.88-30.88zM693.37 743.38v-92.65c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v92.65c0 17.06-13.83 30.88-30.88 30.88-17.06 0-30.88-13.83-30.88-30.88z"
+                            fill="#ff0000"></path>
+                    <path
+                            d="M847.78 187.48c0 68.23-55.31 123.53-123.53 123.53S600.72 255.7 600.72 187.48 656.03 63.95 724.25 63.95s123.53 55.3 123.53 123.53z m-123.53-61.77c-34.11 0-61.77 27.65-61.77 61.77s27.65 61.77 61.77 61.77 61.77-27.65 61.77-61.77-27.66-61.77-61.77-61.77zM847.78 836.03c0 68.23-55.31 123.53-123.53 123.53s-123.53-55.31-123.53-123.53S656.03 712.5 724.25 712.5s123.53 55.3 123.53 123.53z m-123.53-61.77c-34.11 0-61.77 27.65-61.77 61.77s27.65 61.77 61.77 61.77 61.77-27.65 61.77-61.77-27.66-61.77-61.77-61.77zM689.31 657.95L584.49 553.13c-19.3-19.3-19.3-50.58 0-69.88l104.82-104.82c19.3-19.3 50.58-19.3 69.88 0l104.82 104.82c19.3 19.3 19.3 50.58 0 69.88L759.19 657.95c-19.3 19.29-50.58 19.29-69.88 0z m52.41-69.88l52.41-52.41c9.65-9.65 9.65-25.29 0-34.94l-52.41-52.41c-9.65-9.65-25.29-9.65-34.94 0l-52.41 52.41c-9.65 9.65-9.65 25.29 0 34.94l52.41 52.41c9.65 9.65 25.29 9.65 34.94 0z"
+                            fill="#ff0000"></path>
+                </svg>
+            </a>
+        </div>
+        <!-- 流程图 -->
+        <!-- <div>
+          <a href="https://app.diagrams.net" title="流程图">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M223.94 831.74V615.55c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v216.18c0 17.06-13.83 30.88-30.88 30.88-17.05 0.01-30.88-13.82-30.88-30.87zM594.54 542.64H378.36c-17.06 0-30.88-13.83-30.88-30.88 0-17.06 13.83-30.88 30.88-30.88h216.18c17.06 0 30.88 13.83 30.88 30.88 0 17.05-13.82 30.88-30.88 30.88z" fill="#ff0000"></path><path d="M627.42 862.62H252.83c-15.95 0-28.89-12.93-28.89-28.89v-3.99c0-15.95 12.93-28.89 28.89-28.89h374.59c15.95 0 28.89 12.93 28.89 28.89v3.99c0 15.96-12.94 28.89-28.89 28.89zM328.95 635.28H180.71c-27.29 0-49.41-22.12-49.41-49.41V437.63c0-27.29 22.12-49.41 49.41-49.41h148.24c27.29 0 49.41 22.12 49.41 49.41v148.24c0 27.29-22.12 49.41-49.41 49.41z m-12.36-86.47v-74.12c0-13.65-11.06-24.71-24.71-24.71h-74.12c-13.65 0-24.71 11.06-24.71 24.71v74.12c0 13.65 11.06 24.71 24.71 24.71h74.12c13.65 0 24.71-11.06 24.71-24.71zM693.37 372.78v-92.65c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v92.65c0 17.06-13.83 30.88-30.88 30.88-17.06 0-30.88-13.83-30.88-30.88zM693.37 743.38v-92.65c0-17.06 13.83-30.88 30.88-30.88 17.06 0 30.88 13.83 30.88 30.88v92.65c0 17.06-13.83 30.88-30.88 30.88-17.06 0-30.88-13.83-30.88-30.88z" fill="#ff0000"></path><path d="M847.78 187.48c0 68.23-55.31 123.53-123.53 123.53S600.72 255.7 600.72 187.48 656.03 63.95 724.25 63.95s123.53 55.3 123.53 123.53z m-123.53-61.77c-34.11 0-61.77 27.65-61.77 61.77s27.65 61.77 61.77 61.77 61.77-27.65 61.77-61.77-27.66-61.77-61.77-61.77zM847.78 836.03c0 68.23-55.31 123.53-123.53 123.53s-123.53-55.31-123.53-123.53S656.03 712.5 724.25 712.5s123.53 55.3 123.53 123.53z m-123.53-61.77c-34.11 0-61.77 27.65-61.77 61.77s27.65 61.77 61.77 61.77 61.77-27.65 61.77-61.77-27.66-61.77-61.77-61.77zM689.31 657.95L584.49 553.13c-19.3-19.3-19.3-50.58 0-69.88l104.82-104.82c19.3-19.3 50.58-19.3 69.88 0l104.82 104.82c19.3 19.3 19.3 50.58 0 69.88L759.19 657.95c-19.3 19.29-50.58 19.29-69.88 0z m52.41-69.88l52.41-52.41c9.65-9.65 9.65-25.29 0-34.94l-52.41-52.41c-9.65-9.65-25.29-9.65-34.94 0l-52.41 52.41c-9.65 9.65-9.65 25.29 0 34.94l52.41 52.41c9.65 9.65 25.29 9.65 34.94 0z" fill="#ff0000"></path></svg>
+          </a>
+        </div> -->
+        <!-- JSON -->
+        <div>
+            <a href="https://json.im/" target="_blank" title="JSON数据">
+                <svg viewBox="0 0 1024 1024" width="50" height="50">
+                    <path
+                            d="M384 190.976V128h-5.76c-20.032 0-39.424 3.968-58.176 11.84a149.12 149.12 0 0 0-49.6 33.92 142.72 142.72 0 0 0-31.552 48.192v0.064a226.688 226.688 0 0 0-12.672 53.12v0.128a389.12 389.12 0 0 0-1.536 55.232c0.768 18.56 1.152 37.12 1.152 55.616 0 12.992-2.56 25.152-7.488 36.608v0.064a96.256 96.256 0 0 1-48.96 50.368 88.064 88.064 0 0 1-35.712 7.36H128v62.976h5.76c12.48 0 24.32 2.56 35.584 7.744l0.064 0.064c11.392 4.992 21.056 11.776 29.12 20.352l0.128 0.128c8.32 8.32 14.912 18.24 19.648 29.76l0.064 0.128c4.992 11.52 7.488 23.552 7.488 36.224 0 18.56-0.384 37.12-1.152 55.616-0.768 18.944-0.256 37.44 1.536 55.68v0.064c2.112 18.112 6.336 35.712 12.608 52.736v0.064c6.784 17.472 17.344 33.536 31.616 48.192 14.272 14.72 30.848 26.048 49.6 33.92 18.752 7.872 38.144 11.84 58.24 11.84H384v-62.976h-5.76c-12.736 0-24.768-2.432-35.968-7.36a103.232 103.232 0 0 1-29.248-20.48 106.176 106.176 0 0 1-19.776-29.888c-4.736-11.52-7.04-23.68-7.04-36.672 0-14.592 0.192-28.992 0.704-43.008 0.512-14.592 0.512-28.8 0-42.56a296.896 296.896 0 0 0-3.52-40.96 171.648 171.648 0 0 0-10.752-38.976A146.176 146.176 0 0 0 225.408 512a146.176 146.176 0 0 0 47.232-61.12c5.12-12.288 8.64-25.152 10.752-38.528 2.112-13.44 3.264-27.072 3.52-40.96 0.512-14.08 0.512-28.288 0-42.624-0.512-14.336-0.768-28.8-0.768-43.392a94.08 94.08 0 0 1 56.128-86.656 85.12 85.12 0 0 1 36.032-7.744H384z m256 642.048V896h5.76c20.032 0 39.424-3.968 58.176-11.84 18.752-7.872 35.328-19.2 49.6-33.92 14.272-14.72 24.832-30.72 31.552-48.192v-0.064c6.4-17.024 10.56-34.752 12.672-53.12v-0.128c1.792-17.92 2.304-36.288 1.536-55.232-0.768-18.56-1.152-37.12-1.152-55.616 0-12.992 2.56-25.152 7.488-36.608v-0.064a96.256 96.256 0 0 1 48.96-50.368c11.264-4.928 23.168-7.36 35.712-7.36H896v-62.976h-5.76c-12.48 0-24.32-2.56-35.584-7.744l-0.064-0.064a88.064 88.064 0 0 1-29.12-20.352l-0.128-0.128a90.496 90.496 0 0 1-19.648-29.76l-0.064-0.128a89.92 89.92 0 0 1-7.488-36.224c0-18.56 0.384-37.12 1.152-55.616a396.16 396.16 0 0 0-1.536-55.68v-0.064a226.688 226.688 0 0 0-12.608-52.736v-0.064a142.72 142.72 0 0 0-31.616-48.192 149.12 149.12 0 0 0-49.6-33.92 148.8 148.8 0 0 0-58.24-11.84H640v62.976h5.76c12.8 0 24.704 2.432 35.968 7.36 11.136 5.248 20.864 12.032 29.248 20.48 8.128 8.576 14.72 18.56 19.776 29.888 4.736 11.52 7.04 23.68 7.04 36.672 0 14.592-0.192 28.928-0.704 43.008-0.512 14.592-0.512 28.8 0 42.56 0.256 14.208 1.408 27.84 3.52 40.96 2.112 13.696 5.696 26.624 10.752 38.976a146.048 146.048 0 0 0 47.232 61.12 146.048 146.048 0 0 0-47.232 61.12 172.8 172.8 0 0 0-10.752 38.528c-2.112 13.44-3.264 27.072-3.52 40.96-0.512 14.08-0.512 28.288 0 42.624 0.512 14.336 0.768 28.8 0.768 43.392a94.08 94.08 0 0 1-26.88 66.24 93.824 93.824 0 0 1-29.248 20.416 85.12 85.12 0 0 1-36.032 7.744H640z"
+                            fill="#d81e06"></path>
+                </svg>
+            </a>
+        </div>
+        <!-- markdown -->
+        <div>
+            <a href="https://www.helloworld.net/html2md" target="_blank" title="MARKDOWN">
+                <svg t="1667354298852" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     p-id="2526" width="48" height="48">
+                    <path
+                            d="M945.6 824H75.2c-41.6 0-73.6-32-73.6-73.6V272c0-41.6 32-73.6 73.6-73.6h873.6c41.6 0 73.6 32 73.6 73.6v481.6c0 38.4-35.2 70.4-76.8 70.4z m-697.6-145.6v-192l99.2 121.6 99.2-121.6v192h96V345.6h-99.2l-99.2 121.6-99.2-121.6H145.6v334.4l102.4-1.6z m656-166.4h-99.2V345.6h-99.2V512H608l147.2 172.8L904 512z"
+                            fill="#d81e06" p-id="2527"></path>
+                </svg>
+            </a>
+        </div>
+        <!-- 阿里云控制台 -->
+        <!-- <div>
+          <a href="https://homenew.console.aliyun.com/home/dashboard/Operation" target="_blank">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path fill="#ff6a00" d="M959.2 383.9c-0.3-82.1-66.9-148.6-149.1-148.6H575.9l21.6 85.2 201 43.7c18.3 4.2 32.1 20.3 32.9 39.7 0.1 0.5 0.1 216.1 0 216.6-0.8 19.4-14.6 35.5-32.9 39.7l-201 43.7-21.6 85.3h234.2c82.1 0 148.8-66.5 149.1-148.6V383.9zM225.5 660.4c-18.3-4.2-32.1-20.3-32.9-39.7-0.1-0.6-0.1-216.1 0-216.6 0.8-19.4 14.6-35.5 32.9-39.7l201-43.7 21.6-85.2H213.8c-82.1 0-148.8 66.4-149.1 148.6V641c0.3 82.1 67 148.6 149.1 148.6H448l-21.6-85.3-200.9-43.9z m200.9-158.8h171v21.3h-171z"/></svg>
+          </a>
+        </div> -->
+        <!-- natapp内网穿透 -->
+        <!--<div>
+          <a href="https://natapp.cn/tunnel/lists" target="_blank" title="natapp内网穿透17521218462">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M586.666667 437.333333c0 17.066667 14.933333 32 32 32h2.133333c8.533333-8.533333 19.2-14.933333 29.866667-21.333333 0-2.133333 2.133333-6.4 2.133333-10.666667v-170.666666c0-17.066667-14.933333-32-32-32h-181.333333c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h149.333333v138.666666zM352 725.333333h-149.333333v-138.666666c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v170.666666c0 17.066667 14.933333 32 32 32h181.333333c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32zM245.333333 490.666667c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32h-106.666666c-17.066667 0-32 14.933333-32 32S121.6 490.666667 138.666667 490.666667h106.666666zM567.466667 789.333333h-23.466667c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h76.8c-21.333333-19.2-38.4-40.533333-53.333333-64zM341.333333 341.333333v-128c0-23.466667-19.2-42.666667-42.666666-42.666666H85.333333c-23.466667 0-42.666667 19.2-42.666666 42.666666v128c0 23.466667 19.2 42.666667 42.666666 42.666667h213.333334c23.466667 0 42.666667-19.2 42.666666-42.666667zM533.333333 661.333333c0-46.933333 12.8-89.6 34.133334-128H490.666667c-23.466667 0-42.666667 19.2-42.666667 42.666667v128c0 23.466667 19.2 42.666667 42.666667 42.666667h57.6c-8.533333-27.733333-14.933333-55.466667-14.933334-85.333334zM789.333333 469.333333c-106.666667 0-192 85.333333-192 192s85.333333 192 192 192 192-85.333333 192-192-85.333333-192-192-192z m-128 93.866667c25.6 4.266667 61.866667 14.933333 87.466667 42.666667-10.666667 10.666667-19.2 21.333333-25.6 36.266666-17.066667-19.2-42.666667-29.866667-61.866667-34.133333v-44.8z m192 204.8v-23.466667c-19.2-2.133333-49.066667-8.533333-74.666666-25.6 6.4-10.666667 12.8-21.333333 17.066666-32 0-2.133333 2.133333-4.266667 2.133334-4.266666 17.066667 12.8 38.4 19.2 53.333333 21.333333v-21.333333l64 42.666666-61.866667 42.666667z m0-128v-14.933333c-23.466667 2.133333-61.866667 14.933333-76.8 53.333333-21.333333 59.733333-81.066667 78.933333-115.2 85.333333v-42.666666c25.6-6.4 61.866667-21.333333 76.8-55.466667 23.466667-61.866667 83.2-76.8 115.2-81.066667V554.666667l64 42.666666-64 42.666667z" fill="#ff0000"></path></svg>
+          </a>
+        </div>-->
+        <!-- readme -->
+        <div>
+            <a href="https://readme.so/editor" target="_blank">
+                <svg t="1667358696917" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     p-id="4680" data-spm-anchor-id="a313x.7781069.0.i23" width="48" height="48">
+                    <path
+                            d="M832.2 127.9v766H192.7v-766h639.5m0-64H192.7c-35.3 0-64 28.7-64 64v766c0 35.3 28.7 64 64 64h639.5c35.3 0 64-28.7 64-64v-766c0-35.4-28.7-64-64-64z"
+                            fill="#d81e06" p-id="4681" data-spm-anchor-id="a313x.7781069.0.i24" class=""></path>
+                    <path
+                            d="M261.397 416.166v-223.3h223.3v223.3zM574.969 224.037v-32h190.3v32zM574.984 318.822v-32h190.3v32zM574.988 416.018v-32h190.3v32zM261.437 510.503v-32h503.9v32zM261.44 605.397v-32h503.9v32z"
+                            fill="#d81e06" p-id="4682" data-spm-anchor-id="a313x.7781069.0.i25" class=""></path>
+                    <path d="M733.039 824.168v-32h97.9v32z" fill="#8C98A6" p-id="4683"></path>
+                    <path
+                            d="M909.8 958.3H113.6c-35.3 0-64-28.7-64-64v-112c0-35.3 28.7-64 64-64h796.2c35.3 0 64 28.7 64 64v112c0 35.4-28.7 64-64 64z"
+                            fill="#d81e06" p-id="4684" data-spm-anchor-id="a313x.7781069.0.i21" class=""></path>
+                    <path
+                            d="M165.3 771c14.6 0 26.2 3.2 34.6 9.8 8.8 7.2 13.4 17.6 13.4 31.2 0 7.4-2 14-6 19.8-4.4 6.4-10.6 10.6-18.2 12.6v0.4c12.4 2.8 19.4 11 21 25l2.4 23c0.8 8.8 3.8 15.8 8.6 21h-25.4c-3.4-4.4-5.4-10.6-6.2-18.6l-1.8-17.6c-0.8-7.8-3.2-13.4-7.2-16.8-4.2-3.6-10.4-5.2-18.4-5.2h-37v58.2h-23.4V771h63.6z m-40.2 64.6h37c9.2 0 16.2-2 21-5.8 4.4-4 6.6-9.6 6.6-16.8 0-7.8-2.2-13.4-6.6-16.8-4.4-3.6-11.4-5.2-21-5.2h-37v44.6zM344.1 771v20h-79.6v39.6h74.8v20h-74.8v43.2h83v20H241.1V771h103zM436.7 771l54.6 142.8h-25l-13-35.8h-59.8l-13 35.8h-25L410.1 771h26.6z m9.6 87.8l-22.4-62.6h-0.8l-22.6 62.6h45.8zM557.5 771c23.2 0 40.6 6.4 52.6 19.2 11.4 12 17.2 29.4 17.2 52.2 0 22.6-5.8 40-17.2 52.2-12 12.8-29.4 19.2-52.6 19.2h-52.2V771h52.2z m-28.8 122.8h24.4c17.8 0 30.8-4.2 39-12.4 8-8.4 12-21.4 12-39 0-18-4-31.2-12-39.2-8.2-8.2-21.2-12.2-39-12.2h-24.4v102.8zM676.7 771l48.6 112h0.8l48.4-112h27.4v142.8h-23.4v-98.4h-0.8l-42 98.4h-20.2l-42-98.4h-0.8v98.4h-23.4V771h27.4zM932.9 771v20h-79.6v39.6h74.8v20h-74.8v43.2h83v20H829.9V771h103z"
+                            fill="#ffffff" p-id="4685" data-spm-anchor-id="a313x.7781069.0.i22" class=""></path>
+                    <path
+                            d="M388.6 219.8L452 385.6h-29L407.9 344h-69.4l-15.1 41.6h-29l63.4-165.8h30.8z m11.2 101.9l-26-72.7h-0.9l-26.2 72.7h53.1z"
+                            fill="#FFFFFF" p-id="4686" data-spm-anchor-id="a313x.7781069.0.i26" class=""></path>
+                </svg>
+            </a>
+        </div>
+        <!-- 腾讯文档 -->
+        <!-- <div>
+          <a href="https://docs.qq.com/desktop/?u=36c328c382944339a3f825362feec26a&fromsrc=homepage&_t=1655803008524" target="_blank">
+            <svg viewBox="0 0 30 30" width="50" height="50">
+              <path d="M21.9302436,7.30843957e-14 L4.52293103,7.30843957e-14 C4.28278187,7.30843957e-14 4.07719792,0.171920379 4.03551634,0.407944753 L0.00765234532,23.1906622 C-0.0457768899,23.4929311 0.187368864,23.769964 0.495067038,23.769964 L10.0910932,23.769964 L10.8515279,23.5347282 L15.3079554,23.5347282 L15.930694,23.769964 L23.3227925,23.769964 C23.5629416,23.769964 23.7684126,23.5979309 23.8102072,23.3621319 L27.1231586,4.62247258 L21.9302436,7.30843957e-14 Z" fill="#FF0000"/>
+              <polygon fill="#FFFFFF" points="14.1246616 0.975653785 13.1506229 6.50076469 3.6544518 6.5171005 7.78025057 10.9694553 12.3593506 10.9694553 10.0911497 23.7699752 15.9307505 23.7699752 18.2015495 10.9694553 25.0964059 10.9694553 25.3359903 10.9641602"/>
+            </svg>
+          </a>
+        </div> -->
+        <!-- 语雀 -->
+        <div>
+            <a href="https://www.yuque.com/dashboard/notes" target="_blank">
+                <svg t="1670333842054" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     p-id="657" width="48" height="48">
+                    <path
+                            d="M854.6 370.6c-9.9-39.4 9.9-102.2 73.4-124.4l-67.9-3.6s-25.7-90-143.6-98c-117.8-8.1-194.9-3-195-3 0.1 0 87.4 55.6 52.4 154.7-25.6 52.5-65.8 95.6-108.8 144.7-1.3 1.3-2.5 2.6-3.5 3.7C319.4 605 96 860 96 860c245.9 64.4 410.7-6.3 508.2-91.1 20.5-0.2 35.9-0.3 46.3-0.3 135.8 0 250.6-117.6 245.9-248.4-3.2-89.9-31.9-110.2-41.8-149.6z m-204.1 334c-10.6 0-26.2 0.1-46.8 0.3l-23.6 0.2-17.8 15.5c-47.1 41-104.4 71.5-171.4 87.6-52.5 12.6-110 16.2-172.7 9.6 18-20.5 36.5-41.6 55.4-63.1 92-104.6 173.8-197.5 236.9-268.5l1.4-1.4 1.3-1.5c4.1-4.6 20.6-23.3 24.7-28.1 9.7-11.1 17.3-19.9 24.5-28.6 30.7-36.7 52.2-67.8 69-102.2l1.6-3.3 1.2-3.4c13.7-38.8 15.4-76.9 6.2-112.8 22.5 0.7 46.5 1.9 71.7 3.6 33.3 2.3 55.5 12.9 71.1 29.2 5.8 6 10.2 12.5 13.4 18.7 1 2 1.7 3.6 2.3 5l5 17.7c-15.7 34.5-19.9 73.3-11.4 107.2 3 11.8 6.9 22.4 12.3 34.4 2.1 4.7 9.5 20.1 11 23.3 10.3 22.7 15.4 43 16.7 78.7 3.3 94.6-82.7 181.9-182 181.9z"
+                            p-id="658" fill="#d81e06"></path>
+                </svg>
+            </a>
+        </div>
+        <!-- localfile -->
+        <!-- <div>
+          <a href="" target="_blank">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M425.0624 206.464c9.728 0 18.8672 4.4288 24.9088 11.904l2.1248 2.944 45.2864 71.424h242.3552c66.048 0 118.8608 55.5008 121.6512 123.9296l0.128 5.7344v281.6c0 69.12-51.0208 126.464-116.3008 129.536l-5.4784 0.1024H284.2624c-66.048 0-118.8608-55.4752-121.6512-123.904l-0.128-5.7344v-57.9328a32 32 0 0 1 63.8464-3.2512l0.1536 3.2512V704c0 35.3536 24.4224 63.3344 54.0416 65.5104l3.7376 0.128h455.4752c30.0288 0 55.6544-26.5472 57.6512-61.2608l0.128-4.3776v-281.6c0-35.3536-24.4224-63.3344-54.0416-65.5104l-3.7376-0.128H479.8208a32 32 0 0 1-24.9344-11.904l-2.0992-2.9696-45.3376-71.4496-110.5664 0.0256a70.4 70.4 0 0 0-70.272 66.0992l-0.128 4.3008v198.3232a32 32 0 0 1-63.8208 3.2768l-0.1792-3.2768v-198.3232a134.4 134.4 0 0 1 128.8704-134.2976l5.5296-0.1024h128.1792z" fill="#ff0000"></path><path d="M719.36 441.6a32 32 0 0 1 3.2768 63.8464l-3.2768 0.1536H304.64a32 32 0 0 1-3.2768-63.8464l3.2768-0.1536h414.72z" fill="#ff0000"></path></svg></path></svg>
+          </a>
+        </div> -->
+        <!-- blog -->
+        <!-- <div>
+          <a href="https://deil12.gitee.io/blogY.html" target="_blank" title="blog">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M143.1 99.8h597.1c44 0 79.6 35.6 79.6 79.6v664c0 44-35.6 79.6-79.6 79.6H143.1c-44 0-79.6-35.6-79.6-79.6v-664c0-44 35.6-79.6 79.6-79.6z" fill="#ff0000" p-id="732" data-spm-anchor-id="a313x.7781069.0.i4" class=""></path><path d="M501.3 478.2h-252c-18.3 0-33.2 14.9-33.2 33.2s14.9 33.2 33.2 33.2h252.1c18.3 0 33.2-14.9 33.2-33.2s-14.9-33.2-33.3-33.2zM395.2 650.7H249.3c-18.3 0-33.2 14.9-33.2 33.2 0 18.3 14.9 33.2 33.2 33.2h145.9c18.3 0 33.2-14.9 33.2-33.2 0-18.3-14.9-33.2-33.2-33.2zM634 305.8H249.3c-18.3 0-33.2 14.9-33.2 33.2s14.9 33.2 33.2 33.2H634c18.3 0 33.2-14.9 33.2-33.2s-14.9-33.2-33.2-33.2z" fill="#000000" p-id="733" data-spm-anchor-id="a313x.7781069.0.i5" class="selected"></path><path d="M957 475.7c-1.2-6.1-3-12.2-5.4-17.7l-0.1-0.3-0.2-0.3c-5.8-12.7-13.7-24.8-23.7-35.9-10.4-11.6-20.5-19.9-30.6-25.4-5.3-2.8-10.7-5-16.9-6.9-7.3-2.2-14.5-3.4-22-3.8-1.3 0-2.1-0.1-3-0.1-7.7 0-15.4 1.2-23.1 3.6-8.9 2.8-17.6 7.4-25.6 13.9l-0.5 0.4-0.5 0.4c-3.9 3.3-8.5 7.5-13.5 12.4-4.5 4.5-8.4 8.1-11.6 11.2l-3.3 3.2-0.1-0.1-2.4 2.5-25.7 24.5 1 1-2.1 2.2-90.1 93.2-34 35.1-30.6 31.6c-9.4 9.7-17.2 17.8-23.5 24.5l-10.1 10.6-1.4 1.5c-5.8 6-10.6 11.9-14.2 17.7-3 4.7-5.8 10.1-8.3 15.8-2.4 4.8-4.6 10.7-7.4 19.3-2.4 7.3-4.8 15.3-7.3 24.1-2.4 8.3-4.7 16.4-6.8 24.2-2.8 10.2-4.3 17.4-5.2 23.4-2.9 19.2 0.7 35.7 10.8 48.6 6 7.6 19.1 19.7 42.7 19.7 2.9 0 6-0.2 9.2-0.5l0.8-0.1 0.8-0.1c5-0.8 11.4-2.3 20.7-4.8 7.9-2.1 16.3-4.7 25.7-7.8 8.8-3 17.2-6 25.3-9 8.7-3.4 15.3-6.2 20.4-8.7 6.7-3.1 13.1-7.1 19.1-11.9 4-3.1 7.7-6.3 11-9.3 2.8-2.4 6.2-5.8 12.9-12.7 6.1-6.3 13.5-14.1 22.5-23.5 8.1-8.6 17.5-18.2 29.7-30.5l0.3-0.3 0.2-0.3 33.5-35.1 90-93 29.1-30.1-0.1-0.1 0.3-0.3c2.6-2.3 5.4-5 8.3-8 1.8-1.8 3.9-4 6.3-6.3 2.9-2.9 6.1-6.1 9.7-9.8l0.6-0.6 0.6-0.6c6.6-7.4 11.6-15.7 14.9-24.5 3.2-8.5 4.8-17.5 4.8-26.5 0.1-6.7-0.6-13.3-1.9-19.7z" fill="#ff0000" p-id="734"></path><path d="M765.2 665.3l-33.5 35.1c-11.1 11.3-21.2 21.6-30.2 31-8.9 9.4-16.3 17.1-22.2 23.2-5.9 6.1-9.4 9.5-10.5 10.4-2.8 2.6-6 5.4-9.6 8.2-3.6 2.9-7.4 5.2-11.3 7-3.9 2-9.6 4.4-17.2 7.4-7.6 2.9-15.4 5.7-23.7 8.4-8.2 2.7-16.1 5.1-23.5 7.1-7.4 2-12.9 3.3-16.6 3.9-1.6 0.2-3.2 0.3-4.5 0.3-5 0-8.6-1.2-10.5-3.7-2.5-3.2-3.2-8.5-2.1-16 0.6-4.1 1.9-9.9 4-17.6 2.1-7.7 4.3-15.6 6.7-23.8 2.4-8.3 4.7-15.9 6.9-22.8s4.1-11.7 5.5-14.3c1.7-4 3.6-7.7 5.7-11s5.1-7 9-11c1.7-1.8 5.6-5.9 11.8-12.4 6.1-6.5 13.8-14.5 23.1-24.1l30.6-31.6 34-35.1 90.1-93.2 78.4 81.5-90.4 93.1z m150.5-158.6c-1.4 3.8-3.6 7.4-6.7 10.8-3.3 3.5-6.4 6.5-9 9.1l-6.9 6.9c-2.2 2.3-4.3 4.3-6.3 6.1l-78.4-81c3.4-3.2 7.4-7 11.9-11.5 4.6-4.5 8.5-8 11.5-10.6 3.9-3.1 8-5.4 12.1-6.7 3.8-1.2 7.5-1.8 11.2-1.8h1.2c4 0.2 8 0.8 11.7 1.9 3.8 1.2 7.1 2.5 9.8 3.9 5.9 3.2 12.4 8.7 19.5 16.6 7.1 7.9 12.6 16.3 16.6 24.9 1.1 2.6 2 5.6 2.7 9.1 0.7 3.5 1.1 7.1 1.1 10.8 0.1 3.9-0.6 7.7-2 11.5z" fill="#000000" p-id="735" data-spm-anchor-id="a313x.7781069.0.i7" class="selected"></path></svg>
+          </a>
+        </div> -->
+        <!-- <div>
+          <a href="https://github.com/freefq/free/blob/master/v2" target="_blank" title="v2rayN节点更新">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M535.466667 283.733333c0-17.066667-8.533333-25.6-25.6-27.733333h-25.6v53.333333h25.6c17.066667 0 25.6-8.533333 25.6-25.6zM832 640c46.933333 0 85.333333-38.4 85.333333-85.333333V192c0-46.933333-38.4-85.333333-85.333333-85.333333H192C145.066667 106.666667 106.666667 145.066667 106.666667 192v362.666667c0 46.933333 38.4 85.333333 85.333333 85.333333h288v64H448c-23.466667 0-42.666667 19.2-42.666667 42.666667H138.666667c-17.066667 0-32 14.933333-32 32S121.6 810.666667 138.666667 810.666667H405.333333c0 23.466667 19.2 42.666667 42.666667 42.666666h32v32c0 17.066667 14.933333 32 32 32s32-14.933333 32-32V853.333333H576c23.466667 0 42.666667-19.2 42.666667-42.666666h266.666666c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32H618.666667c0-23.466667-19.2-42.666667-42.666667-42.666667h-32v-64H832z m-181.333333-85.333333c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32 32 14.933333 32 32-14.933333 32-32 32z m-64-313.6c0-12.8 6.4-19.2 19.2-19.2 6.4 0 12.8 4.266667 17.066666 8.533333l81.066667 108.8v-96c0-12.8 6.4-19.2 19.2-19.2 12.8 0 19.2 6.4 19.2 19.2v145.066667c0 12.8-6.4 17.066667-19.2 17.066666-6.4 0-12.8-2.133333-17.066667-6.4l-81.066666-106.666666v96c0 12.8-6.4 17.066667-19.2 17.066666s-19.2-6.4-19.2-17.066666v-147.2zM373.333333 554.666667c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32 32 14.933333 32 32-14.933333 32-32 32z m59.733334-305.066667l-55.466667 142.933333c-4.266667 8.533333-10.666667 12.8-19.2 12.8s-14.933333-4.266667-19.2-12.8l-55.466667-142.933333v-8.533333c0-12.8 6.4-19.2 19.2-19.2 6.4 0 12.8 4.266667 17.066667 12.8l40.533333 106.666666 38.4-106.666666c4.266667-8.533333 10.666667-12.8 17.066667-12.8 12.8 2.133333 19.2 8.533333 19.2 19.2 0 2.133333 0 4.266667-2.133333 8.533333z m32 155.733333c-12.8 0-19.2-6.4-19.2-17.066666v-145.066667c0-12.8 6.4-19.2 19.2-19.2H512c40.533333 2.133333 61.866667 23.466667 64 61.866667-2.133333 38.4-23.466667 57.6-64 61.866666h-27.733333v42.666667c0 8.533333-6.4 14.933333-19.2 14.933333z m46.933333 149.333334c-17.066667 0-32-14.933333-32-32S494.933333 490.666667 512 490.666667s32 14.933333 32 32S529.066667 554.666667 512 554.666667z" fill="#ff0000"></path></svg>
+          </a>
+        </div>
+        <div>
+          <a onclick="window.open('https://tool.yijingying.com/musictools/music/', 'fuckme', 'width=680, height=300, top=520')" title="musicToolsPlayer">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path fill="#fff" d="M742.3 100.3l-25.6 44.3c126.2 73 204.7 208.9 204.7 354.6 0 225.7-183.6 409.3-409.3 409.3S102.8 724.8 102.8 499.1c0-145.7 78.4-281.5 204.7-354.6l-25.6-44.3c-142 82.1-230.2 235-230.2 398.8 0 253.9 206.6 460.5 460.5 460.5S972.6 753 972.6 499.1c0-163.9-88.2-316.7-230.3-398.8z"></path><path fill="#f00" d="M464.2 437l-25.6-44.3c-45.3 26.2-73.5 75-73.5 127.3 0 81 65.9 147 147 147s147-65.9 147-147v-6.3L451.2 115.4h164V64.2H366.8l241 461.8c-3.1 50.1-44.8 89.9-95.6 89.9-52.8 0-95.8-43-95.8-95.8-0.1-34.1 18.2-66 47.8-83.1z"></path></svg>
+          </a>
+        </div> -->
+        <!-- douyu -->
+        <!-- <div>
+          <a href="https://www.douyu.com/directory/myFollow" target="_blank">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path fill="#ff0000" d="M585.932 852.978C874.854 817.884 1031.603 517.98 929 262.776c67.816-89.055 161.223-106.145 161.223-106.145C980.145-8.762 802.153 24.145 752.805 45.772 729.846 38.854 604.664 7.5 463.366 53.519c-274.258 89.316-345.728 338.454-345.728 338.454 78.413 52.753 206.486 86.528 334.499 34.332 193.119-78.737 225.015-259.651 225.015-259.651s35.854 81.547 8.536 194.081c-42.916 176.829-192.036 231.162-192.036 231.162-7.261 13.69-24.905 55.847-10.125 92.75 7.305 18.248 43.417 4.068 74.049-17.297 25.009 32.306 35.364 38.355 42.065 43.158 1.369 36.118-12.485 60.885-37.142 82.027-24.789 21.265-50.766 30.073-68.846 33.821-29.637-64.262-104.208-87.516-164.46-59.439 0 0 71.888 27.882 115.629 88.264 47.907 66.143 16.88 134.367 16.88 134.367 34.749-7.708 107.962-42.457 124.231-136.57z"></path><path fill="#fff" d="M664.598 240.419c12.637 52.681 4.766 90.391.158 99.212-6.303 12.042-30.358-4.749-30.358-4.749s9.849 80.358.251 90.047c-9.604 9.69-57.872-26.518-57.872-26.518s22.416 85.244 6.406 96.01c-16.004 10.767-91.891-48.827-91.891-48.827s25.188 97.302 9.511 101.704c-14.037 3.946-35.987-2.648-59.623-13.65l-36.806-19.547c-26.208-15.358-50.584-32.26-64.74-42.439 30.327-1.775 103.497-10.437 167.939-52.179 85.586-55.439 140.61-122.897 157.026-179.065z"></path><path fill="#ffffff" d="M196.833 705.283C88.696 650.349 19.114 577.713 37.441 534.649c20.323-47.756 141.022-41.061 269.581 14.958a687.116 687.116 0 0130.369 14.144c3.265-4.671 6.645-9.363 10.287-13.89a780.404 780.404 0 00-36.39-17.005C165.245 469.223 28.134 461.614 5.049 515.867c-16.276 38.238 28.466 96.99 107.443 150.629 31.118 21.133 65.288 30.165 84.342 38.786z"></path><path fill="#ffffff" d="M471.194 494.97c102.997 51.127 153.655 163.949 105.791 246.336-47.864 82.381-168.268 89.603-262.504 23.402-84.763-59.543-118.342-158.487-78.851-226.459s142.925-89.265 235.564-43.28z"></path><path fill="#231815" d="M444.805 479.517s-166.65 37.652-175.651 245.539l6.716 9.136s-7.64-64.231 65.337-158.72c58.02-75.121 106.825-93.1 106.825-93.1l-3.227-2.855z"></path><path fill="#ff0000" d="M626.083 527.481c-43.177 57.667-111.594 94.915-188.602 94.915-5.857 0-11.654-.21-17.397-.631l-.109-.133c37.982 47.187 95.849 77.323 160.672 77.323 99.245 0 182.181-70.622 202.406-164.907z"></path></svg>
+          </a>
+        </div> -->
+        <!-- douyin -->
+        <!-- <div>
+          <a onclick="window.open('https://www.douyin.com/', 'fuckme', 'width=400, height=600, top=520')">
+            <svg viewBox="0 0 1024 1024" width="50" height="50"><path d="M937.4 423.9c-84 0-165.7-27.3-232.9-77.8v352.3c0 179.9-138.6 325.6-309.6 325.6S85.3 878.3 85.3 698.4c0-179.9 138.6-325.6 309.6-325.6 17.1 0 33.7 1.5 49.9 4.3v186.6c-15.5-6.1-32-9.2-48.6-9.2-76.3 0-138.2 65-138.2 145.3 0 80.2 61.9 145.3 138.2 145.3 76.2 0 138.1-65.1 138.1-145.3V0H707c0 134.5 103.7 243.5 231.6 243.5v180.3l-1.2 0.1" fill="#d81e06"></path></svg>
+          </a>
+        </div> -->
+        <!-- 网易云 -->
+        <!-- <div style="align-items: center;">
+          <a href="https://music.163.com/#/my/m/music/playlist?id=147847032" target="_blank">
+            <svg height="50" width="50" viewBox="0 0 1024 1024"><path fill="#f00" d="M952.17867 503.263237a341.054956 341.054956 0 0 0-56.853199-113.706399 408.604266 408.604266 0 0 0-109.723463-98.352823 304.662484 304.662484 0 0 0-143.257215-42.077792L621.305897 170.238394a40.343287 40.343287 0 0 1 10.792472-36.392472 56.88532 56.88532 0 0 1 36.392472-18.758344 102.785445 102.785445 0 0 1 56.853199 18.758344c6.263488 3.404768 10.792472 9.090088 17.05596 13.073024a57.335006 57.335006 0 0 0 82.999247-70.632873 66.521455 66.521455 0 0 0-22.74128-27.848432 237.691343 237.691343 0 0 0-89.262735-43.202007A170.559598 170.559598 0 0 0 625.288833 6.42409a167.026349 167.026349 0 0 0-60.836135 37.516688 164.328231 164.328231 0 0 0-40.921456 51.713927 156.908407 156.908407 0 0 0-8.54404 113.706399l13.651192 52.870264a284.298118 284.298118 0 0 0-158.064743 109.209535 256.963614 256.963614 0 0 0-43.202007 156.908407 248.419573 248.419573 0 0 0 13.651192 74.487327 205.281807 205.281807 0 0 0 80.718695 104.616312 185.945295 185.945295 0 0 0 136.447679 25.696361 193.879046 193.879046 0 0 0 156.330238-196.705646L708.802008 503.263237c-11.948808-46.060728-24.443664-91.543287-35.814304-137.025847a182.283563 182.283563 0 0 1 47.763112 18.180176 316.611292 316.611292 0 0 1 47.763111 34.690088A239.907654 239.907654 0 0 1 840.752823 529.987453a284.169636 284.169636 0 0 1 0 158.064743 252.241907 252.241907 0 0 1-21.584943 51.167879 308.741782 308.741782 0 0 1-168.279047 144.542033 387.918695 387.918695 0 0 1-130.184191 23.319448 332.607277 332.607277 0 0 1-155.206022-37.516688A367.233124 367.233124 0 0 1 194.87478 672.666499a373.014806 373.014806 0 0 1-20.460727-180.806022A366.173149 366.173149 0 0 1 406.869762 198.536512a57.399247 57.399247 0 0 0 13.073023-100.055207 76.189711 76.189711 0 0 0-63.662735-3.404768A479.815307 479.815307 0 0 0 68.705646 436.163614a488.905395 488.905395 0 0 0 129.027855 450.84266 454.857716 454.857716 0 0 0 248.997741 131.886574 470.885822 470.885822 0 0 0 138.117942 0A454.889837 454.889837 0 0 0 773.042911 952.949561a427.523212 427.523212 0 0 0 170.559598-209.232622 417.276788 417.276788 0 0 0 22.74128-109.209536 378.089837 378.089837 0 0 0-14.165119-131.244166z m-412.747804 118.845671a72.174655 72.174655 0 0 1-56.8532-10.792471 98.352823 98.352823 0 0 1-37.516687-61.382184 170.68808 170.68808 0 0 1 0-65.943287 133.042911 133.042911 0 0 1 33.533751-63.662735 181.35207 181.35207 0 0 1 80.718695-46.606776l39.219072 148.364367a204.189711 204.189711 0 0 1 5.107152 26.146048 79.594479 79.594479 0 0 1-64.208783 73.844918z"></path></svg>
+          </a>
+        </div> -->
+    </div>
+
+    <!--   播放器  -->
+    <!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <!-- require MetingJS auto="https://music.163.com/#/playlist?id=2264507299"-->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <!--<meting-js style="text-align: left; color: red;" auto="https://music.163.com/#/playlist?id=33193293" fixed="true"-->
+    <meting-js style="text-align: left; color: black;" auto="https://music.163.com/#/my/m/music/playlist?id=147847032" fixed="true"
+               autoplay="false" order="random">
+    </meting-js>
+</div>
+
+<!-- 右键菜单 -->
+<ul id="menu" style="background: url(/static/img/t1.png) no-repeat center center; background-size: cover">
+    <a href="https://gitee.com/deil12/deil12/pages" style="color: #000;">
+        <li>Gitee_Pages</li>
+    </a>
+    <a href="https://docs.qq.com/desktop/?u=5c6c3eb712ba449ab3c4d7a380b8e9f5" style="color: #000;">
+        <li>腾讯文档</li>
+    </a>
+    <a href="https://www.kdocs.cn/latest?from=docs" style="color: #000;">
+        <li>金山文档</li>
+    </a>
+    <a href="" style="color: #000;">
+        <li></li>
+    </a>
+    <a href="https://search.chongbuluo.com/" style="color: #000;">
+        <li>虫部落 · 快搜</li>
+    </a>
+</ul>
+
+</body>
+<!-- toast弹窗 -->
+<script src="/static/js/message.js"></script>
+<script>
+    document.getElementById('toast').onclick = function () {
+        toast({
+            time: 8000,
+            width: 300,
+            content: 'https://cdn.jsdelivr.net/gh/freefq/free@master/v2\nhttps://www.hjtnt.buzz/link/Be4AK53mt9t4Bk9X?sub=3&extend=1'
+        })
+    }
+</script>
+
+<!-- 右键菜单 -->
+<script>
+    let _menu = document.getElementById("menu")
+    //鼠标右键单击事件
+    //document 网页文档 根标签
+    //oncontextmenu事件：鼠标右键事件
+    document.oncontextmenu = function (e) {
+        //阻止鼠标右键默认行为
+        var e = e || window.event
+        if (e.preventDefault) {
+            e.preventDefault()
+        } else {
+            e.returnValue = false
+        }
+        //显示自定义菜单
+        _menu.style.height = "40%"
+        // _menu.style.height = "300px"
+        _menu.style.width = "12%"
+        // _menu.style.width = "200px"
+        _menu.style.opacity = 1
+        _menu.style.left = e.clientX + "px"
+        _menu.style.top = e.clientY + "px"
+    }
+    //空白处点击左键，自定义菜单消失
+    document.onclick = function () {
+        //隐藏自定义菜单
+        _menu.style.height = "0px"
+        _menu.style.width = "0px"
+        _menu.style.opacity = 0
+    }
+</script>
+<!-- 禁用F12 -->
+<script>
+    function fuckyou() {
+        window.close(); //关闭当前窗口(防抽)
+        window.location = "about:blank"; //将当前窗口跳转置空白页
+    }
+
+    function ck() {
+        console.profile();
+        console.profileEnd();
+        //我们判断一下profiles里面有没有东西，如果有，肯定有人按F12了，没错！！
+        if (console.clear) {
+            console.clear()
+        }
+        ;
+        if (typeof console.profiles == "object") {
+            return console.profiles.length > 0;
+        }
+    }
+
+    function hehe() {
+        if ((window.console && (console.firebug || console.table && /firebug/i.test(console.table()))) || (typeof opera == 'object' && typeof opera.postError == 'function' && console.profile.length > 0)) {
+            fuckyou();
+        }
+        if (typeof console.profiles == "object" && console.profiles.length > 0) {
+            fuckyou();
+        }
+    }
+
+    hehe();
+    window.onresize = function () {
+        if ((window.outerHeight - window.innerHeight) > 200)
+            //判断当前窗口内页高度和窗口高度，如果差值大于200，那么呵呵
+            fuckyou();
+    }
+</script>
+
+<!--1 引用box组件手风琴样式 参考: https://www.jq22.com/yanshi23840 -->
+<!--2 引用粒子雨 参考: https://www.jq22.com/code610 -->
+<script>
+    // 粒子雨
+    "use strict";
+    var OPT = {
+        selector: "#sparks",
+        amount: 10000,
+        speed: 0.1, // pixels per frame
+        lifetime: 500,
+        direction: {x: -0.5, y: 1},
+        size: [1, 1],
+        maxopacity: 1,
+        color: "150, 150, 150",
+        randColor: true,
+        acceleration: [5, 40]
+    };
+    if (window.innerWidth < 520) {
+        OPT.speed = 0.05;
+        OPT.color = "150, 150, 150";
+    }
+    (function spark() {
+        var canvas = document.querySelector(OPT.selector);
+        var ctx = canvas.getContext("2d");
+        var sparks = [];
+        window.addEventListener('resize', function () {
+            setCanvasWidth();
+        });
+
+        function setCanvasWidth() {
+            ctx.canvas.width = window.innerWidth;
+            ctx.canvas.height = window.innerHeight;
+        }
+
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Init animation
+        function init() {
+            setCanvasWidth();
+            window.setInterval(function () {
+                if (sparks.length < OPT.amount) {
+                    addSpark();
+                }
+            }, 1000 / OPT.amount);
+            window.requestAnimationFrame(draw);
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0, 0.1)';
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            sparks.forEach(function (spark, i, array) {
+                if (spark.opacity <= 0) {
+                    array.splice(i, 1);
+                } else {
+                    drawSpark(spark);
+                }
+            });
+            window.requestAnimationFrame(draw);
+        }
+
+        function Spark(x, y) {
+            this.x = x;
+            this.y = y;
+            this.age = 0;
+            this.acceleration = rand(OPT.acceleration[0], OPT.acceleration[1]);
+            this.color = OPT.randColor ? rand(0, 255) + "," + rand(0, 255) + "," + rand(0, 255) : OPT.color;
+            this.opacity = OPT.maxopacity - this.age / (OPT.lifetime * rand(1, 10));
+            this.go = function () {
+                this.x += OPT.speed * OPT.direction.x * this.acceleration / 2;
+                this.y += OPT.speed * OPT.direction.y * this.acceleration / 2;
+                this.opacity = OPT.maxopacity - ++this.age / OPT.lifetime;
+            };
+        }
+
+        function addSpark() {
+            var x = rand(-200, window.innerWidth + 200);
+            var y = rand(-200, window.innerHeight + 200);
+            sparks.push(new Spark(x, y));
+        }
+
+        function drawSpark(spark) {
+            var x = spark.x,
+                y = spark.y;
+            spark.go();
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(" + spark.color + ", " + spark.opacity + ")";
+            ctx.rect(x, y, OPT.size[0], OPT.size[1], 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        init();
+    })();
+
+    // 动作
+    var elems = document
+        .getElementsByClassName("nav_pop")[0]
+        .getElementsByTagName("div");
+    for (var i = 0; i < elems.length; i++) {
+        elems[i].addEventListener("mouseover", function (e) {
+            for (var i = 0; i < elems.length; i++) {
+                elems[i].className = "";
+            }
+            this.className = "is_active";
+        });
+    }
+</script>
+<!-- <script>
+    window.οnlοad=function () {  
+        document.addEventListener('touchstart',function (event) {  
+            if(event.touches.length>1){  
+                event.preventDefault();  
+            }  
+        })  
+        var lastTouchEnd=0;  
+        document.addEventListener('touchend',function (event) {  
+            var now=(new Date()).getTime();  
+            if(now-lastTouchEnd<=300){  
+                event.preventDefault();  
+            }  
+            lastTouchEnd=now;  
+        },false)  
+    } 
+  </script> -->
+
+</html>

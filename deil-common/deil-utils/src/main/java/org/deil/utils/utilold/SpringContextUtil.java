@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 //@UtilityClass
 @Component
 @Lazy(false)
+@SuppressWarnings("unchecked")
 public class SpringContextUtil implements ApplicationContextAware {
 
     // Spring应用上下文环境

@@ -11,6 +11,7 @@
     <artifactId>deil-web</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>deil-web-login</module>
         <module>deil-web-navigation</module>
     </modules>
 

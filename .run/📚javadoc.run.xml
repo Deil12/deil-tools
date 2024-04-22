@@ -26,7 +26,7 @@
           <option name="goals">
             <list>
               <option value="clean" />
-              <option value="install" />
+              <option value="package" />
               <option value="-DskipJavadoc=false" />
             </list>
           </option>

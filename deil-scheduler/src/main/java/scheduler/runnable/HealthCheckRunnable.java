@@ -69,7 +69,6 @@ public class HealthCheckRunnable implements Runnable {
     //    return false;
     //}
 
-
     //region http
     /**
      * http post
@@ -132,10 +131,10 @@ class HealthCheckProperty extends BaseTaskProperty {
     /**
      * 健康检查的url
      */
-    private String checkUrl = "http://localhost:8080";
+    private String checkUrl = "http://localhost:8080/HealthCheck/Check";
 
     public String getServerName() {
-        return new String("HealthCheck");
+        return "HealthCheck";
     }
 
 }

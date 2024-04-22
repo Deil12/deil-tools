@@ -4,6 +4,7 @@
     <option name="SPRING_BOOT_MAIN_CLASS" value="org.deil.gateway.GatewayApplication" />
     <option name="VM_PARAMETERS" value="-Djasypt.encryptor.password=password" />
     <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

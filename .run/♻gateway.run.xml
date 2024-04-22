@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="♻gateway" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="♻gateway" type="MavenRunConfiguration" factoryName="Maven" folderName="tools">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -26,7 +26,7 @@
           <option name="goals">
             <list>
               <option value="clean" />
-              <option value="install" />
+              <option value="package" />
               <option value="-pl" />
               <option value="deil-gateway" />
               <option value="-am" />

@@ -293,10 +293,10 @@ public class DateTimeUtil {
     //endregion
 
     //region 转换日期时间
-    @Deprecated
-    public static <T> T parser(String parser) {
-        return (T) "";
-    }
+    // @Deprecated
+    // public static <T> T parser(String parser) {
+    //     return (T) "";
+    // }
 
     @Deprecated
     public static <T> String formatter(T formatter) {

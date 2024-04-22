@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 import java.util.Objects;
 import java.util.StringJoiner;
 
+@SuppressWarnings("unchecked")
 public class Result<T> extends ServiceRespBody {
 
     private final T data;

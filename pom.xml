@@ -12,13 +12,13 @@
 
     <modules>
         <module>deil-common</module>
-        <module>deil-healthcheck</module>
         <module>deil-gateway</module>
         <module>deil-quartz</module>
-        <module>deil-window</module>
-        <module>deil-demo</module>
-        <module>deil-web</module>
         <module>deil-scheduler</module>
+        <module>deil-healthcheck</module>
+        <module>deil-web</module>
+        <module>deil-swing</module>
+        <module>deil-demo</module>
     </modules>
 
     <properties>
@@ -419,7 +419,7 @@
                                 <target>
                                     <copy todir="${project-jarPack}">
                                         <fileset dir="${project.build.directory}" includes="${project.build.finalName}**.*ar"></fileset>
-                                        <fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>
+                                        <!--<fileset dir="${project.build.directory}/classes" includes="application.yml"></fileset>-->
                                     </copy>
                                 </target>
                             </configuration>

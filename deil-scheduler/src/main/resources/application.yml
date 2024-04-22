@@ -1,0 +1,22 @@
+##server:
+##  port: ${random.int[8090,8099]}
+#spring:
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+##deil:
+##  login:
+##    name: test
+##    psw: 1234
+#
+#task:
+#  TEST:
+#    enabled: true
+#    serverName: 测试demo
+#    cron: 0/10 * * * * ?
+#  HEALTHCHECK:
+#    enabled: false
+#    serverName: 健康检测demo
+#    cron: 0/15 * * * * ?
+#    checkUrl: http://localhost:8080/HealthCheck/Check
+#    scriptLocation: ./restartApp.sh
